@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-micro'
 
-import { userTypeDefs } from '@/graphql/typeDefs/userTypeDefs'
+import { productTypeDefs } from './productTypeDefs'
+import { reviewTypeDefs } from './reviewTypeDefs'
+import { userTypeDefs } from './userTypeDefs'
 
 
 const defaultTypeDefs = gql`
@@ -14,5 +16,7 @@ const defaultTypeDefs = gql`
 
 export const typeDefs = [
 	defaultTypeDefs,
-	userTypeDefs
+	userTypeDefs,
+	productTypeDefs,
+	reviewTypeDefs
 ]

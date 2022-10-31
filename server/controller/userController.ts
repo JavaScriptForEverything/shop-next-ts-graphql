@@ -1,4 +1,4 @@
-import { LoginInput, SignUpInput } from '@/graphql/resolvers/userResolvers'
+import type { DeleteMeArgs, GetUserArgs, LoginArgs, SignUpArgs, UpdateMeArgs  } from '@/shared/types/user'
 
 type UserDocument = {
 	id: string
@@ -10,6 +10,7 @@ type UserDocument = {
 	updatedAt: Date
 }
 
+// Return value must be same as @/graphql/typeDefs/userTypeDefs types
 export const getUsers = (): UserDocument[] => {
 	return [
 		{
@@ -23,7 +24,9 @@ export const getUsers = (): UserDocument[] => {
 	]
 }
 
-export const getUser = (userId: number): UserDocument => {
+export const getUser = ({ userId }: GetUserArgs): UserDocument => {
+	console.log({ userId })
+
 	return {
 		id: 'alskdfaldf',
 		name: 'riajul',
@@ -34,7 +37,7 @@ export const getUser = (userId: number): UserDocument => {
 	}
 }
 
-export const signUp = ( input: SignUpInput ): UserDocument => {
+export const signUp = ({ input }: SignUpArgs): UserDocument => {
 	console.log({ input })
 
 	return {
@@ -46,8 +49,32 @@ export const signUp = ( input: SignUpInput ): UserDocument => {
 	}
 }
 
-export const login = ( input: LoginInput ): UserDocument => {
+export const login = ({ input }: LoginArgs): UserDocument => {
 	console.log({ input })
+
+	return {
+		id: 'alskdfaldf',
+		name: 'riajul',
+		email: 'riajul@gmail.com',
+		createdAt: new Date(),
+		updatedAt: new Date()
+	}
+}
+
+export const updateMe = ({ input }: UpdateMeArgs ): UserDocument => {
+	console.log({ input })
+
+	return {
+		id: 'alskdfaldf',
+		name: 'riajul',
+		email: 'riajul@gmail.com',
+		createdAt: new Date(),
+		updatedAt: new Date()
+	}
+}
+
+export const deleteMe = ({ userId }: DeleteMeArgs): UserDocument => {
+	console.log({ userId })
 
 	return {
 		id: 'alskdfaldf',

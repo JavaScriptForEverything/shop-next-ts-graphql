@@ -1,28 +1,5 @@
 import * as userController from '@/server/controller/userController'
-
-type GetUserArgs = {
-	id: number
-}
-
-export type SignUpInput = {
-	name: string
-	email: string
-	password: string
-	confirmPassword: string
-}
-
-export type LoginInput = {
-	email: string
-	password: string
-}
-
-
-type SignUpArgs = {
-	input: SignUpInput
-}
-type LoginArgs = {
-	input: LoginInput
-}
+import { DeleteMeArgs, GetUserArgs, LoginArgs, SignUpArgs, UpdateMeArgs } from '@/shared/types/user'
 
 
 
@@ -30,10 +7,12 @@ type LoginArgs = {
 export const userResolvers = {
 	Query: {
 		users: () => userController.getUsers(),
-		user: (_: undefined, args: GetUserArgs) => userController.getUser(args.id)
+		user: (_: undefined, args: GetUserArgs) => userController.getUser(args)
 	},
 	Mutation: {
-		signup: (_: undefined, args: SignUpArgs) => userController.signUp(args.input),
-		login: (_: undefined, args: LoginArgs) => userController.login(args.input),
+		signup: (_: undefined, args: SignUpArgs) => userController.signUp(args),
+		login: (_: undefined, args: LoginArgs) => userController.login(args),
+		updateMe: (_: undefined, args: UpdateMeArgs) => userController.updateMe(args),
+		deleteMe: (_: undefined, args: DeleteMeArgs) => userController.deleteMe(args)
 	}
 }

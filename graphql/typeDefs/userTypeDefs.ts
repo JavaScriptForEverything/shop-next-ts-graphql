@@ -3,11 +3,13 @@ import { gql } from 'apollo-server-micro';
 export const userTypeDefs = gql`
 	extend type Query {
 		users: [User!]!
-		user(id: ID!): User!
+		user(userId: ID!): User!
 	}
 	extend type Mutation {
 		signup(input: SignUPInput): User!
 		login(input: LoginInput): User!
+		updateMe(input: UpdateMeInput): User!
+		deleteMe(userId: ID!): User
 	}
 
 	input SignUPInput {
@@ -20,6 +22,11 @@ export const userTypeDefs = gql`
 	input LoginInput {
 		email: String!
 		password: String!
+	}
+
+	input UpdateMeInput {
+		userId: ID!
+		name: String
 	}
 
 	type User {
