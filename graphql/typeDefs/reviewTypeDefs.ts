@@ -12,14 +12,14 @@ export const reviewTypeDefs = gql`
 		deleteReview(reviewId: ID!): Review
 	}
 
-	type CreateReviewInput {
+	input CreateReviewInput {
 		user: ID! 				
 		product: ID! 			
 		review: String!
 		liked: Int!
 		disliked: Int!
 	}
-	type UpdateReviewInput {
+	input UpdateReviewInput {
 		reviewId: ID!
 		user: ID! 				
 		product: ID! 			

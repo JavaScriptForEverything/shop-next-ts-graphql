@@ -1,6 +1,6 @@
 import type { DeleteMeArgs, GetUserArgs, LoginArgs, SignUpArgs, UpdateMeArgs  } from '@/shared/types/user'
 
-type UserDocument = {
+export type UserDocument = {
 	id: string
 	name: string
 	email: string
@@ -14,10 +14,23 @@ type UserDocument = {
 export const getUsers = (): UserDocument[] => {
 	return [
 		{
-			id: 'alskdfaldf',
+			id: '1',
 			name: 'riajul',
 			email: 'riajul@gmail.com',
-			// password: 'asdfasdf',
+			createdAt: new Date(),
+			updatedAt: new Date()
+		},
+		{
+			id: '2',
+			name: 'fiaz',
+			email: 'fiaz@gmail.com',
+			createdAt: new Date(),
+			updatedAt: new Date()
+		},
+		{
+			id: '3',
+			name: 'ayan',
+			email: 'ayan@gmail.com',
 			createdAt: new Date(),
 			updatedAt: new Date()
 		}
@@ -28,7 +41,7 @@ export const getUser = ({ userId }: GetUserArgs): UserDocument => {
 	console.log({ userId })
 
 	return {
-		id: 'alskdfaldf',
+		id: userId,
 		name: 'riajul',
 		email: 'riajul@gmail.com',
 		// password: 'asdfasdf',

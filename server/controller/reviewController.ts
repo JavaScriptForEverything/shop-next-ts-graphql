@@ -1,6 +1,6 @@
 import type { CreateReviewArgs, DeleteReviewArgs, GetReviewArgs, UpdateReviewArgs } from '@/shared/types/review'
 
-type Review = {
+export type ReviewDocument = {
 	id: string
 	user: string 				// user = userId then it will be resolve by field level resolvers 
 	product: string 		// product === productID
@@ -9,19 +9,37 @@ type Review = {
 	disliked: number
 }
 
-export const getReviews = (): Review[] => {
+export const getReviews = (): ReviewDocument[] => {
 
-	return [{
-		id: '',
-		user: '',
-		product: '',
-		review: '',
-		liked: 0,
-		disliked: 0,
-	}]
+	return [
+		{
+			id: '1',
+			user: '1',
+			product: '1',
+			review: 'review 1',
+			liked: 0,
+			disliked: 0,
+		},
+		{
+			id: '2',
+			user: '2',
+			product: '2',
+			review: 'review 2',
+			liked: 0,
+			disliked: 0,
+		},
+		{
+			id: '3',
+			user: '3',
+			product: '3',
+			review: 'review 3',
+			liked: 0,
+			disliked: 0,
+		},
+	]
 }
 
-export const getReview = ({ reviewId }: GetReviewArgs): Review => {
+export const getReview = ({ reviewId }: GetReviewArgs): ReviewDocument => {
 	console.log({ reviewId })
 
 	return {
@@ -34,7 +52,7 @@ export const getReview = ({ reviewId }: GetReviewArgs): Review => {
 	}
 }
 
-export const createReview = ({ input }: CreateReviewArgs): Review => {
+export const createReview = ({ input }: CreateReviewArgs): ReviewDocument => {
 	console.log({ input })
 
 	return {
@@ -46,7 +64,7 @@ export const createReview = ({ input }: CreateReviewArgs): Review => {
 		disliked: 0,
 	}
 }
-export const updateReview = ({ input }: UpdateReviewArgs): Review => {
+export const updateReview = ({ input }: UpdateReviewArgs): ReviewDocument => {
 	console.log({ input })
 
 	return {
@@ -58,7 +76,7 @@ export const updateReview = ({ input }: UpdateReviewArgs): Review => {
 		disliked: 0,
 	}
 }
-export const deleteReview = ({ reviewId }: DeleteReviewArgs): Review => {
+export const deleteReview = ({ reviewId }: DeleteReviewArgs): ReviewDocument => {
 	console.log({ reviewId })
 
 	return {

@@ -1,6 +1,6 @@
 import type { CreateProductArgs, DeleteProductArgs, GetProductArgs, UpdateProductArgs } from '@/shared/types/product'
 
-type Product = {
+export type ProductDocument = {
 	id: string
 	name: string
 	price: number
@@ -10,15 +10,31 @@ type Product = {
 
 
 
-export const getProducts = (): Product[] =>  {
+export const getProducts = (): ProductDocument[] =>  {
 
-	return [{
-		id: '',
-		name: '',
-		price: +Number(32).toFixed(2),
-		summary: '',
-		description: ''
-	}]
+	return [
+		{
+			id: '1',
+			name: 'product name 1',
+			price: +Number(30).toFixed(2),
+			summary: '',
+			description: ''
+		},
+		{
+			id: '2',
+			name: 'product name 2',
+			price: +Number(42).toFixed(2),
+			summary: '',
+			description: ''
+		},
+		{
+			id: '3',
+			name: 'product name 3',
+			price: +Number(82).toFixed(2),
+			summary: '',
+			description: ''
+		},
+]
 }
 
 export const getProduct = ({ productId }: GetProductArgs) => {
