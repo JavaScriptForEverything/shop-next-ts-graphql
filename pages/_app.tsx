@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 
+
 const client = new ApolloClient({
 	uri: '/api/graphql',
 	cache: new InMemoryCache()
