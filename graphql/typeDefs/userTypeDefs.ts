@@ -1,5 +1,17 @@
 import { gql } from 'apollo-server-micro';
 
+/*
+			(1) 	(2) 		(3) 				(4)
+		signup(input: SignUPInput): User!
+
+		1: data.signup 						: useQuery() or useMutation
+		2: args.input  						: signup: (_, args) => args.input
+		3: $input: SignUPInput  	: gql`mutation addUser( $input: SignupInput)`
+		4: User = UserDocument 		: type Document & UserDocument { ... } in userSchema.ts
+
+*/
+
+
 export const userTypeDefs = gql`
 	extend type Query {
 		users: [User!]!

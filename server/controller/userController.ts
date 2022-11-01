@@ -55,10 +55,11 @@ export const signUp = ({ input }: SignUpArgs): UserDocument => {
 
 	return {
 		id: 'alskdfaldf',
-		name: 'riajul',
-		email: 'riajul@gmail.com',
 		createdAt: new Date(),
-		updatedAt: new Date()
+		updatedAt: new Date(),
+		// name: 'riajul',
+		// email: 'riajul@gmail.com',
+		...input
 	}
 }
 
@@ -67,10 +68,11 @@ export const login = ({ input }: LoginArgs): UserDocument => {
 
 	return {
 		id: 'alskdfaldf',
-		name: 'riajul',
-		email: 'riajul@gmail.com',
 		createdAt: new Date(),
-		updatedAt: new Date()
+		updatedAt: new Date(),
+		name: 'riajul',
+		// email: 'riajul@gmail.com',
+		...input
 	}
 }
 
