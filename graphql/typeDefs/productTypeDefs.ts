@@ -1,5 +1,15 @@
 import { gql } from 'apollo-server-micro';
 
+/* 				(1) 			(2) 				(3) 						(4)
+		createProduct(input: CreateProductInput): Product!
+
+		1: data.createProduct 				: useMutation
+		2: args.input  								: createProduct: (_, args) => args.input
+		3: $input: CreateProductInput : gql`mutation addUser( $input: CreateProductInput)`
+		4: Product = ProductDocument 	: type Document & ProductDocument { ... } in productSchema.ts
+*/
+
+
 export const productTypeDefs = gql`
 	extend type Query {
 		products: [Product!]!

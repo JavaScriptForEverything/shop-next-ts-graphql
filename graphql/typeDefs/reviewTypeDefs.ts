@@ -1,5 +1,14 @@
 import { gql } from 'apollo-server-micro';
 
+/* 			(1) 			(2) 				(3) 						(4)
+		createReview(input: CreateReviewInput): Review!
+
+		1: data.createReview 					: useMutation
+		2: args.input  								: createReview: (_, args) => args.input
+		3: $input: CreateReviewInput 	: gql`mutation addReview( $input: CreateReviewInput)`
+		4: Review = ReviewDocument 		: type Document & ReviewDocument { ... } in reviewSchema.ts
+*/
+
 export const reviewTypeDefs = gql`
 	extend type Query {
 		reviews: [Review!]!
