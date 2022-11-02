@@ -29,15 +29,25 @@ type LoginVariables = {
 
 const Login = () => {
 	const [ fields, setFields ] = useState<FieldsState>(loginFields)
-	const [ loginUser, { data } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
+	const [ loginUser, { data, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
 
-	const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async(evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
 
-		// console.log(fields)
-		// addUser({ variables: {input: { email: 'abc', password: 'asdf' } } })
-		loginUser({ variables: { input: fields } })
-		setFields(loginFields)
+		// // console.log(fields)
+		// // addUser({ variables: {input: { email: 'abc', password: 'asdf' } } })
+		// loginUser({ variables: { input: fields } })
+		// setFields(loginFields)
+
+
+		try {
+			const result = await loginUser({ variables: { input: fields } })
+			console.log(result)
+		} catch (err) {
+			console.log(err)
+		}
+
+
 	}
 
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,8 +82,9 @@ const Login = () => {
 				<button type='submit'>Login</button>
 			</form>
 
+			{error && <p>{error.message}</p>}
 			<pre>
-				{JSON.stringify(data?.login, null, 2)}
+				{data && JSON.stringify(data?.login, null, 2)}
 			</pre>
 		</>
 	)

@@ -1,4 +1,6 @@
 import type { DeleteMeArgs, GetUserArgs, LoginArgs, SignUpArgs, UpdateMeArgs  } from '@/shared/types/user'
+import User from '@/server/models/userModel'
+import { GraphQLError } from 'graphql'
 
 export type UserDocument = {
 	id: string
@@ -10,8 +12,19 @@ export type UserDocument = {
 	updatedAt: Date
 }
 
+
+
+
+// type AppError = {
+// 	Error: ({ status: string, message: string }) => void
+// }
+
 // Return value must be same as @/graphql/typeDefs/userTypeDefs types
-export const getUsers = (): UserDocument[] => {
+export const getUsers = async (): Promise<UserDocument[] | Error> => {
+	const user = await User.findOne()
+	if(!user) return new Error('no user round')
+	// if(!user) return new Error({ status: 'failed', message: 'No user Found'})
+	
 	return [
 		{
 			id: '1',
@@ -37,18 +50,29 @@ export const getUsers = (): UserDocument[] => {
 	]
 }
 
-export const getUser = ({ userId }: GetUserArgs): UserDocument => {
-	console.log({ userId })
+export const getUser = ({ userId }: GetUserArgs) => {
+	// console.log({ userId })
+
+	// throw new Error('no user found')
+
+	const user = 0
+	if(!user) throw new GraphQLError('no user found', {
+		extensions: {
+			code: 'MyError'
+		}
+	})
+
 
 	return {
-		id: userId,
-		name: 'riajul',
+		id: '2',
+		// name: 'riajul',
 		email: 'riajul@gmail.com',
 		// password: 'asdfasdf',
-		createdAt: new Date(),
-		updatedAt: new Date()
+		// createdAt: new Date(),
+		// updatedAt: new Date()
 	}
 }
+
 
 export const signUp = ({ input }: SignUpArgs): UserDocument => {
 	console.log({ input })
@@ -63,8 +87,13 @@ export const signUp = ({ input }: SignUpArgs): UserDocument => {
 	}
 }
 
-export const login = ({ input }: LoginArgs): UserDocument => {
+
+
+export const login = ({ input }: LoginArgs) => {
 	console.log({ input })
+	
+	const user = 1
+	if(!user) throw new GraphQLError('Something is wrong') 	
 
 	return {
 		id: 'alskdfaldf',
