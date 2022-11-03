@@ -1,5 +1,15 @@
 // types === @/graphql/typesDefs/*
 
+export type UserDocument = {
+	id: string
+	name: string
+	email: string
+	password: string
+	confirmPassword: string
+	createdAt: Date
+	updatedAt: Date
+}
+
 type SignUpInput = {
 	name: string
 	email: string

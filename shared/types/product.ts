@@ -1,4 +1,12 @@
 
+export type ProductDocument = {
+	id: string
+	name: string
+	price: number
+	summary: string
+	description?: string
+}
+
 type CreateProductInput = {
 	name: string
 	price: number

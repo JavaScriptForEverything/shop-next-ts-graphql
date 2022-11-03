@@ -1,13 +1,11 @@
-import type { CreateReviewArgs, DeleteReviewArgs, GetReviewArgs, UpdateReviewArgs } from '@/shared/types/review'
+import type { 
+	CreateReviewArgs, 
+	DeleteReviewArgs, 
+	GetReviewArgs, 
+	ReviewDocument, 
+	UpdateReviewArgs 
+} from '@/shared/types/review'
 
-export type ReviewDocument = {
-	id: string
-	user: string 				// user = userId then it will be resolve by field level resolvers 
-	product: string 		// product === productID
-	review: String 			// comment field
-	liked: number
-	disliked: number
-}
 
 export const getReviews = (): ReviewDocument[] => {
 

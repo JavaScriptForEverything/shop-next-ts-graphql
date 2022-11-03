@@ -1,16 +1,7 @@
-import type { DeleteMeArgs, GetUserArgs, LoginArgs, SignUpArgs, UpdateMeArgs  } from '@/shared/types/user'
+import type { DeleteMeArgs, GetUserArgs, LoginArgs, SignUpArgs, UpdateMeArgs, UserDocument  } from '@/shared/types/user'
 import User from '@/server/models/userModel'
 import { GraphQLError } from 'graphql'
 
-export type UserDocument = {
-	id: string
-	name: string
-	email: string
-	password?: string
-	confirmPassword?: string
-	createdAt: Date
-	updatedAt: Date
-}
 
 
 

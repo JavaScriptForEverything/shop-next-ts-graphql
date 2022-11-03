@@ -1,12 +1,10 @@
-import type { CreateProductArgs, DeleteProductArgs, GetProductArgs, UpdateProductArgs } from '@/shared/types/product'
-
-export type ProductDocument = {
-	id: string
-	name: string
-	price: number
-	summary: string
-	description?: string 		// ? === ! to defined optional property
-}
+import type { 
+	CreateProductArgs, 
+	DeleteProductArgs, 
+	GetProductArgs, 
+	ProductDocument, 
+	UpdateProductArgs 
+} from '@/shared/types/product'
 
 
 
