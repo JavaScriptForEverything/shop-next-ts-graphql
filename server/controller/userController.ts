@@ -53,6 +53,11 @@ export const login = async({ input }: LoginArgs): Promise<UserDocument> => {
 	// input = { email, password }
 	const { email, password } = input
 	
+	Object.entries(input).forEach(([key, value]) => {
+		if(!value) throw new GraphQLError(`'${key}' field is required`)
+	})
+	
+	
 	const user = await User.findOne({ email })
 	if(!user) throw new GraphQLError('No user found', {
 		extensions: {
