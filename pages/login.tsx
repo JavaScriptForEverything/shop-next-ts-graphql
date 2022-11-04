@@ -1,5 +1,5 @@
 import { MUTATION_LOGIN } from '@/graphql/query/user'
-import { UserDocument } from '@/server/controller/userController'
+import { UserDocument } from '@/shared/types/user'
 import { useMutation } from '@apollo/client'
 import { useState } from 'react'
 

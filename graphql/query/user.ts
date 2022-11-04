@@ -7,6 +7,9 @@ export const GET_USERS = gql`
 			id
 			name
 			email
+			password 
+			createdAt
+			updatedAt
 		}
 	}
 `
@@ -29,6 +32,7 @@ export const MUTATION_LOGIN = gql`
 			id
 			name
 			email
+			password
 		}
 	}
 `

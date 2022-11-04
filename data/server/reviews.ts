@@ -5,7 +5,8 @@ export const reviews: ReviewDocument[] = [
 	{
 		id: '1',
 		user: new Types.ObjectId(),
-		product: new Types.ObjectId(),
+		// product: new Types.ObjectId(),
+		product: new Types.ObjectId('6363fb5c204381fa23e112f4'),
 		review: 'review one',
 		liked: 0,
 		disliked: 0

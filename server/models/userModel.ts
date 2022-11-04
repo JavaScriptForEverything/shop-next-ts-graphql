@@ -26,7 +26,7 @@ const userSchema = new Schema<UserDocument>({
 	},
 	confirmPassword: {
 		type: String,
-		required: true,
+		// required: true,
 		validate: function(val: string, ) {
 			const user = this as UserDocument
 			return user.password === val

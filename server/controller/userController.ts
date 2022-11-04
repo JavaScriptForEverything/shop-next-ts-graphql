@@ -12,88 +12,62 @@ import { GraphQLError } from 'graphql'
 
 // Return value must be same as @/graphql/typeDefs/userTypeDefs types
 export const getUsers = async (): Promise<UserDocument[] | Error> => {
-	const user = await User.findOne()
-	if(!user) return new Error('no user round')
+	const users = await User.find()
+	if(!users) return new Error('no user round')
 	// if(!user) return new Error({ status: 'failed', message: 'No user Found'})
 	
-	return [
-		{
-			id: '1',
-			name: 'riajul',
-			email: 'riajul@gmail.com',
-			createdAt: new Date(),
-			updatedAt: new Date()
-		},
-		{
-			id: '2',
-			name: 'fiaz',
-			email: 'fiaz@gmail.com',
-			createdAt: new Date(),
-			updatedAt: new Date()
-		},
-		{
-			id: '3',
-			name: 'ayan',
-			email: 'ayan@gmail.com',
-			createdAt: new Date(),
-			updatedAt: new Date()
-		}
-	]
+	return users
 }
 
-export const getUser = ({ userId }: GetUserArgs) => {
+export const getUser = async ({ userId }: GetUserArgs) => {
 	// console.log({ userId })
 
 	// throw new Error('no user found')
+	const user = await User.findById(userId)
 
-	const user = 0
 	if(!user) throw new GraphQLError('no user found', {
 		extensions: {
 			code: 'MyError'
 		}
 	})
 
-
-	return {
-		id: '2',
-		// name: 'riajul',
-		email: 'riajul@gmail.com',
-		// password: 'asdfasdf',
-		// createdAt: new Date(),
-		// updatedAt: new Date()
-	}
+	return user
 }
 
 
-export const signUp = ({ input }: SignUpArgs): UserDocument => {
-	console.log({ input })
+export const signUp = async({ input }: SignUpArgs): Promise<UserDocument> => {
+	// console.log({ input })
+	const user = await User.create(input)
+	if(!user) throw new GraphQLError('No user Found', {
+		extensions: {
+			code: 'AppError'
+		}
+	})
 
-	return {
-		id: 'alskdfaldf',
-		createdAt: new Date(),
-		updatedAt: new Date(),
-		// name: 'riajul',
-		// email: 'riajul@gmail.com',
-		...input
-	}
+	return user
 }
 
 
 
-export const login = ({ input }: LoginArgs) => {
-	console.log({ input })
+export const login = async({ input }: LoginArgs): Promise<UserDocument> => {
+	// input = { email, password }
+	const { email, password } = input
 	
-	const user = 1
-	if(!user) throw new GraphQLError('Something is wrong') 	
+	const user = await User.findOne({ email })
+	if(!user) throw new GraphQLError('No user found', {
+		extensions: {
+			code: 'AppError'
+		}
+	}) 	
 
-	return {
-		id: 'alskdfaldf',
-		createdAt: new Date(),
-		updatedAt: new Date(),
-		name: 'riajul',
-		// email: 'riajul@gmail.com',
-		...input
-	}
+	if( user.password !== password ) throw new GraphQLError('Password not matched', {
+		extensions: {
+			code: 'AppError'
+		}
+	}) 	
+
+
+	return user
 }
 
 export const updateMe = ({ input }: UpdateMeArgs ): UserDocument => {
@@ -103,6 +77,7 @@ export const updateMe = ({ input }: UpdateMeArgs ): UserDocument => {
 		id: 'alskdfaldf',
 		name: 'riajul',
 		email: 'riajul@gmail.com',
+		password: '',
 		createdAt: new Date(),
 		updatedAt: new Date()
 	}
@@ -115,6 +90,7 @@ export const deleteMe = ({ userId }: DeleteMeArgs): UserDocument => {
 		id: 'alskdfaldf',
 		name: 'riajul',
 		email: 'riajul@gmail.com',
+		password: '',
 		createdAt: new Date(),
 		updatedAt: new Date()
 	}

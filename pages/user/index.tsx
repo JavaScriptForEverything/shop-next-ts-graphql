@@ -1,8 +1,7 @@
-import { UserDocument } from '@/server/controller/userController'
+import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_USER, GET_USERS } from '@/graphql/query/user'
-import Login from '@/pages/login'
-import { useState } from 'react'
+import { UserDocument } from '@/shared/types/user'
 
 type GetUsersQuery = {
 	users: UserDocument[]
@@ -21,11 +20,11 @@ const UserHome = () => {
 	return (
 		<>
 			<h2>User Home Page</h2>
-			<button onClick={() => setUserId(`${+userId + 1}`)}>userId: {userId}</button>
-			<Login />
+			{/* <button onClick={() => setUserId(`${+userId + 1}`)}>userId: {userId}</button> */}
+			<button onClick={() => setUserId('636502bc8ee8f0ad5da2b823')}>userId: {userId}</button>
 			<pre>
-				{/* {JSON.stringify(data?.users, null, 2)} */}
 				{JSON.stringify(data?.user, null, 2)}
+				{/* {JSON.stringify(data?.users, null, 2)} */}
 			</pre>
 		</>
 	)

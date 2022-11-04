@@ -1,7 +1,8 @@
-import { MUTATION_SIGNUP } from '@/graphql/query/user'
-import { UserDocument } from '@/server/controller/userController'
-import { useMutation } from '@apollo/client'
 import { useState } from 'react'
+import { useMutation } from '@apollo/client'
+
+import { MUTATION_SIGNUP } from '@/graphql/query/user'
+import { UserDocument } from '@/shared/types/user'
 
 
 type FieldsState = {
@@ -33,11 +34,16 @@ const Signup = () => {
 		setFields({...fields, [field]: evt.target.value })
 	}
 
-	const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async(evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
 
-		addUser({ variables: { input: fields } })
-		setFields(initialFields)
+		try {
+			await addUser({ variables: { input: fields } }) 
+			setFields(initialFields) // clear fields
+			
+		} catch (err: any) {
+			window.alert(err.message)
+		}
 	}
 
 	return (
