@@ -1,7 +1,13 @@
 import Link from 'next/link'
 
+import { FilterBrands, FilterPrice, FilterRating, FilterSize } from '@/components/home/leftPanel'
+import { TitleBar, ProductContainer } from '@/components/home/rightSection'
+import { SearchBar } from '@/components/home'
+
 import Box from '@mui/material/Box'
-import MuiLink from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+
 
 const navItems = [
 	{ label: 'Login', path: '/login' },
@@ -13,16 +19,33 @@ const Home = () => {
 
 	return (
 		<>
-			<h2>Home Page</h2>
 
+		<Box sx={{
+			display: 'flex',
+			justifyContent: 'flex-end',
+			my: 2
+		}} >
+			<SearchBar />
+		</Box>
 
-			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-				{navItems.map(({ label, path }) => (
-					<Link key={path} href={path} passHref>
-						<MuiLink> {label} </MuiLink>
-					</Link>
-				))}
-			</Box>
+			<Grid container spacing={2}>
+				<Grid item xs={3} md={3}>
+					<Paper>
+						<FilterRating />
+						<FilterBrands />
+						<FilterPrice />
+						<FilterSize />
+					</Paper>
+				</Grid>
+
+				<Grid item xs={9} md={9}>
+					<TitleBar />
+					<Paper>
+					<ProductContainer />
+					</Paper>
+				</Grid>
+			</Grid>
+
 
 		</>
 	)
