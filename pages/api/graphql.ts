@@ -19,7 +19,7 @@ const handler = cors(async(req, res) => {
 	if(req.method === 'OPTIONS') return res.end()
 
 	await startServer
-	await server.createHandler({ path: '/api/graphql' })(req, res)
+	return await server.createHandler({ path: '/api/graphql' })(req, res)
 })
 
 export default handler
