@@ -4,6 +4,7 @@ import isEmail from 'validator/lib/isEmail'
 
 import { MUTATION_LOGIN } from '@/graphql/query/user'
 import { UserDocument } from '@/shared/types/user'
+import { loginFormInputItems } from '@/data/client'
 import withCenterContainer from '@/shared/hoc/withCenterContainer'
 
 import TextField from '@mui/material/TextField'
@@ -11,20 +12,6 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 
 
-const inputItems = [
-	{
-		name: 'email',
-		type: 'email',
-		label: 'Your Email',
-		placeholder: 'abc@gmail.com',
-	},
-	{
-		name: 'password',
-		type: 'password',
-		label: 'Password',
-		placeholder: '********',
-	},
-]
 
 type FieldsState = {
 	email: string
@@ -59,17 +46,13 @@ const isFormValid = (fields: FieldsState, setFieldsError: React.Dispatch<React.S
 	return Object.values(tempObj).every( item => item == '' )
 }
 
-export type LoginProps = {
-	name?: string
-}
 
-const Login = ({ name }: LoginProps) => {
+const Login = () => {
 	const [ fields, setFields ] = useState<FieldsState>(initialState)
 	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialState)
 
 	const [ loginUser, { data, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
 
-	console.log({ name })
 
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setFields({ ...fields, [field]: evt.target.value })
@@ -102,7 +85,7 @@ const Login = ({ name }: LoginProps) => {
 	return (
 		<>
 			<form noValidate onSubmit={handleSubmit} >
-				{inputItems.map(({ name, label, placeholder, type }, index) => (
+				{loginFormInputItems.map(({ name, label, placeholder, type }, index) => (
 					<TextField key={name}
 						label={label}
 						placeholder={placeholder}
