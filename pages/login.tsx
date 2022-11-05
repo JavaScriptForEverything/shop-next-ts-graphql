@@ -4,6 +4,7 @@ import isEmail from 'validator/lib/isEmail'
 
 import { MUTATION_LOGIN } from '@/graphql/query/user'
 import { UserDocument } from '@/shared/types/user'
+import withCenterContainer from '@/shared/hoc/withCenterContainer'
 
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -58,11 +59,17 @@ const isFormValid = (fields: FieldsState, setFieldsError: React.Dispatch<React.S
 	return Object.values(tempObj).every( item => item == '' )
 }
 
-const Login = () => {
+export type LoginProps = {
+	name?: string
+}
+
+const Login = ({ name }: LoginProps) => {
 	const [ fields, setFields ] = useState<FieldsState>(initialState)
 	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialState)
 
 	const [ loginUser, { data, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
+
+	console.log({ name })
 
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setFields({ ...fields, [field]: evt.target.value })
@@ -133,4 +140,7 @@ const Login = () => {
 		</>
 	)
 }
-export default Login
+// export default Login
+
+export default withCenterContainer(Login)
+// export default withCenterContainer<LoginProps>(Login)
