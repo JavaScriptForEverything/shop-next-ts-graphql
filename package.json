@@ -7,7 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-		"seeder" : "nodemon data/server/seeder.ts"
+
+		"seeder" : "nodemon data/server/seeder.ts",
+		"seeder-users" : "nodemon data/server/seeder.ts --users",
+		"seeder-products" : "nodemon data/server/seeder.ts --products",
+		"seeder-reviews" : "nodemon data/server/seeder.ts --reviews",
+
+		"seeder-import" : "nodemon data/server/seeder.ts --import",
+		"seeder-import-users" : "nodemon data/server/seeder.ts --import users",
+		"seeder-import-products" : "nodemon data/server/seeder.ts --import products",
+		"seeder-import-reviews" : "nodemon data/server/seeder.ts --import reviews"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
