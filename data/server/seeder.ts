@@ -4,27 +4,21 @@ dotEnv.config({ path: '.env.local'})
 
 import { dbConnect } from '../../server/models/database'
 
-import { UserDocument } from '@/shared/types/user'
-import { ProductDocument } from '@/shared/types/product'
+import type { UserDocument, ProductDocument, ReviewDocument } from '@/shared/types'
+import { users, products, reviews } from './index'
+import { User, Product, Review } from '../../server/models'
 
-import User from '../../server/models/userModel'
-import Product from '../../server/models/productModel'
-import Review from '../../server/models/reviewModel'
-
-import { users } from './users'
-import { products } from './products'
-import { reviews } from './reviews'
-import { ReviewDocument } from '@/shared/types/review'
 
 dbConnect();
 
 const InsertHandler = async <T>(name: string, Model: any, data: T[]) => {
-	await Model.deleteMany()
+
+	await Model.deleteMany() 	// delete old data first then import new data
+
 	const doc = await Model.create(data)
 	console.log(doc)
 
-	console.log(`---------[ import ${name} success ]----------`) 
-	process.exit()
+	console.log(`---------[ importing ${name} success ]----------`) 
 }
 
 const getUsers = async () => {
@@ -32,8 +26,8 @@ const getUsers = async () => {
 	console.log({ users })
 }
 
-// InsertHandler<UserDocument>('users', User, users)
-// InsertHandler<ProductDocument>('products', Product, products)
+InsertHandler<UserDocument>('users', User, users)
+InsertHandler<ProductDocument>('products', Product, products)
 InsertHandler<ReviewDocument>('reviews', Review, reviews)
 // getUsers()
 

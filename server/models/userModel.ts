@@ -40,5 +40,5 @@ const userSchema = new Schema<UserDocument>({
 	timestamps: true
 })
 
-const userModel: Model<UserDocument> = models.User || model<UserDocument>('User', userSchema)
-export default userModel
+export const User: Model<UserDocument> = models.User || model<UserDocument>('User', userSchema)
+export default User

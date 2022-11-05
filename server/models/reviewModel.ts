@@ -39,5 +39,5 @@ const reviewSchema = new Schema<ReviewDocument>({
 	timestamps: true
 })
 
-const reviewModel: Model<ReviewDocument> = models.Review || model<ReviewDocument>('Review', reviewSchema)
-export default reviewModel
+export const Review: Model<ReviewDocument> = models.Review || model<ReviewDocument>('Review', reviewSchema)
+export default Review

@@ -43,5 +43,5 @@ const productSchema = new Schema<ProductDocument>({
 	timestamps: true
 })
 
-const productModel: Model<ProductDocument> = models.Product || model<ProductDocument>('Product', productSchema)
-export default productModel
+export const Product: Model<ProductDocument> = models.Product || model<ProductDocument>('Product', productSchema)
+export default Product
