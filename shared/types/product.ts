@@ -4,21 +4,23 @@ export type ProductDocument = {
 	name: string
 	price: number
 	summary: string
-	description?: string
+	description: string
+	coverPhoto: string
+	images: string[]
 }
 
 type CreateProductInput = {
 	name: string
 	price: number
 	summary: string
-	description?: string 		// ? === ! to defined optional property
+	description: string 		// ? === ! to defined optional property
 }
 type UpdateProductInput = {
 	productId: string
 	name: string
 	price: number
 	summary: string
-	description?: string 		// ? === ! to defined optional property
+	description: string 		// ? === ! to defined optional property
 }
 
 export type GetProductArgs = {

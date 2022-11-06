@@ -38,6 +38,14 @@ const productSchema = new Schema<ProductDocument>({
 		lowercase: true,
 		minlength: 10
 	},
+	coverPhoto: {
+		type: String,
+		required: true,
+	},
+	images: [{
+		type: String,
+		required: true
+	}]
 
 }, {
 	timestamps: true
