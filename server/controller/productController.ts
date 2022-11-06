@@ -5,34 +5,15 @@ import type {
 	ProductDocument, 
 	UpdateProductArgs 
 } from '@/shared/types/product'
+import { Product } from '../models'
 
 
 
-export const getProducts = (): ProductDocument[] =>  {
+export const getProducts = async (): Promise<ProductDocument[]> =>  {
 
-	return [
-		{
-			id: '1',
-			name: 'product name 1',
-			price: +Number(30).toFixed(2),
-			summary: '',
-			description: ''
-		},
-		{
-			id: '2',
-			name: 'product name 2',
-			price: +Number(42).toFixed(2),
-			summary: '',
-			description: ''
-		},
-		{
-			id: '3',
-			name: 'product name 3',
-			price: +Number(82).toFixed(2),
-			summary: '',
-			description: ''
-		},
-]
+	const products = await Product.find()
+	
+	return products
 }
 
 export const getProduct = ({ productId }: GetProductArgs) => {

@@ -40,9 +40,9 @@ const Home = () => {
 
 				<Grid item xs={12} md={9}>
 					<TitleBar />
-					<Paper>
+					<Box sx={{ my: 1 }}>
 					<ProductContainer />
-					</Paper>
+					</Box>
 				</Grid>
 			</Grid>
 

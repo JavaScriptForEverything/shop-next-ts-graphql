@@ -40,6 +40,8 @@ export const productTypeDefs = gql`
 		name: String!
 		price: Float!
 		summary: String!
-		description: String 		# optional  and ! = Not-Nullable === Required
+		description: String! 
+		coverPhoto: String!
+		images: [String!]
 	}
 `

@@ -1,4 +1,3 @@
-
 import { gql } from '@apollo/client'
 
 export const GET_PRODUCTS = gql`
@@ -6,7 +5,10 @@ export const GET_PRODUCTS = gql`
 		products {
 			id
 			name
+			price
 			summary
+			coverPhoto
 		}
 	}
 `
+
