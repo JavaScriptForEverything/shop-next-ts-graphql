@@ -9,11 +9,6 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 
 
-const navItems = [
-	{ label: 'Login', path: '/login' },
-	{ label: 'Signup', path: '/signup' },
-	{ label: 'User', path: '/user' },
-]
 
 const Home = () => {
 
@@ -29,13 +24,15 @@ const Home = () => {
 		</Box>
 
 			<Grid container spacing={2}>
-				<Grid item xs={3} md={3}>
-					<Paper>
-						<FilterRating />
-						<FilterBrands />
-						<FilterPrice />
-						<FilterSize />
-					</Paper>
+				<Grid item xs={12} md={3} sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					gap: 1
+				}}>
+					<Paper> <FilterRating /> </Paper>
+					<Paper> <FilterBrands /> </Paper>
+					<Paper> <FilterPrice /> </Paper>
+					<Paper> <FilterSize /> </Paper>
 				</Grid>
 
 				<Grid item xs={12} md={9}>
