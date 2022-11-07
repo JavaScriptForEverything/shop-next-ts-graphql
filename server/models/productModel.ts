@@ -1,6 +1,7 @@
 import type { ProductDocument } from '@/shared/types/product'
 import type { Model } from 'mongoose'
 import { model, models, Schema } from 'mongoose'
+import slug from 'slugify'
 
 
 // export type ProductDocument = {
@@ -15,6 +16,10 @@ const productSchema = new Schema<ProductDocument>({
 		trim: true,
 		lowercase: true,
 		minlength: 5
+	},
+	slug: {
+		type: String,
+		default: '',
 	},
 	price: {
 		type: Number,
@@ -49,6 +54,10 @@ const productSchema = new Schema<ProductDocument>({
 
 }, {
 	timestamps: true
+})
+
+productSchema.pre('save', function(this) {
+	this.slug = slug(this.name, { lower: true })
 })
 
 export const Product: Model<ProductDocument> = models.Product || model<ProductDocument>('Product', productSchema)

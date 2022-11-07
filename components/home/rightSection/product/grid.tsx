@@ -28,7 +28,7 @@ export const ProductGridView = ({ product }: Props) => {
 				layout='responsive'
 			/>
 			<CardContent>
-				<Link href={`/product/${product.id}`} passHref>
+				<Link href={`/product/${product.slug}`} passHref>
 					<MuiLink>
 						<Typography >{product.name}</Typography>
 					</MuiLink>
@@ -40,7 +40,7 @@ export const ProductGridView = ({ product }: Props) => {
 				<Typography variant='h5'>${product.price}.00</Typography>
 
 				<Box sx={{ mt: 4 }}>
-					<Link href={`/product/${product.id}`} passHref>
+					<Link href={`/product/${product.slug}`} passHref>
 						<MuiLink>
 							<Button variant='contained' fullWidth>Add To Cart</Button>
 						</MuiLink>

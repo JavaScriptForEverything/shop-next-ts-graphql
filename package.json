@@ -7,16 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-
-		"seeder" : "nodemon data/server/seeder.ts",
-		"seeder-users" : "nodemon data/server/seeder.ts --users",
-		"seeder-products" : "nodemon data/server/seeder.ts --products",
-		"seeder-reviews" : "nodemon data/server/seeder.ts --reviews",
-
-		"seeder-import" : "nodemon data/server/seeder.ts --import",
-		"seeder-import-users" : "nodemon data/server/seeder.ts --import users",
-		"seeder-import-products" : "nodemon data/server/seeder.ts --import products",
-		"seeder-import-reviews" : "nodemon data/server/seeder.ts --import reviews"
+    "seeder": "nodemon data/server/seeder.ts",
+    "seeder-users": "nodemon data/server/seeder.ts --users",
+    "seeder-products": "nodemon data/server/seeder.ts --products",
+    "seeder-reviews": "nodemon data/server/seeder.ts --reviews",
+    "seeder-import": "nodemon data/server/seeder.ts --import",
+    "seeder-import-users": "nodemon data/server/seeder.ts --import users",
+    "seeder-import-products": "nodemon data/server/seeder.ts --import products",
+    "seeder-import-reviews": "nodemon data/server/seeder.ts --import reviews"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
@@ -34,6 +32,7 @@
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "slugify": "^1.6.5",
     "validator": "^13.7.0"
   },
   "devDependencies": {
