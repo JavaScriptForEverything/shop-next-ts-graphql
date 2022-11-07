@@ -1,5 +1,7 @@
+import { Types } from 'mongoose'
 
 export type ProductDocument = {
+	_id?: Types.ObjectId
 	id: string
 	name: string
 	slug?: string

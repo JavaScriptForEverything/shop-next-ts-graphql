@@ -1,4 +1,5 @@
 import { ProductDocument } from '@/shared/types/product'
+import { Types } from 'mongoose'
 
 // export const products: ProductDocument[] = [
 // 	{
@@ -26,6 +27,7 @@ import { ProductDocument } from '@/shared/types/product'
 
 export const products: ProductDocument[] = [
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ecde'),
 		id: '1',
 		name: 'sunt aut facere repellat provident ',
 		price: 432,
@@ -39,6 +41,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ecdf'),
 		id: '2',
 		name: 'rerum tempore vitae',
 		price: 532,
@@ -52,6 +55,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece1'),
 		id: '3',
 		name: 'quasi exercitationem repellat',
 		price: 320,
@@ -65,6 +69,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece2'),
 		id: '4',
 		name: "reiciendis voluptatem adipisci",
 		price: 9820,
@@ -78,6 +83,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece4'),
 		id: '5',
 		name: 'quaerat sunt sed',
 		price: 498,
@@ -91,6 +97,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece5'),
 		id: '6',
 		name: 'aspernatur corporis harum nihil',
 		price: 760,
@@ -104,6 +111,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece6'),
 		id: '7',
 		name: 'quibusdam ea quo vitae\nmagni quis',
 		price: 732,
@@ -117,6 +125,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece7'),
 		id: '8',
 		name: 'dolorem qui eum\nfacilis quibusdam',
 		price: 190,
@@ -130,6 +139,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece0'),
 		id: '9',
 		name: 'dolorem tempora et accusantium',
 		price: 873,
@@ -143,6 +153,7 @@ export const products: ProductDocument[] = [
 		]
 	},
 	{
+		_id: new Types.ObjectId('63691d3748944b433cc5ece3'),
 		id: '10',
 		name: 'cum officia vel magni\ndoloribus',
 		price: 878,

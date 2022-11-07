@@ -36,6 +36,7 @@ export const productTypeDefs = gql`
 	}
 
 	type Product {
+		_id: ID
 		id: ID!
 		name: String!
 		slug: String!
