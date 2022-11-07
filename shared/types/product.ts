@@ -2,7 +2,7 @@
 export type ProductDocument = {
 	id: string
 	name: string
-	slug: string
+	slug?: string
 	price: number
 	summary: string
 	description: string
