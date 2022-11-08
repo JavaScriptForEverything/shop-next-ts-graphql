@@ -12,7 +12,13 @@ type Props = {
 	width?: number
 }
 
-const Carousel = ({ images, width=300 }: Props) => {
+
+/*
+		<Grid item xs={12} sm={6}>
+			<Carousel images={data.product.images} />
+		</Grid>
+*/
+export const Carousel = ({ images, width=300 }: Props) => {
 	const [ selectedIndex, setSelectedIndex ] = useState(0)
 	const [ imageHeight, setImageHeight ] = useState(width/2)
 
@@ -29,8 +35,8 @@ const Carousel = ({ images, width=300 }: Props) => {
 	}
 
 	const resizeHandler = useCallback(() => {
-		const image = document.getElementById('carousel')!
-		const height = image.clientHeight
+		const box = document.getElementById('carousel')!
+		const height = box.offsetHeight
 		setImageHeight(height)
 	}, [])
 
@@ -41,9 +47,8 @@ const Carousel = ({ images, width=300 }: Props) => {
 
 
 	return (
-		<Box sx={{ position: 'relative' }}>
+		<Box id='carousel' sx={{ position: 'relative' }}>
 			<Image 
-				id='carousel'
 				src={images[selectedIndex]}
 				alt='image'
 				width={width}
@@ -93,4 +98,3 @@ const Carousel = ({ images, width=300 }: Props) => {
 		</Box>
 	)
 }
-export default Carousel
