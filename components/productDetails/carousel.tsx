@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
@@ -14,6 +14,7 @@ type Props = {
 
 const Carousel = ({ images, width=300 }: Props) => {
 	const [ selectedIndex, setSelectedIndex ] = useState(0)
+	const [ imageHeight, setImageHeight ] = useState(width/2)
 
 	const lastIndex = images.length - 1
 	const getActiveColor = (index: number) => selectedIndex === index ? '#fffc' : '#fff3'
@@ -27,9 +28,22 @@ const Carousel = ({ images, width=300 }: Props) => {
 		setSelectedIndex(index => index + 1)
 	}
 
+	const resizeHandler = useCallback(() => {
+		const image = document.getElementById('carousel')!
+		const height = image.clientHeight
+		setImageHeight(height)
+	}, [])
+
+	useEffect(() => {
+		window.addEventListener('resize', resizeHandler)
+		return () => window.removeEventListener('resize', resizeHandler)
+	}, [resizeHandler])
+
+
 	return (
 		<Box sx={{ position: 'relative' }}>
 			<Image 
+				id='carousel'
 				src={images[selectedIndex]}
 				alt='image'
 				width={width}
@@ -39,7 +53,7 @@ const Carousel = ({ images, width=300 }: Props) => {
 			<Box sx={{
 				position: 'absolute',
 				zIndex: 1,
-				top: width/2/2 + 16*1.5, 		// height/2 + buttonHeight/1.5
+				top: imageHeight/2 - 16*1.5, 		// height/2 + buttonHeight/1.5
 				left: 0,
 				width: '100%',
 				display: 'flex',
