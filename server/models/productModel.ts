@@ -43,6 +43,8 @@ const productSchema = new Schema<ProductDocument>({
 		lowercase: true,
 		minlength: 10
 	},
+
+	// { public_id, secureUrl, altImageName, width, height }
 	coverPhoto: {
 		type: String,
 		required: true,

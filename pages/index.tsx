@@ -29,10 +29,10 @@ const Home = () => {
 					flexDirection: 'column',
 					gap: 1
 				}}>
-					<Paper> <FilterRating /> </Paper>
+					{/* <Paper> <FilterRating /> </Paper>
 					<Paper> <FilterBrands /> </Paper>
 					<Paper> <FilterPrice /> </Paper>
-					<Paper> <FilterSize /> </Paper>
+					<Paper> <FilterSize /> </Paper> */}
 				</Grid>
 
 				<Grid item xs={12} md={9}>

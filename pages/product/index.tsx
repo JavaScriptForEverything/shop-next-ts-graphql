@@ -1,6 +1,6 @@
-import { ProductDocument } from '@/server/controller/productController'
 import { useQuery } from '@apollo/client'
 import { GET_PRODUCTS } from '@/graphql/query/product'
+import { ProductDocument } from '@/shared/types'
 
 
 type GetProductsQuery = {

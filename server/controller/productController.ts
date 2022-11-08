@@ -5,6 +5,8 @@ import type {
 	ProductDocument, 
 	UpdateProductArgs 
 } from '@/shared/types/product'
+import { GraphQLError } from 'graphql'
+import { Types } from 'mongoose'
 import { Product } from '../models'
 
 
@@ -16,16 +18,14 @@ export const getProducts = async (): Promise<ProductDocument[]> =>  {
 	return products
 }
 
-export const getProduct = ({ productId }: GetProductArgs) => {
-	console.log({ productId })
+export const getProduct = async ({ productId }: GetProductArgs): Promise<ProductDocument> => {
+	const isId = Types.ObjectId.isValid(productId)
+	const filter = isId ? { _id: productId } : { slug: productId }
 
-	return {
-		id: '',
-		name: '',
-		price: +Number(32).toFixed(2),
-		summary: '',
-		description: ''
-	}
+	const product= await Product.findOne(filter)
+	if(!product) throw new GraphQLError('No product found')
+
+	return product
 }
 
 export const createProduct = ({ input }: CreateProductArgs) => {

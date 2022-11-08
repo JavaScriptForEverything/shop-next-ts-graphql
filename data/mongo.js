@@ -11,7 +11,7 @@ use next-graphql-typecript
 // db.products.find().count()
 // db.products.drop()
 // db.products.find().limit(1).pretty()
-db.products.find({}, { coverPhoto: 0, images: 0 }).limit(1).pretty()
+db.products.find({ slug: 'sunt-aut-facere-repellat-provident' }, { coverPhoto: 0, images: 0 }).limit(1).pretty()
 
 // db.reviews.find().pretty()
 // db.reviews.find().count()
