@@ -16,6 +16,8 @@ export type ReviewDocument = {
 	review: string 			// comment field
 	liked: number
 	disliked: number
+	createdAt: Date
+	updatedAt: Date
 }
 
 type CreateReviewInput = {

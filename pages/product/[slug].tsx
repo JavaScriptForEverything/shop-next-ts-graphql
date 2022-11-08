@@ -3,12 +3,13 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
 import { GET_PRODUCT_BY_SLUG } from '@/graphql/query/product'
 import { ProductDocument } from '@/shared/types'
-import { Carousel, RatingAndReviews, RightPanel } from '@/components/productDetails'
+import { Carousel, Comment, RatingAndReviews, RightPanel } from '@/components/productDetails'
 
 
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
+import { Types } from 'mongoose'
 
 
 type Props = {
@@ -58,12 +59,25 @@ const ProductDetails = ({ slug }: Props) => {
 					<RatingAndReviews />
 				</Paper>
 			</Grid>
-
-
 		</Grid>
-			<pre>
-				{JSON.stringify(data, null, 2)}
-			</pre>
+
+		<Grid>
+			<Grid>
+				<input />
+
+				<Comment review={{
+					id: 'alksdjfalkf',
+					user: new Types.ObjectId(),
+					product: new Types.ObjectId(),
+					review: 'quia et suscipit suscipit recusandae consequuntur expedita et cum repre',
+					liked: 24,
+					disliked: 2,
+					createdAt: new Date(),
+					updatedAt: new Date()
+				}}/>
+
+			</Grid>
+		</Grid>
 		</>
 	)
 }
