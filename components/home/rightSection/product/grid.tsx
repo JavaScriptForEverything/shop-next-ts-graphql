@@ -17,6 +17,10 @@ type Props = {
 }
 export const ProductGridView = ({ product }: Props) => {
 
+	const handleAddToCart = () => {
+		console.log('handle add to cart later')
+	}
+
 	return (
 		<Card>
 			<Image 
@@ -40,11 +44,7 @@ export const ProductGridView = ({ product }: Props) => {
 				<Typography variant='h5'>${product.price}.00</Typography>
 
 				<Box sx={{ mt: 4 }}>
-					<Link href={`/product/${product.slug}`} passHref>
-						<MuiLink>
-							<Button variant='contained' fullWidth>Add To Cart</Button>
-						</MuiLink>
-					</Link>
+					<Button onClick={handleAddToCart} variant='contained' fullWidth>Add To Cart</Button>
 				</Box>
 			</CardContent>
 		</Card>
