@@ -25,6 +25,7 @@ export const SearchBar = () => {
 			<TextField 
 				label='Search'
 				placeholder='blue shirt'
+				fullWidth
 				InputProps={{
 					endAdornment: <> 
 						<IconButton color='primary' type='submit' >

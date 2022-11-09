@@ -15,13 +15,11 @@ const Home = () => {
 	return (
 		<>
 
-		<Box sx={{
-			display: 'flex',
-			justifyContent: 'flex-end',
-			my: 2
-		}} >
-			<SearchBar />
-		</Box>
+		<Grid container sx={{ my: 2, display: 'flex', justifyContent: 'flex-end' }}>
+			<Grid item xs={12} sm={6} md={3}>
+				<SearchBar />
+			</Grid>
+		</Grid>
 
 			<Grid container spacing={2}>
 				<Grid item xs={12} md={3} sx={{
@@ -29,10 +27,10 @@ const Home = () => {
 					flexDirection: 'column',
 					gap: 1
 				}}>
-					{/* <Paper> <FilterRating /> </Paper>
+					<Paper> <FilterRating /> </Paper>
 					<Paper> <FilterBrands /> </Paper>
 					<Paper> <FilterPrice /> </Paper>
-					<Paper> <FilterSize /> </Paper> */}
+					<Paper> <FilterSize /> </Paper>
 				</Grid>
 
 				<Grid item xs={12} md={9}>
