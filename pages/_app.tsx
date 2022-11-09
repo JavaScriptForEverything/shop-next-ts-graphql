@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
+import Layout from 'layout'
 
 
 const client = new ApolloClient({
@@ -10,7 +11,9 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
 		<ApolloProvider client={client}>
-			<Component {...pageProps} />
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
 		</ApolloProvider>
 	)
 }
