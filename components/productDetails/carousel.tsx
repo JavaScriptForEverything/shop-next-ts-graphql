@@ -41,6 +41,10 @@ export const Carousel = ({ images, width=300 }: Props) => {
 	}, [])
 
 	useEffect(() => {
+		resizeHandler()
+	}, [resizeHandler])
+
+	useEffect(() => {
 		window.addEventListener('resize', resizeHandler)
 		return () => window.removeEventListener('resize', resizeHandler)
 	}, [resizeHandler])
