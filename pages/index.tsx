@@ -15,7 +15,7 @@ const Home = () => {
 	return (
 		<>
 
-		<Grid container sx={{ my: 2, display: 'flex', justifyContent: 'flex-end' }}>
+		<Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
 			<Grid item xs={12} sm={6} md={3}>
 				<SearchBar />
 			</Grid>

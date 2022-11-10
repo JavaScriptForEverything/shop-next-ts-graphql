@@ -1,6 +1,8 @@
 import Footer from './footer'
 import Header from './header'
 
+import Box from '@mui/material/Box'
+
 type Props = {
 	children: React.ReactElement
 }
@@ -10,7 +12,9 @@ const Layout = ({ children }: Props) => {
 	return (
 		<>
 			<Header />
-			{children}
+			<Box sx={{ my: 2 }}>
+				{children}
+			</Box>
 			<Footer />
 		</>
 	)
