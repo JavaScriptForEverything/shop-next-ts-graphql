@@ -2,7 +2,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import Grid from '@mui/material/Grid'
+import Drawer from './drawer'
+
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -15,19 +16,23 @@ import Switch from '@mui/material/Switch'
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import MenuIcon from '@mui/icons-material/Menu'
+import HomeIcon from '@mui/icons-material/Home'
+import PersonIcon from '@mui/icons-material/Person'
+import MailIcon from '@mui/icons-material/Mail'
+import ArticleIcon from '@mui/icons-material/Article'
 
 
 const navItems = [
-	{ label: 'home', path: '/' },
-	{ label: 'about', path: '/about' },
-	{ label: 'contact', path: '/contact' },
-	{ label: 'docs', path: '/docs' },
-	// { label: 'login', path: '/login' },
+	{ label: 'home', 		path: '/', 				icon: <HomeIcon /> },
+	{ label: 'about', 	path: '/about', 	icon: <PersonIcon /> },
+	{ label: 'contact', path: '/contact', icon: <MailIcon /> },
+	{ label: 'docs', 		path: '/docs', 		icon: <ArticleIcon /> },
 ]
 
 const Header = () => {
-	const [ activeMenu, setActiveMenu ] = useState(0)
 	const router = useRouter()
+	const [ activeMenu, setActiveMenu ] = useState(0)
+	const [ open, setOpen ] = useState(false)
 
 	useEffect(() => {
 		const currentIndex = navItems.findIndex(nav => nav.path === router.asPath)
@@ -44,9 +49,14 @@ const Header = () => {
 			<Typography component='nav' color='textSecondary' sx={{ display: 'flex' }}>
 
 			<Box sx={{ display: { xs: 'block', md: 'none' }}}>
-				<IconButton>
+				<IconButton onClick={() => setOpen(true)}>
 					<MenuIcon />	
 				</IconButton>
+				<Drawer 
+					open={open} 
+					setOpen={setOpen} 
+					listItems={navItems}
+				/>
 			</Box>
 
 			<Box sx={{ display: { xs: 'none', md: 'block' }}}>
