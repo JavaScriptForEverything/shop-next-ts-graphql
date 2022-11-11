@@ -4,6 +4,33 @@ import { model, models, Schema } from 'mongoose'
 
 import isEmail from 'validator/lib/isEmail'
 
+export type Info = {
+	name: string
+	value: string
+}
+export type Experience = {
+	_id: string
+	title: string
+	companyName: string
+	joiningDate: Date
+	currentStatus: 'active' | 'inactive'
+	jobLocation: string
+	logoBackgroundColor: string
+}
+
+type User = {
+	name: string
+	email: string
+	password: string
+	confirmPassword?: string
+
+	avatar: string
+	title: string
+	summary: string
+	skills: string[]
+	infoItems: Info[],
+	experiences: Experience[]
+}
 
 const userSchema = new Schema<UserDocument>({
 	name: {
