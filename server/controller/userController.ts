@@ -1,6 +1,7 @@
 import type { DeleteMeArgs, GetUserArgs, LoginArgs, SignUpArgs, UpdateMeArgs, UserDocument  } from '@/shared/types/user'
 import User from '@/server/models/userModel'
 import { GraphQLError } from 'graphql'
+import { Types } from 'mongoose'
 
 
 
@@ -79,12 +80,12 @@ export const updateMe = ({ input }: UpdateMeArgs ): UserDocument => {
 	console.log({ input })
 
 	return {
-		id: 'alskdfaldf',
+		_id: new Types.ObjectId(),
 		name: 'riajul',
 		email: 'riajul@gmail.com',
 		password: '',
-		createdAt: new Date(),
-		updatedAt: new Date()
+		createdAt: new Date().toString(),
+		updatedAt: new Date().toString()
 	}
 }
 

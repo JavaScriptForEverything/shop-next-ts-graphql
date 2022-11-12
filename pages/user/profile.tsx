@@ -22,33 +22,34 @@ const infoItems = [
 	{ name: 'Address', value: 'Dhaka, Bangladesh' },
 	{ name: 'Email', value: 'JavaScriptForEverything@gmail.com' },
 ]
-const experiences: Experience[] = [
-	{
-		_id: '1',
-		title: 'fullstack web developer',
-		companyName: 'pixel studio',
-		joiningDate: new Date(),
-		currentStatus: 'active',
-		jobLocation: 'dhaka, bangladesh',
-		logoBackgroundColor: 'red'
-	},
-	{
-		_id: '2',
-		title: 'MERN web developer',
-		companyName: 'Ayman Group',
-		joiningDate: new Date(),
-		currentStatus: 'inactive',
-		jobLocation: 'dhaka, bangladesh',
-		logoBackgroundColor: 'dodgerblue'
-	}
-]
+// const experiences: Experience[] = [
+// 	{
+// 		_id: '1',
+// 		title: 'fullstack web developer',
+// 		companyName: 'pixel studio',
+// 		joiningDate: new Date(),
+// 		currentStatus: 'active',
+// 		jobLocation: 'dhaka, bangladesh',
+// 		logoBackgroundColor: 'red'
+// 	},
+// 	{
+// 		_id: '2',
+// 		title: 'MERN web developer',
+// 		companyName: 'Ayman Group',
+// 		joiningDate: new Date(),
+// 		currentStatus: 'inactive',
+// 		jobLocation: 'dhaka, bangladesh',
+// 		logoBackgroundColor: 'dodgerblue'
+// 	}
+// ]
 
 const Profile = () => {
 	const [ isAdded, setIsAdded ] = useState(false)
 
-	// const { user } = useAppSelector(state => state.user)
-	// console.log(user)
+	const { user } = useAppSelector(state => state.user)
+	console.log(user)
 
+	if(!user) return <>No User, loading ...</>
 
 
 	return (
@@ -109,7 +110,7 @@ const Profile = () => {
 							isRotate={isAdded}
 						>
 							<UserExperience 
-								experiences={experiences} 
+								experiences={user.experiences} 
 								isAdded={isAdded}
 							/>
 						</Section>

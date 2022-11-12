@@ -28,8 +28,8 @@ export type UserDocument = {
 	email: string
 	password: string
 	confirmPassword?: string
-	createdAt: Date
-	updatedAt: Date
+	createdAt: string
+	updatedAt: string
 
 	avatar: Image
 	title: string

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Experience } from '@/server/models/userModel'
+import type { Experience } from '@/shared/types/user'
 
 import { AddExperience } from './addExperience'
 
@@ -50,8 +50,8 @@ export const UserExperience = ({ experiences, isAdded }: Props) => {
 		<>
 		{ isAdded && <AddExperience /> }
 
-		{experiences.map(job => (
-			<Box key={job._id} sx={{
+		{experiences.map( (job, index) => (
+			<Box key={index} sx={{
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignItems: 'flex-start',
@@ -83,7 +83,7 @@ export const UserExperience = ({ experiences, isAdded }: Props) => {
 				</Box>
 			</Box>
 
-				<IconButton onClick={clickHandler(job._id)}>
+				<IconButton onClick={clickHandler(job.title)}> 			
 					<MoreVertIcon />
 				</IconButton>
 			</Box>

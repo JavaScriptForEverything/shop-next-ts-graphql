@@ -29,10 +29,36 @@ export const GET_USER = gql`
 export const MUTATION_LOGIN = gql`
 	mutation login($input: LoginInput) { 		
 		login(input: $input) {
-			id
+			_id
 			name
 			email
 			password
+			createdAt
+			updatedAt
+			title
+			about
+			skills
+			avatar {
+				public_id
+				secure_url
+				alt
+				size
+			}
+			infoItems {
+				_id
+				name
+				value
+			}
+			experiences {
+				_id
+				id
+				title
+				companyName
+				joiningDate
+				currentStatus
+				jobLocation
+				logoBackgroundColor
+			}
 		}
 	}
 `

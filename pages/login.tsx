@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import isEmail from 'validator/lib/isEmail'
+import * as userReducer from '@/store/userReducer'
+import { useAppDispatch } from '@/store/hooks'
 
 import { MUTATION_LOGIN } from '@/graphql/query/user'
 import { UserDocument } from '@/shared/types/user'
@@ -10,6 +13,7 @@ import withCenterContainer from '@/shared/hoc/withCenterContainer'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 
 
 
@@ -48,10 +52,12 @@ const isFormValid = (fields: FieldsState, setFieldsError: React.Dispatch<React.S
 
 
 const Login = () => {
+	const router = useRouter()
+	const dispatch = useAppDispatch()
 	const [ fields, setFields ] = useState<FieldsState>(initialState)
 	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialState)
 
-	const [ loginUser, { data, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
+	const [ loginUser, { loading, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
 
 
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,12 +76,20 @@ const Login = () => {
 
 
 		try {
+			dispatch(userReducer.request())
+			
 			// addUser({ variables: {input: { email: 'abc', password: 'asdf' } } })
-			const result = await loginUser({ variables: { input: fields } })
+			const user = await loginUser({ variables: { input: fields } })
+			if(!user.data) return console.log(user)
+			// console.log(user.data?.login)
+
+			dispatch( userReducer.logedIn(user.data.login))
 			setFields(initialState)
-			// console.log(result)
-		} catch (err) {
-			console.log(err)
+			router.push('/user/profile')
+
+		} catch (err: any) {
+			console.log(err.message)
+			userReducer.failed(err.message)
 		}
 
 
@@ -112,14 +126,16 @@ const Login = () => {
 					my: 2
 				}}>
 					<Button variant='outlined' onClick={handleFormReset} >Clear</Button>
-					<Button variant='contained' type='submit'>Login</Button>
+					<Button variant='contained' type='submit'>
+						{loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Login' }
+					</Button>
 				</Box>
 			</form>
 
 			{error && <p>{error.message}</p>}
-			<pre>
+			{/* <pre>
 				{data && JSON.stringify(data?.login, null, 2)}
-			</pre>
+			</pre> */}
 		</>
 	)
 }

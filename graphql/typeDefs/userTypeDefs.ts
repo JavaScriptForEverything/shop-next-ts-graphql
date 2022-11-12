@@ -40,7 +40,7 @@ export const userTypeDefs = gql`
 	}
 
 	type User {
-		id: ID!
+		_id: ID!
 		name: String!
 		email: String!
 		password: String!
@@ -62,10 +62,14 @@ export const userTypeDefs = gql`
 		size: String
 	}
 	type InfoItem {
+		_id: ID!
+		id: String
 		name: String
 		value: String
 	}
 	type Experience {
+		_id: ID!
+		id: String
 		title: String
 		companyName: String
 		joiningDate: String 					# Date

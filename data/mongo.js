@@ -3,9 +3,10 @@ show collections
 
 use next-graphql-typecript
 
+// db.users.drop()
 db.users.find().pretty()
 // db.users.find().count()
-// db.users.drop()
+// db.users.find({}, { email: 1, password: 1 }).limit(1).pretty()
 
 // db.products.find().pretty()
 // db.products.find().count()
