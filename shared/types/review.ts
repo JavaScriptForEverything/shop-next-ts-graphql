@@ -10,7 +10,7 @@ import { Types } from 'mongoose'
 // }
 
 export type ReviewDocument = {
-	id: string
+	_id: Types.ObjectId
 	user: Types.ObjectId 				
 	product: Types.ObjectId 		
 	review: string 			// comment field

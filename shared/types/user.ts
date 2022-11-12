@@ -1,13 +1,42 @@
 // types === @/graphql/typesDefs/*
 
+import { Types } from 'mongoose'
+
+type Image = {
+	public_id: string
+	secure_url: string
+	alt: string
+	size: string
+}
+export type Info = {
+	name: string
+	value: string
+}
+export type Experience = {
+	_id: Types.ObjectId
+	title: string
+	companyName: string
+	joiningDate: Date
+	currentStatus: 'active' | 'inactive'
+	jobLocation: string
+	logoBackgroundColor: string
+}
+
 export type UserDocument = {
-	id: string
+	_id: Types.ObjectId
 	name: string
 	email: string
 	password: string
 	confirmPassword?: string
 	createdAt: Date
 	updatedAt: Date
+
+	avatar: Image
+	title: string
+	about: string
+	skills: string[]
+	infoItems: Info[],
+	experiences: Experience[]
 }
 
 type SignUpInput = {

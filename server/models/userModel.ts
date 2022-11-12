@@ -4,33 +4,6 @@ import { model, models, Schema } from 'mongoose'
 
 import isEmail from 'validator/lib/isEmail'
 
-export type Info = {
-	name: string
-	value: string
-}
-export type Experience = {
-	_id: string
-	title: string
-	companyName: string
-	joiningDate: Date
-	currentStatus: 'active' | 'inactive'
-	jobLocation: string
-	logoBackgroundColor: string
-}
-
-type User = {
-	name: string
-	email: string
-	password: string
-	confirmPassword?: string
-
-	avatar: string
-	title: string
-	summary: string
-	skills: string[]
-	infoItems: Info[],
-	experiences: Experience[]
-}
 
 const userSchema = new Schema<UserDocument>({
 	name: {
@@ -54,14 +27,35 @@ const userSchema = new Schema<UserDocument>({
 	confirmPassword: {
 		type: String,
 		// required: true,
-		validate: function(val: string, ) {
-			const user = this as UserDocument
-			return user.password === val
+		validate: function(this: UserDocument, val: string, ) {
+			return this.password === val
 		},
-		// validate: function(this: UserDocument, val: string, ) {
-		// 	return this.password === val
-		// }
 	},
+
+	avatar: {
+		public_id: String,
+		secure_url: String,
+		alt: String,
+		size: String
+	},
+	title: String,
+	about: String,
+	skills: [String],
+	infoItems: [{
+		name: String,
+		value: String
+	}],
+	experiences: [{
+		title: String,
+		companyName: String,
+		joiningDate: Date,
+		currentStatus: {
+			type: String,
+			enum: ['active', 'inactive']
+		},
+		jobLocation: String,
+		logoBackgroundColor: String
+	}]
 
 }, {
 	timestamps: true

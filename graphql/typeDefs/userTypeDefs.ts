@@ -46,5 +46,36 @@ export const userTypeDefs = gql`
 		password: String!
 		createdAt: String!
 		updatedAt: String!
+
+		avatar: Image!
+		title: String
+		about: String
+		skills: [String]
+		infoItems: [InfoItem],
+		experiences: [Experience]
 	}
+
+	type Image {
+		public_id: String
+		secure_url: String
+		alt: String
+		size: String
+	}
+	type InfoItem {
+		name: String
+		value: String
+	}
+	type Experience {
+		title: String
+		companyName: String
+		joiningDate: String 					# Date
+		currentStatus: String 				# active | inactive
+		jobLocation: String
+		logoBackgroundColor: String
+	}
+
+	# type CurrentStatus {
+	# 		type: String,
+	# 		enum: ['active', 'inactive']
+	# }
 `

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAppSelector } from '@/store/hooks'
 
-import type { Experience } from '@/server/models/userModel'
+import type { Experience } from '@/shared/types'
 import { AddNote, Section, UserSummary, UserExperience } from '@/components/user/profile'
 
 import Grid from '@mui/material/Grid'
@@ -46,8 +46,8 @@ const experiences: Experience[] = [
 const Profile = () => {
 	const [ isAdded, setIsAdded ] = useState(false)
 
-	const { user } = useAppSelector(state => state.user)
-	console.log(user)
+	// const { user } = useAppSelector(state => state.user)
+	// console.log(user)
 
 
 
