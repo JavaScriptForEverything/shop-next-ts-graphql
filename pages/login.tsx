@@ -35,8 +35,8 @@ type TempObj = {
 const isFormValid = (fields: FieldsState, setFieldsError: React.Dispatch<React.SetStateAction<TempObj>>) => {
 	const tempObj: TempObj = {}
 
-	if( !isEmail(fields.email) ) tempObj.email = 'Invalid Email Address'
-	if( fields.password.length < 8 ) tempObj.password = 'password must by atleast 8 character long'
+	if( fields.email && !isEmail(fields.email) ) tempObj.email = 'Invalid Email Address'
+	if( fields.password && fields.password.length < 8 ) tempObj.password = 'password must by atleast 8 character long'
 
 	Object.keys(fields).forEach(field => {
 		if(!fields[field as keyof FieldsState]) tempObj[field] = `'${field}' is emapty`

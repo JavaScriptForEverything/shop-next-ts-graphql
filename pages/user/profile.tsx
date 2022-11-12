@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 
 import AddIcon from '@mui/icons-material/Add'
+import { useState } from 'react'
 
 
 const skills = [ 'Next.js', 'TypeScript', 'GraphQL', 'React', 'redux', 'Mongoose', 'Express.js' ]
@@ -41,7 +42,11 @@ const experiences: Experience[] = [
 ]
 
 const Profile = () => {
+	const [ isAdded, setIsAdded ] = useState(false)
 
+	const addExperienceClickHandler = () => {
+		setIsAdded(!isAdded)
+	}
 
 	return (
 		<>
@@ -73,7 +78,6 @@ const Profile = () => {
 				{/* -----[ Right Side ]----- */}
 				<Grid item xs={12} md={8}>
 					<Paper sx={{ p: 1 }}>
-
 						<Section 
 							title='Basic Information' 
 							onClick={f => f}
@@ -98,14 +102,13 @@ const Profile = () => {
 						<Section 
 							title='Experiences'
 							icon={<AddIcon color='action' />} 
-							onClick={e => e}
+							onClick={addExperienceClickHandler}
+							isRotate={isAdded}
 						>
-
-							<Box>
-								<UserExperience experiences={experiences} />
-
-							</Box>
-
+							<UserExperience 
+								experiences={experiences} 
+								isAdded={isAdded}
+							/>
 						</Section>
 					</Paper>
 

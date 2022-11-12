@@ -11,13 +11,15 @@ type HeadingProps = {
 	onClick: (evt: React.MouseEvent<HTMLButtonElement>) => void
 	icon?: JSX.Element
 	children?: React.ReactElement | React.ReactNode
+	isRotate?: boolean
 }
 export const Section = (props: HeadingProps) => {
 	const { 
 		title, 
 		icon = <EditIcon color='action' />, 
 		onClick, 
-		children 
+		children,
+		isRotate=false 
 	} = props
 
 	return (
@@ -28,7 +30,9 @@ export const Section = (props: HeadingProps) => {
 				alignItems: 'baseline'
 			}}>
 				<Typography variant='h6' sx={{ textTransform: 'capitalize '}}>{title}</Typography>
-				<IconButton onClick={onClick}> {icon} </IconButton>
+				<IconButton 
+				sx={ isRotate ? { transform: 'rotate(45deg)' } : {}}
+				onClick={onClick}> {icon} </IconButton>
 			</Box>
 			<Divider />
 

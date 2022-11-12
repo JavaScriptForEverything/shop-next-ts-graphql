@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { Experience } from '@/server/models/userModel'
 
+import { AddExperience } from './addExperience'
+
 import Box from '@mui/material/Box'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
@@ -18,9 +20,10 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 type Props = {
 	experiences: Experience[]
+	isAdded: boolean
 }
 
-export const UserExperience = ({ experiences }: Props) => {
+export const UserExperience = ({ experiences, isAdded }: Props) => {
 	const [ open, setOpen ] = useState(false)
 	const [ anchorEl, setAnchorEl ] = useState<null|HTMLButtonElement>(null)
 	const [ jobId, setJobId ] = useState('')
@@ -45,6 +48,8 @@ export const UserExperience = ({ experiences }: Props) => {
 
 	return (
 		<>
+		{ isAdded && <AddExperience /> }
+
 		{experiences.map(job => (
 			<Box key={job._id} sx={{
 				display: 'flex',
@@ -84,23 +89,21 @@ export const UserExperience = ({ experiences }: Props) => {
 			</Box>
 		))}	
 
+			<Menu
+				open={open}
+				anchorEl={anchorEl}
+				onClose={closeHandler}
+			>
+				<MenuItem dense divider onClick={editHandler} >
+					<ListItemIcon><EditIcon /></ListItemIcon>
+					<ListItemText primary='Edit' />
+				</MenuItem>
 
-				<Menu
-					open={open}
-					anchorEl={anchorEl}
-					onClose={closeHandler}
-				>
-					<MenuItem dense divider onClick={editHandler} >
-						<ListItemIcon><EditIcon /></ListItemIcon>
-						<ListItemText primary='Edit' />
-					</MenuItem>
-
-					<MenuItem dense divider onClick={deleteHandler} >
-						<ListItemIcon><DeleteIcon /></ListItemIcon>
-						<ListItemText primary='Delete' />
-					</MenuItem>
-				</Menu>
-
+				<MenuItem dense divider onClick={deleteHandler} >
+					<ListItemIcon><DeleteIcon /></ListItemIcon>
+					<ListItemText primary='Delete' />
+				</MenuItem>
+			</Menu>
 		</>
 	)
 }
