@@ -1,5 +1,8 @@
 import type { AppProps } from 'next/app'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
+import { wrapper } from '../store'
+import { Provider as ReduxProvider } from 'react-redux'
+
 import Layout from 'layout'
 
 
@@ -8,13 +11,18 @@ const client = new ApolloClient({
 	cache: new InMemoryCache()
 })
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
+	const { store, props } = wrapper.useWrappedStore(rest)
+	const { pageProps } = props
+
   return (
-		<ApolloProvider client={client}>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
-		</ApolloProvider>
+		<ReduxProvider store={store}>
+			<ApolloProvider client={client}>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</ApolloProvider>
+		</ReduxProvider>
 	)
 }
 

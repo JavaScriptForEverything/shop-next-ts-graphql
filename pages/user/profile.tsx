@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { useAppSelector } from '@/store/hooks'
+
 import type { Experience } from '@/server/models/userModel'
 import { AddNote, Section, UserSummary, UserExperience } from '@/components/user/profile'
 
@@ -8,7 +11,6 @@ import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 
 import AddIcon from '@mui/icons-material/Add'
-import { useState } from 'react'
 
 
 const skills = [ 'Next.js', 'TypeScript', 'GraphQL', 'React', 'redux', 'Mongoose', 'Express.js' ]
@@ -44,9 +46,10 @@ const experiences: Experience[] = [
 const Profile = () => {
 	const [ isAdded, setIsAdded ] = useState(false)
 
-	const addExperienceClickHandler = () => {
-		setIsAdded(!isAdded)
-	}
+	const { user } = useAppSelector(state => state.user)
+	console.log(user)
+
+
 
 	return (
 		<>
@@ -102,7 +105,7 @@ const Profile = () => {
 						<Section 
 							title='Experiences'
 							icon={<AddIcon color='action' />} 
-							onClick={addExperienceClickHandler}
+							onClick={() => setIsAdded(!isAdded)}
 							isRotate={isAdded}
 						>
 							<UserExperience 
