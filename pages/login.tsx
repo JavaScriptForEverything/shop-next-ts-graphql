@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import isEmail from 'validator/lib/isEmail'
+import { signIn } from 'next-auth/react'
 import * as userReducer from '@/store/userReducer'
 import { useAppDispatch } from '@/store/hooks'
 
@@ -10,13 +11,15 @@ import { MUTATION_LOGIN } from '@/graphql/query/user'
 import { UserDocument } from '@/shared/types/user'
 import { loginFormInputItems } from '@/data/client'
 import withCenterContainer from '@/shared/hoc/withCenterContainer'
-import { signIn, signOut, useSession } from 'next-auth/react'
 
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import MuiLink from '@mui/material/Link'
+import ButtonGroup from '@mui/material/ButtonGroup'
 import CircularProgress from '@mui/material/CircularProgress'
+import Divider from '@mui/material/Divider'
+
+import GitHubIcon from '@mui/icons-material/GitHub'
 
 
 
@@ -61,8 +64,6 @@ const Login = () => {
 	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialState)
 
 	const [ loginUser, { loading, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
-
-	const session = useSession()
 
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setFields({ ...fields, [field]: evt.target.value })
@@ -143,24 +144,22 @@ const Login = () => {
 				</Box>
 			</form>
 
-			<Box>
-				<Link href='api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin'>
-				<Button variant='outlined' onClick={(e) => {
-					e.preventDefault()
-					signIn()
-				}}>Signin</Button>
-				</Link>
+			<Box sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				mt: 8,
+			}}>
+				<ButtonGroup 
+					variant='contained'
+					fullWidth
+					onClick={(e) =>  signIn('github') }
+				>
+					<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
+					<Button  sx={{ flex: 8 }}fullWidth>Signin By Github</Button>
+				</ButtonGroup>
 
-
-				<Button variant='outlined' onClick={(evt) => {
-					evt.preventDefault()
-					signOut()
-				}}>Sign Out</Button>
 			</Box>
 
-			<pre>
-				{JSON.stringify(session, null, 2)}
-			</pre>
 		</>
 	)
 }

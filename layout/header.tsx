@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 
 import Drawer from './drawer'
 import AvatarMenu from './avatar/menu'
@@ -31,6 +32,7 @@ const navItems = [
 ]
 
 const Header = () => {
+	const { status } = useSession()
 	const router = useRouter()
 	const [ activeMenu, setActiveMenu ] = useState(0)
 	const [ drawerOpen, setDrawerOpen ] = useState(false)
@@ -51,8 +53,9 @@ const Header = () => {
 		setOpenMenu(false)
 	}
 	const menuItemClickHandler = (path: string) => () => {
-		router.push(path)
 		closeHandler()
+		if(path === '/user/logout') return signOut()
+		router.push(path)
 	}
 
 	return (
@@ -96,7 +99,15 @@ const Header = () => {
 						<ShoppingCartIcon color='primary' />
 					</IconButton>
 
-					{ true ? (
+					{ status === 'authenticated' ? (
+						<IconButton size='small' onClick={avatarClickHandler} sx={{
+							minHeight: 0,
+							minWidth: 0,
+							padding: 0
+						}}>
+							<StyledAvatar src='/images/aboutAvatar.png' />
+						</IconButton>
+					) : (
 						<Link href='/login' passHref>
 							<MuiLink color='inherit'>
 								<Button 
@@ -111,14 +122,6 @@ const Header = () => {
 								> Login </Button>
 							</MuiLink>
 						</Link>
-					) : (
-						<IconButton size='small' onClick={avatarClickHandler} sx={{
-							minHeight: 0,
-							minWidth: 0,
-							padding: 0
-						}}>
-							<StyledAvatar src='/images/aboutAvatar.png' />
-						</IconButton>
 					)}
 				</Box>
 			</Typography>
