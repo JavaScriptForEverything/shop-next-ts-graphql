@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import { wrapper } from '../store'
 import { Provider as ReduxProvider } from 'react-redux'
+import { SessionProvider } from 'next-auth/react'
 
 import Layout from 'layout'
 
@@ -17,11 +18,15 @@ function MyApp({ Component, ...rest }: AppProps) {
 
   return (
 		<ReduxProvider store={store}>
+			<SessionProvider>
+
 			<ApolloProvider client={client}>
 				<Layout>
 					<Component {...pageProps} />
 				</Layout>
 			</ApolloProvider>
+
+			</SessionProvider>
 		</ReduxProvider>
 	)
 }

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
@@ -9,10 +10,12 @@ import { MUTATION_LOGIN } from '@/graphql/query/user'
 import { UserDocument } from '@/shared/types/user'
 import { loginFormInputItems } from '@/data/client'
 import withCenterContainer from '@/shared/hoc/withCenterContainer'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
+import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
+import MuiLink from '@mui/material/Link'
 import CircularProgress from '@mui/material/CircularProgress'
 
 
@@ -59,6 +62,7 @@ const Login = () => {
 
 	const [ loginUser, { loading, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
 
+	const session = useSession()
 
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setFields({ ...fields, [field]: evt.target.value })
@@ -71,33 +75,40 @@ const Login = () => {
 		evt.preventDefault()
 		if(!isFormValid(fields, setFieldsError)) return
 
-		// return console.log(fields)
+		const user = await signIn('credentials', {
+			email: 'abc@gmail.com',
+			password: 'asdfasdf',
+			redirect: false 							// prevent from redirect to signIn page
+		})
+		return console.log(user)
 
-
-
-		try {
-			dispatch(userReducer.request())
+		// try {
+		// 	dispatch(userReducer.request())
 			
-			// addUser({ variables: {input: { email: 'abc', password: 'asdf' } } })
-			const user = await loginUser({ variables: { input: fields } })
-			if(!user.data) return console.log(user)
-			// console.log(user.data?.login)
+		// 	// addUser({ variables: {input: { email: 'abc', password: 'asdf' } } })
+		// 	const user = await loginUser({ variables: { input: fields } })
+		// 	if(!user.data) return console.log(user)
+		// 	// console.log(user.data?.login)
 
-			dispatch( userReducer.logedIn(user.data.login))
-			setFields(initialState)
-			router.push('/user/profile')
+		// 	dispatch( userReducer.logedIn(user.data.login))
+		// 	setFields(initialState)
+		// 	router.push('/user/profile')
 
-		} catch (err: any) {
-			console.log(err.message)
-			userReducer.failed(err.message)
-		}
-
-
+		// } catch (err: any) {
+		// 	console.log(err.message)
+		// 	userReducer.failed(err.message)
+		// }
 	}
 
+	// const githubLoginHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+	// 	evt.preventDefault()
+	// 	signIn()
+	// }
 
 	return (
 		<>
+			{error && <p>{error.message}</p>}
+
 			<form noValidate onSubmit={handleSubmit} >
 				{loginFormInputItems.map(({ name, label, placeholder, type }, index) => (
 					<TextField key={name}
@@ -132,10 +143,24 @@ const Login = () => {
 				</Box>
 			</form>
 
-			{error && <p>{error.message}</p>}
-			{/* <pre>
-				{data && JSON.stringify(data?.login, null, 2)}
-			</pre> */}
+			<Box>
+				<Link href='api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin'>
+				<Button variant='outlined' onClick={(e) => {
+					e.preventDefault()
+					signIn()
+				}}>Signin</Button>
+				</Link>
+
+
+				<Button variant='outlined' onClick={(evt) => {
+					evt.preventDefault()
+					signOut()
+				}}>Sign Out</Button>
+			</Box>
+
+			<pre>
+				{JSON.stringify(session, null, 2)}
+			</pre>
 		</>
 	)
 }

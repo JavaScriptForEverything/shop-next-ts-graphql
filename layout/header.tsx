@@ -96,7 +96,7 @@ const Header = () => {
 						<ShoppingCartIcon color='primary' />
 					</IconButton>
 
-					{ !true ? (
+					{ true ? (
 						<Link href='/login' passHref>
 							<MuiLink color='inherit'>
 								<Button 
