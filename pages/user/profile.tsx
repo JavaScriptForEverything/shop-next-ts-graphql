@@ -47,7 +47,6 @@ const Profile = () => {
 	const [ isAdded, setIsAdded ] = useState(false)
 
 	const { user } = useAppSelector(state => state.user)
-	console.log(user)
 
 	if(!user) return <>No User, loading ...</>
 

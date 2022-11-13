@@ -50,8 +50,8 @@ export const UserExperience = ({ experiences, isAdded }: Props) => {
 		<>
 		{ isAdded && <AddExperience /> }
 
-		{experiences.map( (job, index) => (
-			<Box key={index} sx={{
+		{experiences.map( (job) => (
+			<Box key={job._id.toString()} sx={{
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignItems: 'flex-start',
@@ -83,7 +83,7 @@ export const UserExperience = ({ experiences, isAdded }: Props) => {
 				</Box>
 			</Box>
 
-				<IconButton onClick={clickHandler(job.title)}> 			
+				<IconButton onClick={clickHandler(job._id.toString())}> 			
 					<MoreVertIcon />
 				</IconButton>
 			</Box>
