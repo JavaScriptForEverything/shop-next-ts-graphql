@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import isEmail from 'validator/lib/isEmail'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import * as userReducer from '@/store/userReducer'
 import { useAppDispatch } from '@/store/hooks'
 
@@ -58,6 +58,7 @@ const isFormValid = (fields: FieldsState, setFieldsError: React.Dispatch<React.S
 
 
 const Login = () => {
+	const { status } = useSession()
 	const router = useRouter()
 	const dispatch = useAppDispatch()
 	const [ fields, setFields ] = useState<FieldsState>(initialState)
@@ -144,26 +145,30 @@ const Login = () => {
 				</Box>
 			</form>
 
-			<Box sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				mt: 8,
-			}}>
-				<ButtonGroup 
-					variant='contained'
-					fullWidth
-					onClick={(e) =>  signIn('github') }
-				>
-					<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
-					<Button  sx={{ flex: 8 }}fullWidth>Signin By Github</Button>
-				</ButtonGroup>
+			{ status === 'unauthenticated' && (
+				<Box sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					mt: 8,
+				}}>
+					<ButtonGroup 
+						variant='contained'
+						fullWidth
+						onClick={(e) =>  signIn('github') }
+					>
+						<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
+						<Button  sx={{ flex: 8 }}fullWidth>Signin By Github</Button>
+					</ButtonGroup>
 
-			</Box>
+				</Box>
+			)}
 
 		</>
 	)
 }
 // export default Login
-
 export default withCenterContainer(Login)
 // export default withCenterContainer<LoginProps>(Login)
+
+
+

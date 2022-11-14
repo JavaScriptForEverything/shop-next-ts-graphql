@@ -1,3 +1,4 @@
+import type { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'
 import { useAppSelector } from '@/store/hooks'
 
@@ -11,6 +12,7 @@ import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 
 import AddIcon from '@mui/icons-material/Add'
+import { getSession } from 'next-auth/react'
 
 
 const skills = [ 'Next.js', 'TypeScript', 'GraphQL', 'React', 'redux', 'Mongoose', 'Express.js' ]
@@ -122,3 +124,20 @@ const Profile = () => {
 }
 export default Profile
 
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+
+	const session = await getSession(ctx)
+	console.log(session)
+
+	if(!session) return {
+		redirect: {
+			destination: '/login',
+			parmanent: false
+		}
+	}
+
+	return {
+		props: {}
+	}
+}
