@@ -3,14 +3,33 @@ import type { NextAuthOptions } from 'next-auth'
 import GitHubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
 	providers: [
 		GitHubProvider({
 			clientId: process.env.NEXT_AUTH_CLIENT_ID as string,
 			clientSecret: process.env.NEXT_AUTH_CLIENT_SECRET as string
-		})
-	]
-})
+		}),
+	],
+	pages: {
+		signIn: '/login', 				// override default endpoints
+		signOut: '/user/profile'
+	},
+
+	session: {
+		strategy: 'jwt' 				// default
+	},
+	callbacks: { 							// jwt method: called whenever a JSON Web Token is created or updated
+		jwt: ({ token, user }) => {
+
+			token.role = 'admin'
+			// token.role = user.role 			// add extra property into token
+			return token 										// this token will be available in the middleware with withAuth HOC
+
+		}
+	}
+}
+
+export default NextAuth(authOptions)
 
 
 

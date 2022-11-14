@@ -1,4 +1,6 @@
-import type { GetServerSidePropsContext } from 'next'
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { unstable_getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]'
 import { useState } from 'react'
 import { useAppSelector } from '@/store/hooks'
 
@@ -12,7 +14,6 @@ import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 
 import AddIcon from '@mui/icons-material/Add'
-import { getSession } from 'next-auth/react'
 
 
 const skills = [ 'Next.js', 'TypeScript', 'GraphQL', 'React', 'redux', 'Mongoose', 'Express.js' ]
@@ -45,7 +46,10 @@ const infoItems = [
 // 	}
 // ]
 
-const Profile = () => {
+type ProfileProps = {
+	data: InferGetServerSidePropsType<typeof getServerSideProps>
+}
+const Profile = (props: ProfileProps) => {
 	const [ isAdded, setIsAdded ] = useState(false)
 
 	const { user } = useAppSelector(state => state.user)
@@ -125,12 +129,12 @@ const Profile = () => {
 export default Profile
 
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
 
-	const session = await getSession(ctx)
-	console.log(session)
+	const data = await unstable_getServerSession(req, res, authOptions)
+	console.log('from /user/profile: ', data)
 
-	if(!session) return {
+	if(!data) return {
 		redirect: {
 			destination: '/login',
 			parmanent: false
@@ -138,6 +142,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 	}
 
 	return {
-		props: {}
+		props: { data }
 	}
 }

@@ -1,31 +1,26 @@
-import type { NextRequest } from 'next/server'
+// export { default } from 'next-auth/middleware'
+
+import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
-// import { withAuth } from 'next-auth/middleware'
 
 export const config = {
-	matcher: '/user/(.*)', 					
-}
-
-export const middleware = (req: NextRequest) => {
-	console.log('middleware')
-
-	// if(req.nextUrl.pathname.startsWith('/user')) {
-	// 	const authenticated = false
-	// 	if(!authenticated) return NextResponse.redirect(new URL('/login', req.url))
-	// }
-
-	return NextResponse.next()
+	matcher: '/user/:path*'
 }
 
 
+export default withAuth(
+	// 1. regular middleware function
+	function middleware(req) {
 
-// export default withAuth((req) => {
-// 	console.log({ token: req.nextauth.token })
+		return NextResponse.next()
+	}, {
+	// 2. options which can be set in the NextAuth({...})
+		callbacks: {
+			authorized: ({ req, token }) => { 		// if true then run middleware (1)
+				// return true
 
-// 	if(req.nextUrl.pathname.startsWith('/user')) {
-// 		const logedIn = false
-// 		if(!logedIn) return NextResponse.redirect(new URL('/login', req.url))
-// 	}
-
-// 	return NextResponse.next()
-// })
+				return token?.role === 'admin'
+			}
+		}
+	}
+)

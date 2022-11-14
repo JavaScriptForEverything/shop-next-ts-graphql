@@ -1,6 +1,8 @@
-import Link from 'next/link'
+import { GetServerSidePropsContext } from 'next'
+import { unstable_getServerSession } from 'next-auth'
+import { authOptions } from './api/auth/[...nextauth]'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import isEmail from 'validator/lib/isEmail'
 import { signIn, useSession } from 'next-auth/react'
@@ -65,6 +67,13 @@ const Login = () => {
 	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialState)
 
 	const [ loginUser, { loading, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
+
+
+	useEffect(() => {
+		if(status === 'authenticated') router.push('/user/profile')
+	}, [status, router])
+
+
 
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setFields({ ...fields, [field]: evt.target.value })
@@ -145,23 +154,12 @@ const Login = () => {
 				</Box>
 			</form>
 
-			{ status === 'unauthenticated' && (
-				<Box sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					mt: 8,
-				}}>
-					<ButtonGroup 
-						variant='contained'
-						fullWidth
-						onClick={(e) =>  signIn('github') }
-					>
-						<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
-						<Button  sx={{ flex: 8 }}fullWidth>Signin By Github</Button>
-					</ButtonGroup>
-
-				</Box>
-			)}
+			<Box sx={{ display: 'flex', flexDirection: 'column', mt: 8, gap: .5 }}>
+				<ButtonGroup variant='contained' fullWidth onClick={(e) =>  signIn('github') } >
+					<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
+					<Button  sx={{ flex: 8 }}fullWidth>Signin By Github</Button>
+				</ButtonGroup>
+			</Box>
 
 		</>
 	)
@@ -170,5 +168,18 @@ const Login = () => {
 export default withCenterContainer(Login)
 // export default withCenterContainer<LoginProps>(Login)
 
+export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
+	const data = await unstable_getServerSession(req, res, authOptions)
 
+	if(data) return {
+		redirect: {
+			destination: '/user/profile',
+			permanent: false
+		}
+	}
+
+	return { 
+		props: {}
+	}
+}
 
