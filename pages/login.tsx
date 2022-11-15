@@ -116,6 +116,7 @@ const Login = () => {
 	// 	signIn()
 	// }
 
+		const email = 'javascriptforeverything@gmail.com'
 	return (
 		<>
 			{error && <p>{error.message}</p>}
@@ -158,6 +159,11 @@ const Login = () => {
 				<ButtonGroup variant='contained' fullWidth onClick={(e) =>  signIn('github') } >
 					<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
 					<Button  sx={{ flex: 8 }}fullWidth>Signin By Github</Button>
+				</ButtonGroup>
+
+				<ButtonGroup variant='contained' fullWidth onClick={(e) =>  signIn('email', { email }) } >
+					<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
+					<Button  sx={{ flex: 8 }}fullWidth>Signin By Github Email</Button>
 				</ButtonGroup>
 			</Box>
 

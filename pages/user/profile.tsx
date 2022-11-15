@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 
 import AddIcon from '@mui/icons-material/Add'
+import { getSession } from 'next-auth/react'
+import { Types } from 'mongoose'
 
 
 const skills = [ 'Next.js', 'TypeScript', 'GraphQL', 'React', 'redux', 'Mongoose', 'Express.js' ]
@@ -25,26 +27,26 @@ const infoItems = [
 	{ name: 'Address', value: 'Dhaka, Bangladesh' },
 	{ name: 'Email', value: 'JavaScriptForEverything@gmail.com' },
 ]
-// const experiences: Experience[] = [
-// 	{
-// 		_id: '1',
-// 		title: 'fullstack web developer',
-// 		companyName: 'pixel studio',
-// 		joiningDate: new Date(),
-// 		currentStatus: 'active',
-// 		jobLocation: 'dhaka, bangladesh',
-// 		logoBackgroundColor: 'red'
-// 	},
-// 	{
-// 		_id: '2',
-// 		title: 'MERN web developer',
-// 		companyName: 'Ayman Group',
-// 		joiningDate: new Date(),
-// 		currentStatus: 'inactive',
-// 		jobLocation: 'dhaka, bangladesh',
-// 		logoBackgroundColor: 'dodgerblue'
-// 	}
-// ]
+const experiences: Experience[] = [
+	{
+		_id: new Types.ObjectId(),
+		title: 'fullstack web developer',
+		companyName: 'pixel studio',
+		joiningDate: new Date(),
+		currentStatus: 'active',
+		jobLocation: 'dhaka, bangladesh',
+		logoBackgroundColor: 'red'
+	},
+	{
+		_id: new Types.ObjectId(),
+		title: 'MERN web developer',
+		companyName: 'Ayman Group',
+		joiningDate: new Date(),
+		currentStatus: 'inactive',
+		jobLocation: 'dhaka, bangladesh',
+		logoBackgroundColor: 'dodgerblue'
+	}
+]
 
 type ProfileProps = {
 	data: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -54,7 +56,7 @@ const Profile = (props: ProfileProps) => {
 
 	const { user } = useAppSelector(state => state.user)
 
-	if(!user) return <>No User, loading ...</>
+	console.log(user)
 
 
 	return (
@@ -115,7 +117,7 @@ const Profile = (props: ProfileProps) => {
 							isRotate={isAdded}
 						>
 							<UserExperience 
-								experiences={user.experiences} 
+								experiences={experiences} 
 								isAdded={isAdded}
 							/>
 						</Section>
@@ -132,6 +134,7 @@ export default Profile
 export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
 
 	const data = await unstable_getServerSession(req, res, authOptions)
+	// const data = await getSession({ req })
 	console.log('from /user/profile: ', data)
 
 	if(!data) return {
@@ -142,6 +145,6 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
 	}
 
 	return {
-		props: { data }
+		props: { }
 	}
 }

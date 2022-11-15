@@ -14,10 +14,8 @@ export default withAuth(
 
 		return NextResponse.next()
 	}, {
-	// 2. options which can be set in the NextAuth({...})
-		callbacks: {
-			authorized: ({ req, token }) => { 		// if true then run middleware (1)
-				// return true
+		callbacks: { 		// to control what happens when an action is performed
+			authorized: ({ req, token }) => { 	// The middleware only be invoked if callback returns true
 
 				return token?.role === 'admin'
 			}
