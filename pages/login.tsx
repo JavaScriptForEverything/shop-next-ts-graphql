@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { GetServerSidePropsContext } from 'next'
 import { unstable_getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]'
@@ -16,12 +17,14 @@ import { loginFormInputItems } from '@/data/client'
 import withCenterContainer from '@/shared/hoc/withCenterContainer'
 
 import SocialMediaLoginButton from '@/components/lsocialMediaLoginButton'
+import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import MuiLink from '@mui/material/Link'
+import Divider from '@mui/material/Divider'
 
 import GitHubIcon from '@mui/icons-material/GitHub'
 import GoogleIcon from '@mui/icons-material/Google'
@@ -149,64 +152,74 @@ const Login = () => {
 
 	return (
 		<>
-			{error && <p>{error.message}</p>}
+		{error && <p> alert: {error.message}</p>}
 
-			<form noValidate onSubmit={handleSubmit} >
-				{loginFormInputItems.map(({ name, label, placeholder, type }, index) => (
-					<TextField key={name}
-						label={label}
-						InputLabelProps={{ shrink: true }}
-						placeholder={placeholder}
-						required
-						fullWidth
-						autoFocus={index === 0}
-						margin='dense'
-
-						type={type}
-						value={fields[name as keyof FieldsState]} 					// method-1: geting type with type
-						onChange={handleChange(name)}
-
-						error={!!fieldsError[name as keyof typeof fieldsError]}
-						helperText={fieldsError[name as keyof typeof fieldsError]}
-					/>
-				))}
-
-
-				<Box sx={{
-					display: 'flex',
-					gap: 1,
-					justifyContent: 'flex-end',
-					my: 2
-				}}>
-					<Button variant='outlined' onClick={handleFormReset} >Clear</Button>
-					<Button variant='contained' type='submit'>
-						{loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Login' }
-					</Button>
-				</Box>
-			</form>
-
-			<Typography variant='subtitle2'>Have an account? 
-				<Link href='/signup' passHref>
-					<MuiLink> Sign In </MuiLink>
-				</Link>
-				</Typography>
-
-			<Box sx={{ display: 'flex', flexDirection: 'column', mt: 8, gap: .5 }}>
-
-				{socialMediaLogins.map( item => (
-					<SocialMediaLoginButton key={item.name}
-						item={item}
-						handler={(name) => console.log(name)}
-					/>
-				))}
+		<Box sx={{ display: 'flex' }}>
+			<Box sx={{ flex: 1, position: 'relative', display: { xs: 'none', md: 'block' } }}>
+				<Image 
+					src='/images/carousel/screenshot.jpg'
+					alt='signin logo'
+					width={250}
+					height={150}
+					layout='fill'
+				/>
 			</Box>
+			<Divider flexItem orientation='vertical' sx={{ mr: 4, display: { xs: 'none', md: 'block'} }} />
+			<Box sx={{ flex: 1, py: 8 }}>
+				<Box sx={{ px: { md: 8 } }}>
 
+					<form noValidate onSubmit={handleSubmit} >
+						{loginFormInputItems.map(({ name, label, placeholder, type }, index) => (
+							<TextField key={name}
+								label={label}
+								InputLabelProps={{ shrink: true }}
+								placeholder={placeholder}
+								required
+								fullWidth
+								autoFocus={index === 0}
+								margin='dense'
+
+								type={type}
+								value={fields[name as keyof FieldsState]} 					// method-1: geting type with type
+								onChange={handleChange(name)}
+
+								error={!!fieldsError[name as keyof typeof fieldsError]}
+								helperText={fieldsError[name as keyof typeof fieldsError]}
+							/>
+						))}
+
+						<Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', my: 2 }}>
+							<Button variant='outlined' onClick={handleFormReset} >Clear</Button>
+							<Button variant='contained' type='submit'>
+								{loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Login' }
+							</Button>
+						</Box>
+					</form>
+
+					<Typography variant='subtitle2'>Have an account? 
+						<Link href='/signup' passHref>
+							<MuiLink> Sign In </MuiLink>
+						</Link>
+					</Typography>
+
+					<Box sx={{ display: 'flex', flexDirection: 'column', mt: 8, gap: .5 }}>
+
+						{socialMediaLogins.map( item => (
+							<SocialMediaLoginButton key={item.name}
+								item={item}
+								handler={(name) => console.log(name)}
+							/>
+						))}
+					</Box>
+
+				</Box>
+			</Box>
+		</Box>
 		</>
 	)
 }
-// export default Login
-export default withCenterContainer(Login)
-// export default withCenterContainer<LoginProps>(Login)
+export default Login
+// export default withCenterContainer(Login)
 
 
 
