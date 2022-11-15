@@ -1,9 +1,12 @@
 import { connect, connection } from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI as string
+if(!process.env.MONGODB_URI) {
+	throw new Error('Please add your MONGODB_URI to .env.local')
+}
+const MONGODB_URI: string = process.env.MONGODB_URI 
 
 
-
+// Note: Always connect in API page, not Normal Page, else it throw Error of missing `MONGODB_URI`
 export const dbConnect = () => {
 	if(connection.readyState >= 1) return
 

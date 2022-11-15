@@ -3,7 +3,9 @@ import Cors from 'micro-cors'
 
 import { typeDefs } from '@/graphql/typeDefs'
 import { resolvers } from '@/graphql/resolvers'
+
 import { dbConnect } from '@/server/models/database'
+// import { dbConnect } from '@/server/models/dbConnect'
 
 dbConnect()
 
