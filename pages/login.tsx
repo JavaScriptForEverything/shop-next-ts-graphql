@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { GetServerSidePropsContext } from 'next'
 import { unstable_getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]'
@@ -14,15 +15,45 @@ import { UserDocument } from '@/shared/types/user'
 import { loginFormInputItems } from '@/data/client'
 import withCenterContainer from '@/shared/hoc/withCenterContainer'
 
+import SocialMediaLoginButton from '@/components/lsocialMediaLoginButton'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import ButtonGroup from '@mui/material/ButtonGroup'
+import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
-import Divider from '@mui/material/Divider'
+import MuiLink from '@mui/material/Link'
 
 import GitHubIcon from '@mui/icons-material/GitHub'
+import GoogleIcon from '@mui/icons-material/Google'
+import FacebookIcon from '@mui/icons-material/FacebookRounded'
 
+
+const socialMediaLogins = [
+	{
+		name: 'google',
+		label: 'Google',
+		color: 'white',
+		backgroundColor: '#d8472f',
+		icon: <GoogleIcon />,
+		// handler: () => {console.log('google handler')}
+	},
+	{
+		name: 'github',
+		label: 'Github',
+		color: 'white',
+		backgroundColor: '#313131',
+		icon: <GitHubIcon />,
+		// handler: () => {console.log('github handler')}
+	},
+	{
+		name: 'facebook',
+		label: 'Facebook',
+		color: 'white',
+		backgroundColor: '#1976d2',
+		icon: <FacebookIcon />,
+		// handler: () => {console.log('facebook handler')}
+	},
+]
 
 
 type FieldsState = {
@@ -116,7 +147,6 @@ const Login = () => {
 	// 	signIn()
 	// }
 
-		const email = 'javascriptforeverything@gmail.com'
 	return (
 		<>
 			{error && <p>{error.message}</p>}
@@ -125,8 +155,8 @@ const Login = () => {
 				{loginFormInputItems.map(({ name, label, placeholder, type }, index) => (
 					<TextField key={name}
 						label={label}
-						placeholder={placeholder}
 						InputLabelProps={{ shrink: true }}
+						placeholder={placeholder}
 						required
 						fullWidth
 						autoFocus={index === 0}
@@ -155,16 +185,20 @@ const Login = () => {
 				</Box>
 			</form>
 
-			<Box sx={{ display: 'flex', flexDirection: 'column', mt: 8, gap: .5 }}>
-				<ButtonGroup variant='contained' fullWidth onClick={(e) =>  signIn('github') } >
-					<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
-					<Button  sx={{ flex: 8 }}fullWidth>Signin By Github</Button>
-				</ButtonGroup>
+			<Typography variant='subtitle2'>Have an account? 
+				<Link href='/signup' passHref>
+					<MuiLink> Sign In </MuiLink>
+				</Link>
+				</Typography>
 
-				<ButtonGroup variant='contained' fullWidth onClick={(e) =>  signIn('email', { email }) } >
-					<Button sx={{ flex: 1 }} > <GitHubIcon /> </Button>
-					<Button  sx={{ flex: 8 }}fullWidth>Signin By Github Email</Button>
-				</ButtonGroup>
+			<Box sx={{ display: 'flex', flexDirection: 'column', mt: 8, gap: .5 }}>
+
+				{socialMediaLogins.map( item => (
+					<SocialMediaLoginButton key={item.name}
+						item={item}
+						handler={(name) => console.log(name)}
+					/>
+				))}
 			</Box>
 
 		</>
@@ -173,6 +207,8 @@ const Login = () => {
 // export default Login
 export default withCenterContainer(Login)
 // export default withCenterContainer<LoginProps>(Login)
+
+
 
 export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
 	const data = await unstable_getServerSession(req, res, authOptions)
