@@ -14,13 +14,13 @@ import { useAppDispatch } from '@/store/hooks'
 import { MUTATION_LOGIN } from '@/graphql/query/user'
 import { UserDocument } from '@/shared/types/user'
 import { loginFormInputItems } from '@/data/client'
-import withCenterContainer from '@/shared/hoc/withCenterContainer'
 
 import SocialMediaLoginButton from '@/components/lsocialMediaLoginButton'
-import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import MuiLink from '@mui/material/Link'
@@ -60,7 +60,7 @@ const socialMediaLogins = [
 
 
 type FieldsState = {
-	email: string
+	email: string,
 	password: string
 }
 const initialState: FieldsState = {
@@ -78,11 +78,15 @@ type LoginVariables = {
 type TempObj = {
 	[key: string]: string
 }
+type VisibleType = {
+	[key: string]: boolean
+}
 const isFormValid = (fields: FieldsState, setFieldsError: React.Dispatch<React.SetStateAction<TempObj>>) => {
 	const tempObj: TempObj = {}
+	const { email, password } = fields
 
-	if( fields.email && !isEmail(fields.email) ) tempObj.email = 'Invalid Email Address'
-	if( fields.password && fields.password.length < 8 ) tempObj.password = 'password must by atleast 8 character long'
+	if( !isEmail(email) ) tempObj.email = 'Invalid Email Address'
+	if( password.length < 8 ) tempObj.password = 'password must by atleast 8 character long'
 
 	Object.keys(fields).forEach(field => {
 		if(!fields[field as keyof FieldsState]) tempObj[field] = `'${field}' is emapty`
@@ -100,6 +104,10 @@ const Login = () => {
 	const [ fields, setFields ] = useState<FieldsState>(initialState)
 	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialState)
 
+	const [ visibles, setVisibles ] = useState<VisibleType>({
+		password: false
+	})
+
 	const [ loginUser, { loading, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
 
 
@@ -109,7 +117,12 @@ const Login = () => {
 
 
 
+	const handleToggleIcon = (name: string) => () => {
+		setVisibles({ ...visibles, [name]: !visibles[name] })
+	}
+
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
+		isFormValid(fields, setFieldsError)
 		setFields({ ...fields, [field]: evt.target.value })
 	}
 	const handleFormReset = () => {
@@ -169,7 +182,7 @@ const Login = () => {
 				<Box sx={{ px: { md: 8 } }}>
 
 					<form noValidate onSubmit={handleSubmit} >
-						{loginFormInputItems.map(({ name, label, placeholder, type }, index) => (
+						{loginFormInputItems.map(({ name, label, placeholder, type, adornment }, index) => (
 							<TextField key={name}
 								label={label}
 								InputLabelProps={{ shrink: true }}
@@ -178,8 +191,21 @@ const Login = () => {
 								fullWidth
 								autoFocus={index === 0}
 								margin='dense'
+								InputProps={{
+									startAdornment: (
+										<InputAdornment position='start'>{adornment.startIcon}</InputAdornment>
+									),
+									endAdornment: type === 'password' ? (
+										<InputAdornment position='end'>
+											<IconButton 
+												onClick={handleToggleIcon(name)} 
+												color={visibles['password'] ? 'primary' : 'default'}
+											> {adornment.endIcons[0]} </IconButton>
+										</InputAdornment>
+									) : ''
+								}}
 
-								type={type}
+								type={visibles[name] ? 'text' : type}
 								value={fields[name as keyof FieldsState]} 					// method-1: geting type with type
 								onChange={handleChange(name)}
 
@@ -196,9 +222,9 @@ const Login = () => {
 						</Box>
 					</form>
 
-					<Typography variant='subtitle2'>Have an account? 
+					<Typography variant='subtitle2'>Haven&apos;t an account? 
 						<Link href='/signup' passHref>
-							<MuiLink> Sign In </MuiLink>
+							<MuiLink> Sign Up </MuiLink>
 						</Link>
 					</Typography>
 
