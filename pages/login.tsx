@@ -183,7 +183,7 @@ const Login = () => {
 			<Box sx={{ flex: 1, py: 8 }}>
 				<Box sx={{ px: { md: 8 } }}>
 
-					<form noValidate autoComplete='off' onSubmit={handleSubmit} >
+					<form noValidate onSubmit={handleSubmit} >
 						{loginFormInputItems.map(({ name, label, placeholder, type, adornment }, index) => (
 							<TextField key={name}
 								label={label}
