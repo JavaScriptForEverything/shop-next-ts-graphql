@@ -15,7 +15,6 @@ import { MUTATION_LOGIN } from '@/graphql/query/user'
 import { UserDocument } from '@/shared/types/user'
 import { signupFormInputItems } from '@/data/client'
 
-import SocialMediaLoginButton from '@/components/lsocialMediaLoginButton'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -25,11 +24,7 @@ import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import MuiLink from '@mui/material/Link'
 import Divider from '@mui/material/Divider'
-
-import GitHubIcon from '@mui/icons-material/GitHub'
-import GoogleIcon from '@mui/icons-material/Google'
-import FacebookIcon from '@mui/icons-material/FacebookRounded'
-
+import Avatar from '@mui/material/Avatar'
 
 
 
@@ -37,13 +32,24 @@ type FieldsState = {
 	name: string,
 	email: string,
 	password: string,
-	confirmPassword: string
+	confirmPassword: string,
+	avatar: string
 }
 const initialState: FieldsState = {
 	name: '',
 	email: '',
 	password: '',
-	confirmPassword: ''
+	confirmPassword: '',
+	avatar: '',
+}
+
+type VisibleType = {
+	[key: string]: boolean
+}
+const initialVisibles: VisibleType = {
+	password: false,
+	confirmPassword: false,
+	avatar: false
 }
 
 type LoginMutationState = {
@@ -55,9 +61,6 @@ type LoginVariables = {
 
 type TempObj = {
 	[key: string]: string
-}
-type VisibleType = {
-	[key: string]: boolean
 }
 
 const isFormValid = (fields: FieldsState, setFieldsError: React.Dispatch<React.SetStateAction<TempObj>>) => {
@@ -83,12 +86,7 @@ const Login = () => {
 	const dispatch = useAppDispatch()
 	const [ fields, setFields ] = useState<FieldsState>(initialState)
 	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialState)
-
-	const [ visibles, setVisibles ] = useState<VisibleType>({
-		password: false,
-		confirmPassword: false,
-	})
-	console.log(fields)
+	const [ visibles, setVisibles ] = useState<VisibleType>(initialVisibles)
 
 	const [ loginUser, { loading, error } ] = useMutation<LoginMutationState, LoginVariables>(MUTATION_LOGIN)
 
@@ -109,22 +107,55 @@ const Login = () => {
 	// solve the problem: setstate always one step behind
 	useEffect(() => { isFormValid(fields, setFieldsError) }, [fields])
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
-		setFields({ ...fields, [field]: evt.target.value })
+		if(field !== 'avatar') {
+			setFields({ ...fields, [field]: evt.target.value })
+
+		} else {
+			const files = evt.target.files
+			if(!files) return
+
+			const isImage =  files[0].type.match('image/*') 
+			if(!isImage) return
+
+			const reader = new FileReader()
+			reader.readAsDataURL(files[0])
+			reader.onload = () => {
+				if(!reader.result) return
+
+				const result = reader.result as string
+				setFields({...fields, [field]: result })
+				setVisibles({ ...visibles, [field]: !visibles[field] })
+			}
+		}
 	}
-	const handleFormReset = () => {
+	const resetAvatar = () => {
+		const avatarElement = document.getElementById('avatar')! as HTMLInputElement
+		avatarElement.value = ''
+		setVisibles({ ...visibles, avatar: false })
+	}
+	const handleAvatarClear = (name: string) => () => {
+		setFields({ ...fields, [name]: '' })
+		resetAvatar()
+	}
+
+	const handleFormReset = (evt: React.MouseEvent<HTMLButtonElement>) => {
 		setFields(initialState)
 		setFieldsError(initialState)
+		setVisibles(initialVisibles)
+		resetAvatar()
 	}
 	const handleSubmit = async(evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
 		if(!isFormValid(fields, setFieldsError)) return
 
-		const user = await signIn('credentials', {
-			email: 'abc@gmail.com',
-			password: 'asdfasdf',
-			redirect: false 							// prevent from redirect to signIn page
-		})
-		return console.log(user)
+		console.log(fields)
+
+		// const user = await signIn('credentials', {
+		// 	email: 'abc@gmail.com',
+		// 	password: 'asdfasdf',
+		// 	redirect: false 							// prevent from redirect to signIn page
+		// })
+		// return console.log(user)
 
 		// try {
 		// 	dispatch(userReducer.request())
@@ -169,7 +200,7 @@ const Login = () => {
 				<Box sx={{ px: { md: 8 } }}>
 
 					<form noValidate onSubmit={handleSubmit} >
-						{signupFormInputItems.map(({ name, label, placeholder, type, adornment }, index) => (
+						{signupFormInputItems.map(({ name, label, placeholder, type, adornment }, index) => name !== 'avatar' ? (
 							<TextField key={name}
 								label={label}
 								InputLabelProps={{ shrink: true }}
@@ -193,11 +224,39 @@ const Login = () => {
 								}}
 
 								type={visibles[name] ? 'text' : type}
-								value={fields[name as keyof FieldsState]} 					// method-1: geting type with type
+								value={fields[name as keyof FieldsState]} 				// method-1: geting type with type
 								onChange={handleChange(name)}
 
 								error={!!fieldsError[name as keyof typeof fieldsError]}
 								helperText={fieldsError[name as keyof typeof fieldsError]}
+							/>
+						): (
+							<TextField key={name} 
+								id={name}
+								type={type}
+								fullWidth
+								onChange={handleChange(name)}
+								error={!!fieldsError[name as keyof typeof fieldsError]}
+								helperText={fieldsError[name as keyof typeof fieldsError]}
+								// onReset={(evt) => evt.target.}
+								
+								InputProps={{
+									inputProps: {
+										accept: 'image/*'
+									},
+									startAdornment: (
+										<InputAdornment position='start'>
+											<Avatar src={fields[name]} />
+										</InputAdornment>
+									),
+									endAdornment: visibles[name] ? (
+										<InputAdornment position='end'>
+											<IconButton 
+												onClick={handleAvatarClear(name)} 
+											> {adornment.endIcons[0]} </IconButton>
+										</InputAdornment>
+									) : ''
+								}}
 							/>
 						))}
 
