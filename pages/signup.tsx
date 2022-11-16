@@ -233,6 +233,9 @@ const Login = () => {
 						): (
 							<TextField key={name} 
 								id={name}
+								label={label}
+								InputLabelProps={{ shrink: true }}
+								margin='dense'
 								type={type}
 								fullWidth
 								onChange={handleChange(name)}
