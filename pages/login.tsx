@@ -121,8 +121,10 @@ const Login = () => {
 		setVisibles({ ...visibles, [name]: !visibles[name] })
 	}
 
+
+	// solve the problem: setstate always one step behind
+	useEffect(() => { isFormValid(fields, setFieldsError) }, [fields])
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
-		isFormValid(fields, setFieldsError)
 		setFields({ ...fields, [field]: evt.target.value })
 	}
 	const handleFormReset = () => {
@@ -181,7 +183,7 @@ const Login = () => {
 			<Box sx={{ flex: 1, py: 8 }}>
 				<Box sx={{ px: { md: 8 } }}>
 
-					<form noValidate onSubmit={handleSubmit} >
+					<form noValidate autoComplete='off' onSubmit={handleSubmit} >
 						{loginFormInputItems.map(({ name, label, placeholder, type, adornment }, index) => (
 							<TextField key={name}
 								label={label}

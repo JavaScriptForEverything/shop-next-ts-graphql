@@ -96,7 +96,6 @@ const Login = () => {
 
 
 
-
 	// useEffect(() => {
 	// 	if(status === 'authenticated') router.push('/user/profile')
 	// }, [status, router])
@@ -107,8 +106,9 @@ const Login = () => {
 		setVisibles({ ...visibles, [name]: !visibles[name] })
 	}
 
+	// solve the problem: setstate always one step behind
+	useEffect(() => { isFormValid(fields, setFieldsError) }, [fields])
 	const handleChange = (field: string ) => (evt: React.ChangeEvent<HTMLInputElement>) => {
-		isFormValid(fields, setFieldsError)
 		setFields({ ...fields, [field]: evt.target.value })
 	}
 	const handleFormReset = () => {
