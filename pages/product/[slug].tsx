@@ -73,7 +73,7 @@ const ProductDetails = ({ slug }: Props) => {
 					{/* commends or reviews will comes from ${data.product.reviews} */}
 					{[1,2].map(index => <Comment key={index}
 						review={{
-							id: 'alksdjfalkf',
+							_id: new Types.ObjectId(),
 							user: new Types.ObjectId(),
 							product: new Types.ObjectId(),
 							review: 'quia et suscipit suscipit recusandae consequuntur expedita et cum repre',

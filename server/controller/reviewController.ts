@@ -5,34 +5,41 @@ import type {
 	ReviewDocument, 
 	UpdateReviewArgs 
 } from '@/shared/types/review'
+import { Types } from 'mongoose'
 
 
 export const getReviews = (): ReviewDocument[] => {
 
 	return [
 		{
-			id: '1',
-			user: '1',
-			product: '1',
+			_id: new Types.ObjectId(),
+			user: new Types.ObjectId(),
+			product: new Types.ObjectId(),
 			review: 'review 1',
 			liked: 0,
 			disliked: 0,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		},
 		{
-			id: '2',
-			user: '2',
-			product: '2',
+			_id: new Types.ObjectId(),
+			user: new Types.ObjectId(),
+			product: new Types.ObjectId(),
 			review: 'review 2',
-			liked: 0,
-			disliked: 0,
+			liked: 20,
+			disliked: 2,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		},
 		{
-			id: '3',
-			user: '3',
-			product: '3',
+			_id: new Types.ObjectId(),
+			user: new Types.ObjectId(),
+			product: new Types.ObjectId(),
 			review: 'review 3',
-			liked: 0,
-			disliked: 0,
+			liked: 20,
+			disliked: 2,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		},
 	]
 }
@@ -41,12 +48,14 @@ export const getReview = ({ reviewId }: GetReviewArgs): ReviewDocument => {
 	console.log({ reviewId })
 
 	return {
-		id: '',
-		user: '',
-		product: '',
-		review: '',
-		liked: 0,
-		disliked: 0,
+			_id: new Types.ObjectId(),
+			user: new Types.ObjectId(),
+			product: new Types.ObjectId(),
+			review: 'review 3',
+			liked: 20,
+			disliked: 2,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 	}
 }
 
@@ -54,35 +63,41 @@ export const createReview = ({ input }: CreateReviewArgs): ReviewDocument => {
 	console.log({ input })
 
 	return {
-		id: '',
-		user: '',
-		product: '',
-		review: '',
-		liked: 0,
-		disliked: 0,
+			_id: new Types.ObjectId(),
+			user: new Types.ObjectId(),
+			product: new Types.ObjectId(),
+			review: 'review 3',
+			liked: 20,
+			disliked: 2,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 	}
 }
 export const updateReview = ({ input }: UpdateReviewArgs): ReviewDocument => {
 	console.log({ input })
 
 	return {
-		id: '',
-		user: '',
-		product: '',
-		review: '',
-		liked: 0,
-		disliked: 0,
+			_id: new Types.ObjectId(),
+			user: new Types.ObjectId(),
+			product: new Types.ObjectId(),
+			review: 'review 3',
+			liked: 20,
+			disliked: 2,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 	}
 }
 export const deleteReview = ({ reviewId }: DeleteReviewArgs): ReviewDocument => {
 	console.log({ reviewId })
 
 	return {
-		id: '',
-		user: '',
-		product: '',
-		review: '',
-		liked: 0,
-		disliked: 0,
+			_id: new Types.ObjectId(),
+			user: new Types.ObjectId(),
+			product: new Types.ObjectId(),
+			review: 'review 3',
+			liked: 20,
+			disliked: 2,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 	}
 }

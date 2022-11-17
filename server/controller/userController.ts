@@ -79,25 +79,11 @@ export const login = async({ input }: LoginArgs): Promise<UserDocument> => {
 export const updateMe = ({ input }: UpdateMeArgs ): UserDocument => {
 	console.log({ input })
 
-	return {
-		_id: new Types.ObjectId(),
-		name: 'riajul',
-		email: 'riajul@gmail.com',
-		password: '',
-		createdAt: new Date().toString(),
-		updatedAt: new Date().toString()
-	}
+	throw new GraphQLError('No update fetched')
 }
 
 export const deleteMe = ({ userId }: DeleteMeArgs): UserDocument => {
 	console.log({ userId })
 
-	return {
-		id: 'alskdfaldf',
-		name: 'riajul',
-		email: 'riajul@gmail.com',
-		password: '',
-		createdAt: new Date(),
-		updatedAt: new Date()
-	}
+	throw new GraphQLError('No update fetched')
 }

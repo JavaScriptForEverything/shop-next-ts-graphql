@@ -1,4 +1,4 @@
-import { ReviewDocument } from '@/server/controller/reviewController'
+import { ReviewDocument } from '@/shared/types'
 import { useQuery } from '@apollo/client'
 import { GET_REVIEWS } from '@/graphql/query/review'
 
