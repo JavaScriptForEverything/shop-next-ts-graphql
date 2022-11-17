@@ -14,7 +14,12 @@
     "seeder-import": "nodemon data/server/seeder.ts --import",
     "seeder-import-users": "nodemon data/server/seeder.ts --import users",
     "seeder-import-products": "nodemon data/server/seeder.ts --import products",
-    "seeder-import-reviews": "nodemon data/server/seeder.ts --import reviews"
+    "seeder-import-reviews": "nodemon data/server/seeder.ts --import reviews",
+
+    "seeder-import:prod": "NODE_ENV=production nodemon data/server/seeder.ts --import",
+    "seeder-import-users:prod": "NODE_ENV=production nodemon data/server/seeder.ts --import users",
+    "seeder-import-products:prod": "NODE_ENV=production nodemon data/server/seeder.ts --import products",
+    "seeder-import-reviews:prod": "NODE_ENV=production nodemon data/server/seeder.ts --import reviews"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
