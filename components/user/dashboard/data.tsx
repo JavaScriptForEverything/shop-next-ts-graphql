@@ -1,6 +1,6 @@
 
 import DashboardIcon from '@mui/icons-material/Dashboard'
-import ContentPasteIcon from '@mui/icons-material/ContentPaste'
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard'
 import ListIcon from '@mui/icons-material/FormatListBulleted'
 import PeopleIcon from '@mui/icons-material/People'
 import SettingsIcon from '@mui/icons-material/Settings'
@@ -17,7 +17,7 @@ export const panelItems = [
 		label: 'Products', 
 		name: 'products', 
 		path: '/user/dashboard/products', 
-		icon: <ContentPasteIcon /> 
+		icon: <CardGiftcardIcon /> 
 	},
 	{ 
 		label: 'Orders', 
