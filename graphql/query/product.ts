@@ -13,8 +13,8 @@ export const GET_PRODUCTS = gql`
 	}
 `
 export const GET_PRODUCT_BY_SLUG = gql`
-	query getProductById($productId: ID!) {
-		product(productId: $productId) {
+	query getProductById($slug: String!) {
+		product(slug: $slug) {
 			id
 			name
 			slug

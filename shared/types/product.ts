@@ -27,7 +27,7 @@ type UpdateProductInput = {
 }
 
 export type GetProductArgs = {
-	productId: string
+	slug: string
 }
 export type CreateProductArgs = {
 	input: CreateProductInput

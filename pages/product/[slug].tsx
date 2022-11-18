@@ -20,25 +20,24 @@ import Router from 'next/router'
 
 
 
-type Props = {
-	slug: InferGetServerSidePropsType<Promise<typeof getServerSideProps>>
-}
 type Query = {
 	product: ProductDocument
 }
 type Variables = {
-		productId: string 
+		slug: string 
 }
 
-const ProductDetails = ({ slug }: Props) => {
+const ProductDetails = ({ product }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	// console.log({ slug })
 	
-	const { data } = useQuery<Query, Variables>(GET_PRODUCT_BY_SLUG, { variables: {
-		productId: slug
-	}})
-	console.log({ data })
+	// const { data } = useQuery<Query, Variables>(GET_PRODUCT_BY_SLUG, { variables: {
+	// 	slug
+	// }})
+	// console.log({ data })
 
-	if(!data) return <>No Product Found</>
+	// if(!data) return <>No Product Found</>
+
+	// console.log(product)
 
 
 	return (
@@ -46,20 +45,20 @@ const ProductDetails = ({ slug }: Props) => {
 		<Grid container spacing={2}>
 			<Grid item xs={12} sm={6}>
 				<Paper sx={{ p: .5 }}>
-					<Carousel images={data.product.images} /> 
+					<Carousel images={product.images} /> 
 				</Paper>
 			</Grid>
 
 			<Grid item xs={12} sm={6} sx={{ display: 'flex' }}>
-				<Paper sx={{ p: 2 }}>
-					{data.product && <RightPanel product={data.product} /> }
+				<Paper sx={{ flex: 1, p: 2 }}>
+					<RightPanel product={product} /> 
 				</Paper>
 			</Grid>
 
 			<Grid item xs={12} sm={6} sx={{ display: 'flex' }} >
 				<Paper sx={{ p: 2 }}>
 					<Typography paragraph>Description</Typography>
-					<Typography color='textSecondary'> {data?.product.description} </Typography>
+					<Typography color='textSecondary'> {product.description} </Typography>
 				</Paper>
 			</Grid>
 
@@ -79,7 +78,7 @@ const ProductDetails = ({ slug }: Props) => {
 			}} >
 				<AddComment />
 				<Box>
-					{[1,2].map(index => <Comment key={index}
+					{/* {[1,2].map(index => <Comment key={index}
 						review={{
 							_id: new Types.ObjectId(),
 							user: new Types.ObjectId(),
@@ -90,13 +89,15 @@ const ProductDetails = ({ slug }: Props) => {
 							createdAt: new Date(),
 							updatedAt: new Date()
 						}}/>
-					)}
+					)} */}
 				</Box>
 
 			</Grid>
 
 			<Grid item xs={12} md={4} >
-				<Typography color='textSecondary'> right side will be used as Call of Action </Typography>
+				<Paper sx={{ p: 1 }}>
+					<Typography color='textSecondary'> used as Call of Action </Typography>
+				</Paper>
 			</Grid>
 		</Grid>
 
@@ -106,49 +107,47 @@ const ProductDetails = ({ slug }: Props) => {
 export default ProductDetails
 
 
-export const getServerSideProps = async ({ req, params }: GetServerSidePropsContext) => {
-	if(!params) return { props: { slug: ''}}
+export const getServerSideProps = async ({ params }: GetServerSidePropsContext) => {
+	// if(!params) return { props: { product: {}}}
 
-	// console.log({ origin: process.env.ROOT_URL })
+	const slug = params?.slug as string
 
-	console.log({ params })
-
-	try {
-		const { data } = await client.query({
+	// try {
+		const { data } = await client.query<{ product: ProductDocument }, { slug: string }>({
 			query: gql`
-				# query getProducts {
-				# 	products {
-				# 		id
-				# 		name
-				# 		price
-				# 	}
-				# }
-				query getProductById($productId: ID!) {
-					product(productId: $productId) {
+				query getProductById($slug: String!) {
+					product(slug: $slug) {
 						id
 						name
-						price
 						slug
+						price
+						summary
+						description
+						coverPhoto
+						images
 					}
 				},
 			`,
 			variables: {
-				productId: "63691d3748944b433cc5ece7"
+				slug
 			}
 		})
-			// console.log(data)
 
-	} catch (err) {
-		console.log(err)
-	}
+		const product = data.product
 
-
-
-	return { 
-		props: {
-			slug: params.slug
+		return { 
+			props: {
+				product
+			}
 		}
-	}
+
+	// } catch (err: any) {
+	// 	console.log(err)
+	// 	throw new Error(err.message)
+	// }
+
+	// throw new Error('No product Found')
+
 }
 
 

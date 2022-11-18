@@ -13,7 +13,7 @@ import { gql } from 'apollo-server-micro';
 export const productTypeDefs = gql`
 	extend type Query {
 		products: [Product!]!
-		product(productId: ID!): Product!
+		product(slug: String!): Product!
 	}
 	extend type Mutation {
 		createProduct(input: CreateProductInput): Product!

@@ -18,11 +18,11 @@ export const getProducts = async (): Promise<ProductDocument[]> =>  {
 	return products
 }
 
-export const getProduct = async ({ productId }: GetProductArgs): Promise<ProductDocument> => {
-	const isId = Types.ObjectId.isValid(productId)
-	const filter = isId ? { _id: productId } : { slug: productId }
+export const getProduct = async ({ slug }: GetProductArgs): Promise<ProductDocument> => {
+	// const isId = Types.ObjectId.isValid(productId)
+	// const filter = isId ? { _id: productId } : { slug: productId }
 
-	const product= await Product.findOne(filter)
+	const product= await Product.findOne({ slug })
 	if(!product) throw new GraphQLError('No product found')
 
 	return product
