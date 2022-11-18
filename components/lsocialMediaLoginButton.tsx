@@ -10,13 +10,13 @@ type Props = {
 		backgroundColor: string,
 		icon: JSX.Element,
 	},
-	handler: (name: string) => void
+	onClick: (evt: React.MouseEvent<HTMLDivElement>, name: string) => void
 }
-const SocialMediaLoginButton = ({ item, handler }: Props) => {
+const SocialMediaLoginButton = ({ item, onClick }: Props) => {
 	const { name, label, color, backgroundColor, icon } = item
 
 	return (
-		<Box key={name} onClick={() => handler(name)} sx={{
+		<Box key={name} onClick={(evt) => onClick(evt, name)} sx={{
 			display: 'flex',
 			alignItems: 'center',
 			...removeHover({ color, backgroundColor })

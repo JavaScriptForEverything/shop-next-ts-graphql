@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import Rating from '@mui/material/Rating'
 import LinearProgress from '@mui/material/LinearProgress'
 
-export const RatingAndReviews = () => {
+const RatingAndReviews = () => {
 
 	return (
 		<Box sx={{
@@ -44,3 +44,4 @@ export const RatingAndReviews = () => {
 	</Box>
 	)
 }
+export default RatingAndReviews 

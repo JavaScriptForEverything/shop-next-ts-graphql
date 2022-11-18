@@ -25,10 +25,10 @@ import ArticleIcon from '@mui/icons-material/Article'
 
 
 const navItems = [
-	{ label: 'home', 		path: '/', 				icon: <HomeIcon /> },
-	{ label: 'about', 	path: '/about', 	icon: <PersonIcon /> },
-	{ label: 'contact', path: '/contact', icon: <MailIcon /> },
-	{ label: 'docs', 		path: '/docs', 		icon: <ArticleIcon /> },
+	{ label: 'home', 		path: '/', 				Icon: HomeIcon  },
+	{ label: 'about', 	path: '/about', 	Icon: PersonIcon  },
+	{ label: 'contact', path: '/contact', Icon: MailIcon },
+	{ label: 'docs', 		path: '/docs', 		Icon: ArticleIcon },
 ]
 
 const Header = () => {
@@ -77,7 +77,11 @@ const Header = () => {
 				<Box sx={{ display: { xs: 'none', md: 'block' }}}>
 					{navItems.map(({label, path}, index) => (
 						<Link key={path} href={path} passHref>
-							<MuiLink color='inherit'>
+							<MuiLink color='inherit' underline='none' sx={{
+								':hover' : {
+									// color: (theme) => theme.palette.primary.main
+								}
+							}}  >
 								<Button 
 									color={activeMenu === index ? 'primary' : 'inherit' }
 									onClick={() => setActiveMenu(index)}

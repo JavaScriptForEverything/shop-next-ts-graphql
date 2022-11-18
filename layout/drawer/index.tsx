@@ -3,8 +3,8 @@ import Box from '@mui/material/Box'
 import DrawerList from './list'
 
 export type DrawerListItem = {
-	label: string
-	icon: JSX.Element
+	label: string,
+	Icon: React.ComponentType,
 	path: string
 }
 

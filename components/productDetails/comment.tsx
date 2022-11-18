@@ -17,7 +17,7 @@ type Props = {
 	review: ReviewDocument
 }
 
-export const Comment = ({ review }: Props) => {
+const Comment = ({ review }: Props) => {
 	const [ fields, setFields ] = useState({
 		liked: review.liked,
 		disliked: review.disliked
@@ -30,10 +30,7 @@ export const Comment = ({ review }: Props) => {
 	}
 
 	return (
-		<Box sx={{
-			display: 'flex',
-			gap: 2
-		}}>
+		<Box sx={{ display: 'flex', gap: 2 }}>
 			<Avatar>
 				<Image 
 					src='/images/carousel/screenshot.jpg'
@@ -73,3 +70,4 @@ export const Comment = ({ review }: Props) => {
 		</Box>
 	)
 }
+export default Comment

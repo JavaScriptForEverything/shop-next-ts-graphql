@@ -23,10 +23,10 @@ const DrawerList = ({ listItems, closeHandler }: Props) => {
 
 	return (
 		<List>
-			{listItems.map(({ label, icon, path }) => (
+			{listItems.map(({ label, Icon, path }) => (
 				<ListItem key={label} disablePadding selected={path === router.asPath} onClick={clickHandler(path)}>
 					<ListItemButton>
-						<ListItemIcon>{icon}</ListItemIcon>
+						<ListItemIcon><Icon /></ListItemIcon>
 						<ListItemText primary={label.toUpperCase()} />
 					</ListItemButton>
 				</ListItem>

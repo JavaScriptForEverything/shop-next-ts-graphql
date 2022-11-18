@@ -9,7 +9,7 @@ import Rating from '@mui/material/Rating'
 type Props = {
 	product: ProductDocument
 }
-export const RightPanel = ({ product }: Props) => {
+const RightPanel = ({ product }: Props) => {
 
 	return (
 		<>
@@ -42,3 +42,4 @@ export const RightPanel = ({ product }: Props) => {
 		</>
 	)
 }
+export default RightPanel

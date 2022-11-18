@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton'
 
 import SearchIcon from '@mui/icons-material/Search'
 
-export const SearchBar = () => {
+const SearchBar = () => {
 	const [ search, setSearch ] = useState('')
 
 
@@ -42,3 +42,4 @@ export const SearchBar = () => {
 		</form>
 	)
 }
+export default SearchBar

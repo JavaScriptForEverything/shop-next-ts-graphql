@@ -9,12 +9,12 @@ import { features } from 'process'
 
 
 export const socialMediaItems = [
-	{ label: 'github',   	icon: <GitHubIcon />, 	path: 'https://github.com/JavaScriptForEverything' },
-	{ label: 'linkedin', 	icon: <LinkedInIcon />, path: 'https://www.linkedin.com/in/JavaScriptForEverything/' },
-	{ label: 'twitter',  	icon: <TwitterIcon />, 	path: 'https://twitter.com/JSforEverything' },
-	{ label: 'facebook', 	icon: <FacebookIcon />, path: 'https://www.facebook.com/JavaScriptForEverything' },
-	{ label: 'instagram', icon: <InstagramIcon />, path: 'https://www.instagram.com/JavaScriptForEverything/' },
-	{ label: 'youtube',  	icon: <YoutubeIcon />, 	path: 'https://www.youtube.com/@JavaScriptForEverything/' },
+	{ label: 'github',   	Icon: GitHubIcon, 	path: 'https://github.com/JavaScriptForEverything' },
+	{ label: 'linkedin', 	Icon: LinkedInIcon, path: 'https://www.linkedin.com/in/JavaScriptForEverything/' },
+	{ label: 'twitter',  	Icon: TwitterIcon, 	path: 'https://twitter.com/JSforEverything' },
+	{ label: 'facebook', 	Icon: FacebookIcon, path: 'https://www.facebook.com/JavaScriptForEverything' },
+	{ label: 'instagram', Icon: InstagramIcon, path: 'https://www.instagram.com/JavaScriptForEverything/' },
+	{ label: 'youtube',  	Icon: YoutubeIcon, 	path: 'https://www.youtube.com/@JavaScriptForEverything/' },
 ]
 
 export const webTechnologies = [

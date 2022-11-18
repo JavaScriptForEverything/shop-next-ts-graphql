@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:prod": "NODE_ENV=production next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,7 +16,6 @@
     "seeder-import-users": "nodemon data/server/seeder.ts --import users",
     "seeder-import-products": "nodemon data/server/seeder.ts --import products",
     "seeder-import-reviews": "nodemon data/server/seeder.ts --import reviews",
-
     "seeder-import:prod": "NODE_ENV=production nodemon data/server/seeder.ts --import",
     "seeder-import-users:prod": "NODE_ENV=production nodemon data/server/seeder.ts --import users",
     "seeder-import-products:prod": "NODE_ENV=production nodemon data/server/seeder.ts --import products",

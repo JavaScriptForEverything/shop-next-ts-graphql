@@ -131,6 +131,11 @@ const Login = () => {
 		setFields(initialState)
 		setFieldsError(initialState)
 	}
+
+	const loginButtonHandler = (providerName: string) => {
+		console.log({ providerName }, 'only Github login configured')
+		signIn('github')
+	}
 	const handleSubmit = async(evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
 		if(!isFormValid(fields, setFieldsError)) return
@@ -235,7 +240,7 @@ const Login = () => {
 						{socialMediaLogins.map( item => (
 							<SocialMediaLoginButton key={item.name}
 								item={item}
-								handler={(name) => console.log(name)}
+								onClick={(evt, name) => loginButtonHandler(name)}
 							/>
 						))}
 					</Box>

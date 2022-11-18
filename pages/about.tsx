@@ -60,10 +60,10 @@ const About = () => {
 						<Typography>FullStack Developer: Next.js, TypeScript, GraphQL</Typography>
 
 						<Box>
-						{ myData.socialMediaItems.map(({ label, icon, path }) => (
+						{ myData.socialMediaItems.map(({ label, Icon, path }) => (
 							<IconButton key={label} color='inherit'>
 								<Tooltip title={label}>
-									<MuiLink href={path} target='_blank' color='inherit'> {icon} </MuiLink>
+									<MuiLink href={path} target='_blank' color='inherit'><Icon /></MuiLink>
 								</Tooltip>
 							</IconButton>
 						))}

@@ -11,12 +11,13 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import InstagramIcon from '@mui/icons-material/Instagram'
 
 const socialMedia = [
-	{ icon: <GitHubIcon fontSize='large' />, path: 'https://github.com/JavaScriptForEverything' },
-	{ icon: <YouTubeIcon fontSize='large' />, path: 'https://www.youtube.com/@JavaScriptForEverything' },
-	{ icon: <LinkedInIcon fontSize='large' />, path: 'https://www.linkedin.com/in/javascriptforeverything/' },
-	{ icon: <TwitterIcon fontSize='large' />, path: 'https://twitter.com/JSforEverything' },
-	{ icon: <FacebookIcon fontSize='large' />, path: 'https://www.facebook.com/JavaScriptForEverything' },
-	{ icon: <InstagramIcon fontSize='large' />, path: 'https://www.instagram.com/javascriptforeverything/' },
+	{ Icon: GitHubIcon, path: 'https://github.com/JavaScriptForEverything' },
+	{ Icon: YouTubeIcon, path: 'https://www.youtube.com/@JavaScriptForEverything' },
+	{ Icon: LinkedInIcon, path: 'https://www.linkedin.com/in/javascriptforeverything/' },
+	{ Icon: TwitterIcon, path: 'https://twitter.com/JSforEverything' },
+	{ Icon: FacebookIcon, path: 'https://www.facebook.com/JavaScriptForEverything' },
+	{ Icon: InstagramIcon, path: 'https://www.instagram.com/javascriptforeverything/' },
+	// { icon: <InstagramIcon fontSize='large' />, path: 'https://www.instagram.com/javascriptforeverything/' },
 ]
 
 const SocialMedia = () => {
@@ -24,8 +25,8 @@ const SocialMedia = () => {
 	return (
 		<>
 			<Box sx={{display: 'flex', justifyContent:'center', gap: 2, my: 2 }}>
-				{socialMedia.map(({ icon, path}, key) => <Link key={key} href={path} passHref>
-					<MuiLink target='_blank' color='inherit' >{icon}</MuiLink>
+				{socialMedia.map(({ Icon, path}, key) => <Link key={key} href={path} passHref>
+					<MuiLink target='_blank' color='inherit' ><Icon fontSize='large' /></MuiLink>
 				</Link>
 				)}
 			</Box>

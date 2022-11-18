@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { FilterBrands, FilterPrice, FilterRating, FilterSize } from '@/components/home/leftPanel'
 import { TitleBar, ProductContainer } from '@/components/home/rightSection'
-import { SearchBar } from '@/components/home'
+import SearchBar from '@/components/home/searchBar'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'

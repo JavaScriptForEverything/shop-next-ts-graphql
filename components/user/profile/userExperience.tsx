@@ -48,7 +48,7 @@ export const UserExperience = ({ experiences, isAdded }: Props) => {
 
 	return (
 		<>
-		{ isAdded && <AddExperience /> }
+		{/* { isAdded && <AddExperience /> } */}
 
 		{experiences.map( (job) => (
 			<Box key={job._id.toString()} sx={{

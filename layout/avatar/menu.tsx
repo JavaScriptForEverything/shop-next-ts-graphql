@@ -15,10 +15,10 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import LogoutIcon from '@mui/icons-material/Logout'
 
 const menuItems = [
-	{ label: 'Dashboard', path: '/user/dashboard', icon: <DashboardIcon /> },
-	{ label: 'Profile', path: '/user/profile', icon: <PersonIcon /> },
+	{ label: 'Dashboard', path: '/user/dashboard', Icon: DashboardIcon },
+	{ label: 'Profile', path: '/user/profile', Icon: PersonIcon },
 	// { label: 'Update Password', path: '/user/update-my-password', icon: <VpnKeyIcon /> },
-	{ label: 'Logout', path: '/user/logout', icon: <LogoutIcon /> },
+	{ label: 'Logout', path: '/user/logout', Icon: LogoutIcon },
 ]
 
 
@@ -64,10 +64,10 @@ const AvatarMenu = ( props: Props) => {
 				</Box>
 
 				<Divider />
-				{menuItems.map(({ label, icon, path }) => (
+				{menuItems.map(({ label, Icon, path }) => (
 				<MenuItem key={label} disableGutters divider dense onClick={itemHandler(path)}>
 					<ListItemButton >
-						<ListItemIcon>{icon}</ListItemIcon>
+						<ListItemIcon><Icon /></ListItemIcon>
 						<ListItemText primary={label} />
 					</ListItemButton>
 				</MenuItem>

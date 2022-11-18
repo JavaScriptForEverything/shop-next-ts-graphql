@@ -13,7 +13,8 @@ const cors = Cors()
 
 const server = new ApolloServer({
 	typeDefs,
-	resolvers
+	resolvers,
+	persistedQueries: false
 })
 const startServer = server.start()
 

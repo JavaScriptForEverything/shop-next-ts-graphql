@@ -18,7 +18,7 @@ type Props = {
 			<Carousel images={data.product.images} />
 		</Grid>
 */
-export const Carousel = ({ images, width=300 }: Props) => {
+const Carousel = ({ images, width=300 }: Props) => {
 	const [ selectedIndex, setSelectedIndex ] = useState(0)
 	const [ imageHeight, setImageHeight ] = useState(width/2)
 
@@ -102,3 +102,4 @@ export const Carousel = ({ images, width=300 }: Props) => {
 		</Box>
 	)
 }
+export default Carousel

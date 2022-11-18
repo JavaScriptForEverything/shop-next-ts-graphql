@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { Types } from 'mongoose'
 import { unstable_getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
-import { useState } from 'react'
 import { useAppSelector } from '@/store/hooks'
 
 import type { Experience } from '@/shared/types'
@@ -14,8 +15,6 @@ import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 
 import AddIcon from '@mui/icons-material/Add'
-import { getSession } from 'next-auth/react'
-import { Types } from 'mongoose'
 
 
 const skills = [ 'Next.js', 'TypeScript', 'GraphQL', 'React', 'redux', 'Mongoose', 'Express.js' ]
@@ -54,9 +53,8 @@ type ProfileProps = {
 const Profile = (props: ProfileProps) => {
 	const [ isAdded, setIsAdded ] = useState(false)
 
-	const { user } = useAppSelector(state => state.user)
-
-	console.log(user)
+	// const { user } = useAppSelector(state => state.user)
+	// console.log(user)
 
 
 	return (

@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 
-export const AddComment = () => {
+const AddComment = () => {
 	const [ isFocus, setIsFocus ] = useState(false)
 
 	const handleReset = () => {
@@ -56,3 +56,4 @@ export const AddComment = () => {
 		</Box>
 	)
 }
+export default AddComment
