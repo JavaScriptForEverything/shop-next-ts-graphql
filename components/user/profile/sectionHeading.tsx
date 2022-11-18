@@ -13,7 +13,7 @@ type HeadingProps = {
 	children?: React.ReactElement | React.ReactNode
 	isRotate?: boolean
 }
-export const Section = (props: HeadingProps) => {
+const Section = (props: HeadingProps) => {
 	const { 
 		title, 
 		icon = <EditIcon color='action' />, 
@@ -42,3 +42,4 @@ export const Section = (props: HeadingProps) => {
 		</>
 	)
 }
+export default Section

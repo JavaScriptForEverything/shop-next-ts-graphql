@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
-export const AddNote = () => {
+const AddNote = () => {
 	const [ note, setNote ] = useState('')
 
 	const changeHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,3 +45,4 @@ export const AddNote = () => {
 		</form>
 	)
 }
+export default AddNote

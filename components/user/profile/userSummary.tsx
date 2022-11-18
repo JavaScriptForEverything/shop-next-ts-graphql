@@ -8,7 +8,7 @@ const user = {
 	summary: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dolorum iste similique aliquam ducimus voluptate omnis doloremque facilis quis, nisi, ea in recusandae repellat natus vel veniam porro assumenda voluptas!'
 }
 
-export const UserSummary = () => {
+const UserSummary = () => {
 
 	return (
 		<>
@@ -33,3 +33,4 @@ export const UserSummary = () => {
 		</>
 	)
 }
+export default UserSummary

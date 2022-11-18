@@ -23,7 +23,7 @@ type Props = {
 	isAdded: boolean
 }
 
-export const UserExperience = ({ experiences, isAdded }: Props) => {
+const UserExperience = ({ experiences, isAdded }: Props) => {
 	const [ open, setOpen ] = useState(false)
 	const [ anchorEl, setAnchorEl ] = useState<null|HTMLButtonElement>(null)
 	const [ jobId, setJobId ] = useState('')
@@ -46,9 +46,10 @@ export const UserExperience = ({ experiences, isAdded }: Props) => {
 		console.log('Delete handler', { jobId })
 	}
 
+
 	return (
 		<>
-		{/* { isAdded && <AddExperience /> } */}
+		{ isAdded && <AddExperience /> }
 
 		{experiences.map( (job) => (
 			<Box key={job._id.toString()} sx={{
@@ -107,3 +108,4 @@ export const UserExperience = ({ experiences, isAdded }: Props) => {
 		</>
 	)
 }
+export default UserExperience

@@ -6,7 +6,10 @@ import { authOptions } from '../api/auth/[...nextauth]'
 import { useAppSelector } from '@/store/hooks'
 
 import type { Experience } from '@/shared/types'
-import { AddNote, Section, UserSummary, UserExperience } from '@/components/user/profile'
+import UserExperience from '@/components/user/profile/userExperience'
+import AddNote from '@/components/user/profile/addNote'
+import Section from '@/components/user/profile/sectionHeading'
+import UserSummary from '@/components/user/profile/userSummary'
 
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -26,36 +29,34 @@ const infoItems = [
 	{ name: 'Address', value: 'Dhaka, Bangladesh' },
 	{ name: 'Email', value: 'JavaScriptForEverything@gmail.com' },
 ]
-const experiences: Experience[] = [
-	{
-		_id: new Types.ObjectId(),
-		title: 'fullstack web developer',
-		companyName: 'pixel studio',
-		joiningDate: new Date(),
-		currentStatus: 'active',
-		jobLocation: 'dhaka, bangladesh',
-		logoBackgroundColor: 'red'
-	},
-	{
-		_id: new Types.ObjectId(),
-		title: 'MERN web developer',
-		companyName: 'Ayman Group',
-		joiningDate: new Date(),
-		currentStatus: 'inactive',
-		jobLocation: 'dhaka, bangladesh',
-		logoBackgroundColor: 'dodgerblue'
-	}
-]
+// const experiences: Experience[] = [
+// 	{
+// 		_id: new Types.ObjectId(),
+// 		title: 'fullstack web developer',
+// 		companyName: 'pixel studio',
+// 		joiningDate: new Date(),
+// 		currentStatus: 'active',
+// 		jobLocation: 'dhaka, bangladesh',
+// 		logoBackgroundColor: 'red'
+// 	},
+// 	{
+// 		_id: new Types.ObjectId(),
+// 		title: 'MERN web developer',
+// 		companyName: 'Ayman Group',
+// 		joiningDate: new Date(),
+// 		currentStatus: 'inactive',
+// 		jobLocation: 'dhaka, bangladesh',
+// 		logoBackgroundColor: 'dodgerblue'
+// 	}
+// ]
 
-type ProfileProps = {
-	data: InferGetServerSidePropsType<typeof getServerSideProps>
-}
-const Profile = (props: ProfileProps) => {
+const Profile = ({ session }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [ isAdded, setIsAdded ] = useState(false)
 
 	// const { user } = useAppSelector(state => state.user)
 	// console.log(user)
 
+	console.log({ session })
 
 	return (
 		<>
@@ -114,10 +115,10 @@ const Profile = (props: ProfileProps) => {
 							onClick={() => setIsAdded(!isAdded)}
 							isRotate={isAdded}
 						>
-							<UserExperience 
+							{/* <UserExperience 
 								experiences={experiences} 
 								isAdded={isAdded}
-							/>
+							/> */}
 						</Section>
 					</Paper>
 
@@ -131,11 +132,11 @@ export default Profile
 
 export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
 
-	const data = await unstable_getServerSession(req, res, authOptions)
+	const session = await unstable_getServerSession(req, res, authOptions)
 	// const data = await getSession({ req })
-	console.log('from /user/profile: ', data)
+	console.log('from /user/profile: ', session)
 
-	if(!data) return {
+	if(!session) return {
 		redirect: {
 			destination: '/login',
 			parmanent: false
@@ -143,6 +144,8 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
 	}
 
 	return {
-		props: { }
+		props: {
+			session
+		}
 	}
 }
