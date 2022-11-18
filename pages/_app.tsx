@@ -6,13 +6,15 @@ import { SessionProvider } from 'next-auth/react'
 
 import Layout from 'layout'
 
+const ROOT_URL = process.env.ROOT_URL || ''
 
-const client = new ApolloClient({
-	uri: '/api/graphql',
+export const client = new ApolloClient({
+	// uri: '/api/graphql',
+	uri: `${ROOT_URL}/api/graphql`,
 	cache: new InMemoryCache()
 })
 
-function MyApp({ Component, ...rest }: AppProps) {
+const MyApp = ({ Component, ...rest }: AppProps) => {
 	const { store, props } = wrapper.useWrappedStore(rest)
 	const { pageProps } = props
 

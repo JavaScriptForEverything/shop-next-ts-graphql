@@ -1,20 +1,27 @@
-import { useQuery } from '@apollo/client'
+import { Types } from 'mongoose'
+import { gql, useQuery } from '@apollo/client'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
 import { GET_PRODUCT_BY_SLUG } from '@/graphql/query/product'
 import { ProductDocument } from '@/shared/types'
-import { AddComment, Carousel, Comment, RatingAndReviews, RightPanel } from '@/components/productDetails'
 
+import RightPanel from '@/components/productDetails/rightPanel'
+import RatingAndReviews from '@/components/productDetails/ratingAndReviews'
+import AddComment from '@/components/productDetails/addComment'
+import Comment from '@/components/productDetails/comment'
+import Carousel from '@/components/productDetails/carousel'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { Types } from 'mongoose'
+import { client } from '../_app'
+import Router from 'next/router'
+
 
 
 type Props = {
-	slug: InferGetServerSidePropsType<typeof getServerSideProps>
+	slug: InferGetServerSidePropsType<Promise<typeof getServerSideProps>>
 }
 type Query = {
 	product: ProductDocument
@@ -29,28 +36,30 @@ const ProductDetails = ({ slug }: Props) => {
 	const { data } = useQuery<Query, Variables>(GET_PRODUCT_BY_SLUG, { variables: {
 		productId: slug
 	}})
+	console.log({ data })
 
 	if(!data) return <>No Product Found</>
+
 
 	return (
 		<>
 		<Grid container spacing={2}>
 			<Grid item xs={12} sm={6}>
 				<Paper sx={{ p: .5 }}>
-					<Carousel images={data.product.images} />
+					<Carousel images={data.product.images} /> 
 				</Paper>
 			</Grid>
 
 			<Grid item xs={12} sm={6} sx={{ display: 'flex' }}>
 				<Paper sx={{ p: 2 }}>
-					<RightPanel product={data.product} />
+					{data.product && <RightPanel product={data.product} /> }
 				</Paper>
 			</Grid>
 
 			<Grid item xs={12} sm={6} sx={{ display: 'flex' }} >
 				<Paper sx={{ p: 2 }}>
 					<Typography paragraph>Description</Typography>
-					<Typography color='textSecondary'> {data.product.description} </Typography>
+					<Typography color='textSecondary'> {data?.product.description} </Typography>
 				</Paper>
 			</Grid>
 
@@ -70,7 +79,6 @@ const ProductDetails = ({ slug }: Props) => {
 			}} >
 				<AddComment />
 				<Box>
-					{/* commends or reviews will comes from ${data.product.reviews} */}
 					{[1,2].map(index => <Comment key={index}
 						review={{
 							_id: new Types.ObjectId(),
@@ -91,14 +99,50 @@ const ProductDetails = ({ slug }: Props) => {
 				<Typography color='textSecondary'> right side will be used as Call of Action </Typography>
 			</Grid>
 		</Grid>
+
 		</>
 	)
 }
 export default ProductDetails
 
 
-export const getServerSideProps = ({ params }: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ req, params }: GetServerSidePropsContext) => {
 	if(!params) return { props: { slug: ''}}
+
+	// console.log({ origin: process.env.ROOT_URL })
+
+	console.log({ params })
+
+	try {
+		const { data } = await client.query({
+			query: gql`
+				# query getProducts {
+				# 	products {
+				# 		id
+				# 		name
+				# 		price
+				# 	}
+				# }
+				query getProductById($productId: ID!) {
+					product(productId: $productId) {
+						id
+						name
+						price
+						slug
+					}
+				},
+			`,
+			variables: {
+				productId: "63691d3748944b433cc5ece7"
+			}
+		})
+			// console.log(data)
+
+	} catch (err) {
+		console.log(err)
+	}
+
+
 
 	return { 
 		props: {
