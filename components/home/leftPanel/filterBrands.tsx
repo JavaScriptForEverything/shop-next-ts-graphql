@@ -16,7 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 export const FilterBrands = () => {
 
 	return (
-		<Accordion defaultExpanded>
+		<Accordion defaultExpanded={false}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>Brand</AccordionSummary>
 			<AccordionDetails>
 				<List>

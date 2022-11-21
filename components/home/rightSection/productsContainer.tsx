@@ -1,25 +1,23 @@
-import { useQuery } from '@apollo/client'
 
 import { ProductDocument } from '@/shared/types'
-import { GET_PRODUCTS } from '@/graphql/query/product'
 import { ProductGridView } from './product/grid'
 
 import Grid from '@mui/material/Grid'
 
 
-type ProductsQuery = {
+
+type ContainerProps = {
 	products: ProductDocument[]
 }
 
-export const ProductContainer = () => {
-	const { data } = useQuery<ProductsQuery>(GET_PRODUCTS)
+export const ProductContainer = ({ products }: ContainerProps) => {
 
-	if(!data) return <>Error Component</>
+	if(!products.length) return <>loading ...</>
 	// console.log(data.products)
 
 	return (
 		<Grid container spacing={1}>
-			{data.products.map(product => (
+			{products.map(product => (
 				<Grid key={product.id} item xs={12} sm={6} md={4}>
 					<ProductGridView product={product} />
 				</Grid>

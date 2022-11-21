@@ -29,26 +29,26 @@ const infoItems = [
 	{ name: 'Address', value: 'Dhaka, Bangladesh' },
 	{ name: 'Email', value: 'JavaScriptForEverything@gmail.com' },
 ]
-// const experiences: Experience[] = [
-// 	{
-// 		_id: new Types.ObjectId(),
-// 		title: 'fullstack web developer',
-// 		companyName: 'pixel studio',
-// 		joiningDate: new Date(),
-// 		currentStatus: 'active',
-// 		jobLocation: 'dhaka, bangladesh',
-// 		logoBackgroundColor: 'red'
-// 	},
-// 	{
-// 		_id: new Types.ObjectId(),
-// 		title: 'MERN web developer',
-// 		companyName: 'Ayman Group',
-// 		joiningDate: new Date(),
-// 		currentStatus: 'inactive',
-// 		jobLocation: 'dhaka, bangladesh',
-// 		logoBackgroundColor: 'dodgerblue'
-// 	}
-// ]
+const experiences: Experience[] = [
+	{
+		_id: new Types.ObjectId(),
+		title: 'fullstack web developer',
+		companyName: 'pixel studio',
+		joiningDate: new Date(),
+		currentStatus: 'active',
+		jobLocation: 'dhaka, bangladesh',
+		logoBackgroundColor: 'red'
+	},
+	{
+		_id: new Types.ObjectId(),
+		title: 'MERN web developer',
+		companyName: 'Ayman Group',
+		joiningDate: new Date(),
+		currentStatus: 'inactive',
+		jobLocation: 'dhaka, bangladesh',
+		logoBackgroundColor: 'dodgerblue'
+	}
+]
 
 const Profile = ({ session }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [ isAdded, setIsAdded ] = useState(false)
@@ -115,10 +115,10 @@ const Profile = ({ session }: InferGetServerSidePropsType<typeof getServerSidePr
 							onClick={() => setIsAdded(!isAdded)}
 							isRotate={isAdded}
 						>
-							{/* <UserExperience 
+							<UserExperience 
 								experiences={experiences} 
 								isAdded={isAdded}
-							/> */}
+							/>
 						</Section>
 					</Paper>
 

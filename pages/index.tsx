@@ -1,4 +1,7 @@
 import Link from 'next/link'
+import { useQuery } from '@apollo/client'
+import { GET_PRODUCTS } from '@/graphql/query/product'
+import { ProductDocument } from '@/shared/types'
 
 import { FilterBrands, FilterPrice, FilterRating, FilterSize } from '@/components/home/leftPanel'
 import { TitleBar, ProductContainer } from '@/components/home/rightSection'
@@ -9,8 +12,14 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 
 
+type ProductsQuery = {
+	products: ProductDocument[]
+}
 
 const Home = () => {
+	const { data } = useQuery<ProductsQuery>(GET_PRODUCTS)
+
+	if(!data?.products) return <>Product not found</>
 
 	return (
 		<>
@@ -36,7 +45,7 @@ const Home = () => {
 				<Grid item xs={12} md={9}>
 					<TitleBar />
 					<Box sx={{ my: 1 }}>
-					<ProductContainer />
+						<ProductContainer products={data.products} />
 					</Box>
 				</Grid>
 			</Grid>
@@ -46,3 +55,7 @@ const Home = () => {
 	)
 }
 export default Home
+
+// export const getServerSideProps = () => {
+
+// }

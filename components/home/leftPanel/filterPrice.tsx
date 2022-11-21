@@ -19,7 +19,7 @@ export const FilterPrice = () => {
 	const [ value, setValue ] = useState<number|number[]>(10)
 
 	return (
-		<Accordion defaultExpanded>
+		<Accordion defaultExpanded={false}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>Price Range</AccordionSummary>
 			<AccordionDetails>
 				<Slider 

@@ -14,7 +14,7 @@ export const FilterSize = () => {
 	const [ selected, setSelected ] = useState(0)
 
 	return (
-		<Accordion defaultExpanded>
+		<Accordion defaultExpanded={false}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>Size</AccordionSummary>
 			<AccordionDetails>
 				<ButtonGroup>

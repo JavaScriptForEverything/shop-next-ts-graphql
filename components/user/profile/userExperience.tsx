@@ -51,7 +51,7 @@ const UserExperience = ({ experiences, isAdded }: Props) => {
 		<>
 		{ isAdded && <AddExperience /> }
 
-		{experiences.map( (job) => (
+		{experiences.length && experiences.map( (job) => (
 			<Box key={job._id.toString()} sx={{
 				display: 'flex',
 				justifyContent: 'space-between',

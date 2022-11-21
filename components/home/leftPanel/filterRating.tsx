@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 export const FilterRating = () => {
 
 	return (
-		<Accordion defaultExpanded>
+		<Accordion defaultExpanded={false}>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>Rating</AccordionSummary>
 			<AccordionDetails>
 				<List>

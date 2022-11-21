@@ -140,7 +140,9 @@ const Login = () => {
 		evt.preventDefault()
 		if(!isFormValid(fields, setFieldsError)) return
 
+		// use try-catch to handle error if failed
 		const user = await signIn('credentials', {
+			// ...fields,
 			email: 'abc@gmail.com',
 			password: 'asdfasdf',
 			redirect: false 							// prevent from redirect to signIn page
@@ -179,8 +181,8 @@ const Login = () => {
 				<Image 
 					src='/images/carousel/screenshot.jpg'
 					alt='signin logo'
-					width={250}
-					height={150}
+					// width={250}
+					// height={150}
 					layout='fill'
 				/>
 			</Box>
@@ -196,7 +198,7 @@ const Login = () => {
 								placeholder={placeholder}
 								required
 								fullWidth
-								autoFocus={index === 0}
+								// autoFocus={index === 0}
 								margin='dense'
 								InputProps={{
 									startAdornment: (
