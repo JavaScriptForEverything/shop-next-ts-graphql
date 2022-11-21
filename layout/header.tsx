@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton'
 import Divider from '@mui/material/Divider'
 import MuiLink from '@mui/material/Link'
 import Switch from '@mui/material/Switch'
+import Badge from '@mui/material/Badge'
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -100,7 +101,9 @@ const Header = () => {
 				<Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
 					<Switch />
 					<IconButton onClick={() => router.push('/cart')}>
-						<ShoppingCartIcon color='primary' />
+						<Badge badgeContent={2} color='error'>
+							<ShoppingCartIcon color='primary' />
+						</Badge>
 					</IconButton>
 
 					{ status === 'authenticated' ? (
