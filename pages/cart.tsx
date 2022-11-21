@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -66,6 +67,7 @@ const hiddenStyle = {
 }
 
 const Cart = () => {
+	const router = useRouter()
 
 	const plusHandler = () => {
 		console.log('plus')
@@ -130,6 +132,7 @@ const Cart = () => {
 						<Button
 							variant='contained'
 							fullWidth
+							onClick={() => router.push('/shipping')}
 						>Checkout</Button>
 					</Paper>
 				</Grid>
