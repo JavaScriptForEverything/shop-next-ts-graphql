@@ -61,7 +61,13 @@ const Header = () => {
 
 	return (
 		<>
-		<Container>
+		<Container sx={{ 
+			position: 'sticky', 
+			top: 0, 
+			backgroundColor: (theme) => theme.palette.common.white,
+			zIndex: 1000,
+			borderBottom: '.4px solid #0004'
+	 }}>
 			<Typography component='nav' color='textSecondary' sx={{ display: 'flex' }}>
 
 				<Box sx={{ display: { xs: 'block', md: 'none' }}}>
