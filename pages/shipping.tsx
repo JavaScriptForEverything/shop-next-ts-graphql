@@ -3,6 +3,7 @@ import { useState } from 'react'
 import withCenterContainer from '@/shared/hoc/withCenterContainer'
 import { CartDetails, InfoForm, PaymentForm, SuccessPayment } from '@/components/shipping'
 
+import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -31,7 +32,7 @@ const Shipping = () => {
 	const [ activeStep, setActiveStep ] = useState(0)
 	const [ loading, setLoading ] = useState(false)
 
-	console.log({ activeStep })
+	// console.log({ activeStep })
 
 	const nextHandler = () => {
 		if(activeStep >= steps.length - 1 ) {
@@ -50,7 +51,7 @@ const Shipping = () => {
 	}
 	const backHandler = () => {
 		if(activeStep <= 0 ) return
-		if(activeStep >= steps.length ) return router.push('/')
+		// if(activeStep >= steps.length ) return router.push('/')
 
 		setActiveStep(activeStep - 1)
 		console.log('backed')
@@ -58,7 +59,8 @@ const Shipping = () => {
 
 	return (
 		<>
-			<Typography variant='h6'>Checkout</Typography>
+		<Paper sx={{ p: 1 }}>
+			<Typography variant='h4' align='center' sx={{ my: 3 }}>Checkout</Typography>
 
 			<Stepper activeStep={activeStep}>
 				{steps.map( (step, index) => (
@@ -68,41 +70,45 @@ const Shipping = () => {
 				))}
 			</Stepper>
 				
-				{steps.map(({ label, Component }, index) => 
-				index === activeStep ?
-					<Component key={label} /> 
-				: ''
-				)}
+				<Box sx={{ my: 2 }}>
+					{steps.map(({ label, Component }, index) => 
+					index === activeStep ?
+						<Component key={label} /> 
+					: ''
+					)}
 
-				{ activeStep > steps.length - 1 && <SuccessPayment />}
+					{ activeStep > steps.length - 1 && <SuccessPayment />}
+				</Box>
 
-			<Box sx={{
-				display: 'flex',
-				justifyContent: 'flex-end',
-				gap: .4,
-				my: 3
-			}}>
-				<Button 
-					variant='outlined' 
-					onClick={backHandler}
-					disabled={!activeStep}
-				>
-					{activeStep >= steps.length ? 'Home' : 'Back'}
-				</Button>
+				<Box sx={{
+					display: 'flex',
+					justifyContent: 'flex-end',
+					gap: .4,
+					my: 3
+				}}>
+					<Button 
+						variant='outlined' 
+						onClick={backHandler}
+						disabled={!activeStep}
+					>
+						{activeStep >= steps.length ? 'Home' : 'Back'}
+					</Button>
 
-				<Button 
-					variant='outlined' 
-					onClick={nextHandler}
-					disabled={activeStep > steps.length}
-				>
-					{(activeStep >= steps.length - 1) 
-						? loading 
-								? <CircularProgress size={24} /> 
-								: (activeStep > steps.length) ? 'Paied' : 'Pay' 
-						: 'Next' 
-					}
-				</Button>
-			</Box>
+					<Button 
+						variant='outlined' 
+						onClick={nextHandler}
+						disabled={activeStep > steps.length}
+					>
+						{(activeStep >= steps.length - 1) 
+							? loading 
+									? <CircularProgress size={24} /> 
+									: (activeStep > steps.length) ? 'Paied' : 'Pay' 
+							: 'Next' 
+						}
+					</Button>
+				</Box>
+
+			</Paper>
 		</>
 	)
 }
