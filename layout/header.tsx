@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import * as layoutReducer from '@/store/layoutReducer'
 
 import Drawer from './drawer'
 import AvatarMenu from './avatar/menu'
@@ -35,10 +37,17 @@ const navItems = [
 const Header = () => {
 	const { status } = useSession()
 	const router = useRouter()
+	const dispatch = useAppDispatch()
 	const [ activeMenu, setActiveMenu ] = useState(0)
 	const [ drawerOpen, setDrawerOpen ] = useState(false)
 	const [ openMenu, setOpenMenu ] = useState(false)
 	const [ anchorEl, setAnchorEl ] = useState<null | HTMLButtonElement>(null)
+
+	const { carts } = useAppSelector(state => state.layout)
+
+	useEffect(() => {
+		dispatch(layoutReducer.getCarts())
+	}, [dispatch])
 
 	useEffect(() => {
 		const currentIndex = navItems.findIndex(nav => nav.path === router.asPath)
@@ -107,7 +116,7 @@ const Header = () => {
 				<Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
 					<Switch />
 					<IconButton onClick={() => router.push('/cart')}>
-						<Badge badgeContent={2} color='error'>
+						<Badge badgeContent={carts.length} color='error'>
 							<ShoppingCartIcon color='primary' />
 						</Badge>
 					</IconButton>

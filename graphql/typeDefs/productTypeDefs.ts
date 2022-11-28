@@ -41,6 +41,7 @@ export const productTypeDefs = gql`
 		name: String!
 		slug: String!
 		price: Float!
+		quantity: Int!
 		summary: String!
 		description: String! 
 		coverPhoto: String!

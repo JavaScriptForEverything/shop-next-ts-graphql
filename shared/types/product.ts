@@ -10,6 +10,7 @@ export type ProductDocument = {
 	description: string
 	coverPhoto: string
 	images: string[]
+	quantity: number
 }
 
 type CreateProductInput = {

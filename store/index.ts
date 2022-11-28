@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
+
+import layoutReducer from './layoutReducer'
 import userReducer from './userReducer'
 
 const makeStore = () => configureStore({
 	reducer: {
-		user: userReducer
+		layout: layoutReducer,
+		user: userReducer,
 	}
 })
 export const wrapper = createWrapper(makeStore)

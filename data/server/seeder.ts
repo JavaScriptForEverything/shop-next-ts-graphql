@@ -1,5 +1,5 @@
 import dotEnv from 'dotenv'
-dotEnv.config({ path: '.env.local'}) 	// must import very beging before dbConnect
+dotEnv.config({ path: '.env' }) 	// must import very beging before dbConnect
 
 import { dbConnect } from '../../server/models/database'
 

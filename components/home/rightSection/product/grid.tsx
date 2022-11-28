@@ -1,7 +1,11 @@
+import type { ProductDocument } from '@/shared/types'
+
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { ProductDocument } from '@/shared/types'
+import { useAppDispatch } from '@/store/hooks'
+import * as layoutReducer from '@/store/layoutReducer'
+// import useAddToCart from '@/shared/hooks/useAddToCart'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -16,9 +20,12 @@ type Props = {
 	product: ProductDocument
 }
 export const ProductGridView = ({ product }: Props) => {
+	const dispatch = useAppDispatch()
+	// const [ carts, addToCart ] = useAddToCart()
 
-	const handleAddToCart = () => {
-		console.log('handle add to cart later')
+	// console.log(carts.length)
+	const cartHandler = (product: ProductDocument) => {
+		dispatch( layoutReducer.addToCart(product) )
 	}
 
 	return (
@@ -44,7 +51,12 @@ export const ProductGridView = ({ product }: Props) => {
 				<Typography variant='h5'>${product.price}.00</Typography>
 
 				<Box sx={{ mt: 4 }}>
-					<Button onClick={handleAddToCart} variant='contained' fullWidth>Add To Cart</Button>
+					<Button 
+						// onClick={() => addToCart(product) } 
+						onClick={() => cartHandler(product)} 
+						variant='contained' 
+						fullWidth
+					>Add To Cart</Button>
 				</Box>
 			</CardContent>
 		</Card>

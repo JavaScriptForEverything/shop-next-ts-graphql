@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
-export const shippingFormInputItems = [
+const shippingFormInputItems = [
 	{
 		name: 'name',
 		type: 'text',

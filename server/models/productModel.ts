@@ -29,6 +29,10 @@ const productSchema = new Schema<ProductDocument>({
 			return price.toFixed(2)
 		}
 	},
+	quantity: {
+		type: Number,
+		default: 1
+	},
 	summary: {
 		type: String,
 		required: true,
@@ -53,6 +57,7 @@ const productSchema = new Schema<ProductDocument>({
 		type: String,
 		required: true
 	}]
+
 
 }, {
 	timestamps: true
