@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import type { ShippingInfo } from '@/shared/types/shipping'
+import { useEffect, useState } from 'react'
+import isEmail from 'validator/lib/isEmail'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import * as layoutReducer from '@/store/layoutReducer'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -44,24 +48,52 @@ const shippingFormInputItems = [
 	},
 ]
 
-export const InfoForm = () => {
-	const [ fields, setFields ] = useState({
-		name: '',
-		email: '',
-		country: '',
-		phone: '',
-		address: '',
-		postalCode: ''
+type TempObj = {
+	[key: string]: string
+}
 
+const initialValue = {
+	name: '',
+	email: '',
+	country: '',
+	phone: '',
+	address: '',
+	postalCode: ''
+}
+
+const formValidator = (fields: ShippingInfo, setFieldsError: React.Dispatch<React.SetStateAction<TempObj>>): boolean => {
+	const tempObj: TempObj = {}
+
+	if( !isEmail(fields.email) ) tempObj.email = 'email is invalid'
+
+	Object.keys(fields).forEach( field => {
+		if( !fields[field as keyof ShippingInfo] ) tempObj[field] = `${field} field is empth`
 	})
-	const [ fieldsError, setFieldsError ] = useState({
-		name: ''
-	})
+
+	setFieldsError(tempObj)
+	return Object.values(tempObj).every(value => !value.trim())
+}
+
+export const InfoForm = () => {
+	const dispatch = useAppDispatch()
+	const [ fields, setFields ] = useState<ShippingInfo>(initialValue)
+	const [ fieldsError, setFieldsError ] = useState<TempObj>(initialValue)
+	const { shippingInfo } = useAppSelector(state => state.layout)
 
 	const changeHandler = (field: string) => (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setFields({...fields, [field]: evt.target.value })
 	}
 
+	// step-3: set to react state from redux store, which set in shipping.tsx file
+	useEffect(() => {
+		setFields(shippingInfo)
+	}, [shippingInfo])
+
+	// normal form validation
+	useEffect(() => {
+		formValidator(fields, setFieldsError)
+		dispatch(layoutReducer.updateShippingInfo(fields))
+	}, [fields, dispatch])
 		// console.log(fields)
 
 	return (
@@ -83,7 +115,7 @@ export const InfoForm = () => {
 					onChange={changeHandler(name)}
 
 					error={!fields[name as keyof typeof fields] || !!fieldsError[name as keyof typeof fieldsError]}
-					helperText=''
+					helperText={fieldsError[name as keyof typeof fieldsError]}
 				/>
 			))}
 

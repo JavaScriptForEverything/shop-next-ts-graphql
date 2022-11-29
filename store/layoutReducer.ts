@@ -1,20 +1,32 @@
+import type { ShippingInfo } from '@/shared/types/shipping';
 import type { AppDispatch, RootState } from '@/store/index'
 import type { ProductDocument } from '@/shared/types'
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addToLocal } from '../util';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { addToLocal } from '../util'
+
 
 type StateProps = {
 	loading: boolean,
 	error: string,
 	carts: ProductDocument[],
-	shippingCharge: number
+	shippingCharge: number,
+	shippingInfo: ShippingInfo
 }
 const initialState: StateProps = {
 	loading: false,
 	error: '',
 	carts: [],
-	shippingCharge: 2
+	shippingCharge: 2,
+
+	shippingInfo: {
+		name: '',
+		email: '',
+		country: '',
+		phone: '',
+		address: '',
+		postalCode: ''
+	}
 }
 
 const { reducer, actions } = createSlice({
@@ -72,16 +84,23 @@ const { reducer, actions } = createSlice({
 		setShippingCharge: (state, action: PayloadAction<number>) => ({
 			...state,
 			shippingCharge: action.payload
+		}),
+
+		updateShippingInfo: (state, action: PayloadAction<ShippingInfo>) => ({
+			...state,
+			shippingInfo: action.payload
 		})
 	}
 })
 export default reducer
 
-// /layout/header.tsx
-const saveToLocal = (getState: () => RootState) => {
+
+// used into bellow dispatch handler
+const saveCartToLocal = (getState: () => RootState) => {
 	const getCarts = JSON.stringify(getState().layout.carts)
 	localStorage.setItem(addToLocal('carts'), getCarts)
 }
+
 
 // /layout/header.tsx
 export const getCarts = () => (dispatch: AppDispatch) => {
@@ -106,7 +125,7 @@ export const addToCart = (product: ProductDocument) => (dispatch: AppDispatch, g
 	dispatch(actions.addToCart(product))
 
 	// 2. save in localStorage.carts
-	saveToLocal(getState)
+	saveCartToLocal(getState)
 }
 
 // /pages/cart.tsx: deleteHandler
@@ -115,7 +134,7 @@ export const removeFromCarts = (cartId: string) => (dispatch: AppDispatch, getSt
 	dispatch(actions.removeFromCarts(cartId))
 
 	// 2. remove from localStorage
-	saveToLocal(getState)
+	saveCartToLocal(getState)
 }
 
 // /pages/cart.tsx: plusHandler
@@ -123,17 +142,38 @@ export const increaseQuantity = (cartId: string) => (dispatch: AppDispatch, getS
 	dispatch(actions.increaseQuantity(cartId))
 
 	// 2. update to localStorage
-	saveToLocal(getState)
+	saveCartToLocal(getState)
 }
 // /pages/cart.tsx: minusHandler
 export const decreaseQuantity = (cartId: string) => (dispatch: AppDispatch, getState: () => RootState) => {
 	dispatch(actions.decreaseQuantity(cartId))
 
 	// 2. update to localStorage
-	saveToLocal(getState)
+	saveCartToLocal(getState)
 }
 
 // /components/shipping/cartDetails.tsx: useEffect()
 export const setShippingCharge = (shippingCharge: number) => (dispatch: AppDispatch) => {
 	dispatch(actions.setShippingCharge(shippingCharge))
 }
+
+
+// step-1: /components/shipping/infoForm.tsx: changeHandler
+export const updateShippingInfo = (fields: ShippingInfo) => (dispatch: AppDispatch) => {
+	dispatch(actions.updateShippingInfo(fields))
+}
+// step-2: /pages/shipping.tsx
+export const saveShippingInfoToLocal = () => (_: AppDispatch, getState: () => RootState) => {
+	const shippingInfo = JSON.stringify(getState().layout.shippingInfo)
+	localStorage.setItem(addToLocal('shippingInfo'), shippingInfo)
+}
+
+// /pages/shipping.tsx useEffect(() => {}, [dispatch])
+export const setShippingInfoFromLocalToStore = () => (dispatch: AppDispatch) => {
+	const shippingInfoStr = localStorage.getItem(addToLocal('shippingInfo'))
+	if(!shippingInfoStr) return
+
+	const shippingInfo = JSON.parse(shippingInfoStr)
+	dispatch(updateShippingInfo(shippingInfo))
+}
+

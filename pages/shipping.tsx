@@ -1,7 +1,10 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import withCenterContainer from '@/shared/hoc/withCenterContainer'
+import { useEffect, useState } from 'react'
+import { useAppDispatch } from '@/store/hooks'
+import * as layoutReducer from '@/store/layoutReducer'
+
 import { CartDetails, InfoForm, PaymentForm, SuccessPayment } from '@/components/shipping'
+import withCenterContainer from '@/shared/hoc/withCenterContainer'
 
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
@@ -20,10 +23,14 @@ const steps = [
 
 const Shipping = () => {
 	const router = useRouter()
+	const dispatch = useAppDispatch()
 	const [ activeStep, setActiveStep ] = useState(0)
 	const [ loading, setLoading ] = useState(false)
 
-	// console.log({ activeStep })
+	// step-2: load data from localStorage to store at first render
+	useEffect(() => {
+		dispatch(layoutReducer.setShippingInfoFromLocalToStore())
+	}, [dispatch])
 
 	const nextHandler = () => {
 		if(activeStep >= steps.length - 1 ) {
@@ -38,14 +45,22 @@ const Shipping = () => {
 			return
 		}
 		setActiveStep(activeStep + 1)
-		console.log('next')
+
+		if(activeStep === 0) { 
+			// step-1: Save data to localStorage after click to next
+			dispatch(layoutReducer.saveShippingInfoToLocal())
+		}
 	}
 	const backHandler = () => {
 		if(activeStep <= 0 ) return
 		// if(activeStep >= steps.length ) return router.push('/')
 
 		setActiveStep(activeStep - 1)
-		console.log('backed')
+		// console.log('backed')
+
+		// required to load data from localStorage to setFields in infoForm
+		if(activeStep === 1) router.reload()
+		
 	}
 
 	return (
