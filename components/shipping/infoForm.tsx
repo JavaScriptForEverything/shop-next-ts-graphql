@@ -62,7 +62,7 @@ export const InfoForm = () => {
 		setFields({...fields, [field]: evt.target.value })
 	}
 
-		console.log(fields)
+		// console.log(fields)
 
 	return (
 		<>
