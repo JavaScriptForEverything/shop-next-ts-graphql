@@ -13,18 +13,9 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 
 const steps = [
-	{
-		label: 'Shipping',
-		Component: InfoForm
-	},
-	{
-		label: 'Details',
-		Component: CartDetails
-	},
-	{
-		label: 'Payment',
-		Component: PaymentForm
-	}
+	{ label: 'Shipping', Component: InfoForm },
+	{ label: 'Details', Component: CartDetails },
+	{ label: 'Payment', Component: PaymentForm }
 ]
 
 const Shipping = () => {

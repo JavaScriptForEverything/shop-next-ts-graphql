@@ -7,12 +7,14 @@ import { addToLocal } from '../util';
 type StateProps = {
 	loading: boolean,
 	error: string,
-	carts: ProductDocument[]
+	carts: ProductDocument[],
+	shippingCharge: number
 }
 const initialState: StateProps = {
 	loading: false,
 	error: '',
-	carts: []
+	carts: [],
+	shippingCharge: 2
 }
 
 const { reducer, actions } = createSlice({
@@ -67,6 +69,10 @@ const { reducer, actions } = createSlice({
 					: cart 
 			})
 		}),
+		setShippingCharge: (state, action: PayloadAction<number>) => ({
+			...state,
+			shippingCharge: action.payload
+		})
 	}
 })
 export default reducer
@@ -125,4 +131,9 @@ export const decreaseQuantity = (cartId: string) => (dispatch: AppDispatch, getS
 
 	// 2. update to localStorage
 	saveToLocal(getState)
+}
+
+// /components/shipping/cartDetails.tsx: useEffect()
+export const setShippingCharge = (shippingCharge: number) => (dispatch: AppDispatch) => {
+	dispatch(actions.setShippingCharge(shippingCharge))
 }
