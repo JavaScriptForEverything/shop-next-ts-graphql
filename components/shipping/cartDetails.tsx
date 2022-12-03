@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import * as layoutReducer from '@/store/layoutReducer'
+import { shorter } from '@/util/index'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -10,11 +11,6 @@ import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
 
 
-const shorter = (content: string, length = 30): string => {
-	if(content.length <= length) return content
-
-	return content.substring(0, length) + '...'
-}
 
 export const CartDetails = () => {
 	const dispatch = useAppDispatch()

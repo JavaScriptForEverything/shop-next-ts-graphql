@@ -8,8 +8,9 @@ export const GET_PRODUCTS = gql`
 			slug
 			price
 			quantity
-			summary
+			rating
 			coverPhoto
+			summary
 		}
 	}
 `

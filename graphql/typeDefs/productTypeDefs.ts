@@ -42,6 +42,7 @@ export const productTypeDefs = gql`
 		slug: String!
 		price: Float!
 		quantity: Int!
+		rating: Float!
 		summary: String!
 		description: String! 
 		coverPhoto: String!

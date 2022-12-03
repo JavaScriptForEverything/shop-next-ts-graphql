@@ -5,3 +5,10 @@ export const addToLocal = (name: string) => {
 
 	return `${NEXT_PUBLIC_PROJECT_NAME}-${name}`
 }
+
+
+export const shorter = (content: string, length = 30): string => {
+	if(content.length <= length) return content
+
+	return content.substring(0, length) + '...'
+}

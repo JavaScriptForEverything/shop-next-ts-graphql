@@ -1,21 +1,28 @@
 import type { ShippingInfo } from '@/shared/types/shipping';
 import type { AppDispatch, RootState } from '@/store/index'
 import type { ProductDocument } from '@/shared/types'
+import type { ViewMode } from '@/shared/types/layout';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { addToLocal } from '../util'
 
+// used in /components/home/rightSection/titleBar/view/index.tsx
 
 type StateProps = {
 	loading: boolean,
 	error: string,
+	viewMode: ViewMode,
+
 	carts: ProductDocument[],
 	shippingCharge: number,
-	shippingInfo: ShippingInfo
+	shippingInfo: ShippingInfo,
+
 }
 const initialState: StateProps = {
 	loading: false,
 	error: '',
+	viewMode: 'list',
+
 	carts: [],
 	shippingCharge: 2,
 
@@ -42,6 +49,11 @@ const { reducer, actions } = createSlice({
 			...state,
 			loading: false,
 			error: action.payload
+		}),
+
+		setViewMode: (state, action: PayloadAction<ViewMode>) => ({
+			...state,
+			viewMode: action.payload
 		}),
 
 		getCarts: (state, action: PayloadAction<ProductDocument[]>) => ({
@@ -93,6 +105,15 @@ const { reducer, actions } = createSlice({
 	}
 })
 export default reducer
+
+
+export const setViewMode = (viewMode: ViewMode) => (dispatch: AppDispatch) => {
+	dispatch(actions.setViewMode(viewMode))
+}
+
+
+
+
 
 
 // used into bellow dispatch handler

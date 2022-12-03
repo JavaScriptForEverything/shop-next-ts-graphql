@@ -33,6 +33,10 @@ const productSchema = new Schema<ProductDocument>({
 		type: Number,
 		default: 1
 	},
+	rating: {
+		type: Number,
+		default: 2
+	},
 	summary: {
 		type: String,
 		required: true,

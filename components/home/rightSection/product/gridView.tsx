@@ -19,7 +19,7 @@ import Rating from '@mui/material/Rating'
 type Props = {
 	product: ProductDocument
 }
-export const ProductGridView = ({ product }: Props) => {
+export const GridViewProduct = ({ product }: Props) => {
 	const dispatch = useAppDispatch()
 	// const [ carts, addToCart ] = useAddToCart()
 
