@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { useQuery } from '@apollo/client'
 import { GET_PRODUCTS } from '@/graphql/query/product'
 import { ProductDocument } from '@/shared/types'
+import { client } from './_app'
+import * as productReducer from '@/store/productReducer'
 
 import { FilterBrands, FilterPrice, FilterRating, FilterSize } from '@/components/home/leftPanel'
 import { TitleBar, ProductContainer } from '@/components/home/rightSection'
@@ -10,6 +12,7 @@ import SearchBar from '@/components/home/searchBar'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
+import { wrapper } from '../store'
 
 
 type ProductsQuery = {
@@ -17,9 +20,13 @@ type ProductsQuery = {
 }
 
 const Home = () => {
-	const { data } = useQuery<ProductsQuery>(GET_PRODUCTS)
+	// // const { data } = useQuery<ProductsQuery>(GET_PRODUCTS)
 
-	if(!data?.products) return <>Product not found</>
+	// const data = {
+	// 	products: null
+	// }
+
+	// if(!data?.products) return <>Product not found</>
 
 	return (
 		<>
@@ -45,7 +52,7 @@ const Home = () => {
 				<Grid item xs={12} md={9}>
 					<TitleBar />
 					<Box sx={{ my: 1 }}>
-						<ProductContainer products={data.products} />
+						<ProductContainer />
 					</Box>
 				</Grid>
 			</Grid>
@@ -56,6 +63,17 @@ const Home = () => {
 }
 export default Home
 
-// export const getServerSideProps = () => {
 
-// }
+
+export const getServerSideProps = wrapper.getServerSideProps( ({ dispatch }) => async (ctx) => {
+	const { data } = await client.query<ProductsQuery>({
+		query: GET_PRODUCTS,
+	})
+
+	dispatch(productReducer.addProducts(data.products))
+
+	return {
+		props: {}
+	}
+})
+

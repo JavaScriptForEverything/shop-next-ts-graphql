@@ -7,16 +7,13 @@ import { useAppSelector } from '@/store/hooks'
 
 
 
-type ContainerProps = {
-	products: ProductDocument[]
-}
-
-export const ProductContainer = ({ products }: ContainerProps) => {
+export const ProductContainer = () => {
 
 	const { viewMode } = useAppSelector(state => state.layout)
+	const { products, loading } = useAppSelector(state => state.product)
 
-	if(!products.length) return <>loading ...</>
-	// console.log(data.products)
+	// console.log(products)
+	if(loading) return <>loading ...</>
 
 	return (
 		<Grid container spacing={1}>
