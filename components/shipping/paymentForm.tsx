@@ -1,24 +1,26 @@
 import { useState } from 'react'
+import { countries } from 'countries-list'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
 
-export const shippingFormInputItems = [
-	{
-		name: 'currency',
-		type: 'text',
-		label: 'Currency',
-		placeholder: 'BDT',
-	},
-	{
-		name: 'amount',
-		type: 'number',
-		label: 'Amount',
-		placeholder: '224',
-	},
-]
+type Country = {
+	name: string,
+	currency: string,
+	emoji: string,
+	phone: string,
+}
+const countriesList = Object.values(countries).map( (country: Country) => ({
+	name: country.name,
+	currency: country.currency,
+	emoji: country.emoji,
+	phone: country.phone,
+}))
+
+console.log(countriesList)
 
 // const cardItems = [
 // 	{ label: 'Card Number', component: CardNumberElement },
@@ -34,12 +36,28 @@ export const PaymentForm = () => {
 		amount: '',
 	})
 	const [ fieldsError, setFieldsError ] = useState({
-		currency: ''
+		currency: '',
+		amount: ''
 	})
 
-	const changeHandler = (field: string) => (evt: React.ChangeEvent<HTMLInputElement>) => {
-		setFields({...fields, [field]: evt.target.value })
+	const [ country, useCountry ] = useState<Country>({
+		name: '',
+		currency: '',
+		emoji: '',
+		phone: '',
+	})
+
+	// const changeHandler = (field: string) => (evt: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setFields({...fields, [field]: evt.target.value })
+	// }
+
+	const changeHandler = (name: string, country: Country | null) => {
+		if(!country?.currency) return
+
+		setFields({ ...fields, currency: country.currency })
 	}
+
+	console.log(fields)
 
 	return (
 		<>
@@ -48,21 +66,43 @@ export const PaymentForm = () => {
 		</Tabs>
 
 		<Box sx={{ my: 2 }}>
-			{shippingFormInputItems.map(({ label, name, type, placeholder }) => (
-				<TextField key={name}
-					label={label}
-					placeholder={placeholder}
-					fullWidth
+			<TextField 
+				label={'Amount'}
+				placeholder={'200'}
+				fullWidth
+				margin='dense'
+				required
+
+				type={'number'}
+				value={fields.amount}
+				onChange={(evt) => setFields({ ...fields, amount: evt.target.value })}
+
+				error={!fields['amount'] || !!fieldsError['amount']}
+				helperText={fieldsError['amount']}
+			/>
+
+			<Autocomplete
+				options={countriesList}
+				getOptionLabel={country => `${country.emoji} ${country.name} (${country.currency})`}
+				renderInput={params => <TextField {...params}
+					label='Currency'
+					InputLabelProps={{ shrink: true }}
+					placeholder='Currency'
+					required
 					margin='dense'
 
-					type={type}
-					value={fields[name as keyof typeof fields]}
-					onChange={changeHandler(name)}
+					error={!fields['currency'] || !!fieldsError['currency']}
+					helperText={fieldsError['currency']}
+				/>}
+				onChange={(evt, country) => changeHandler('currency', country)}
+				// value={{ 
+				// 	name: country.name, 
+				// 	currency: country.currency,
+				// 	emoji: country.emoji, 
+				// 	phone: country.phone, 
+				// }}
+			/>
 
-					error={!fields[name as keyof typeof fields] || !!fieldsError[name as keyof typeof fieldsError]}
-					helperText=''
-				/>
-			))}
 		</Box>
 		</>
 	)
