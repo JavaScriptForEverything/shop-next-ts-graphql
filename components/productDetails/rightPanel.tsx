@@ -19,11 +19,7 @@ const RightPanel = ({ product }: Props) => {
 				variant='h6'
 			>{product.name}</Typography>	
 			<Typography variant='caption' color='textSecondary' paragraph>ProductId: {product.id}</Typography>	
-			<Box sx={{
-				display: 'flex',
-				gap: 2,
-				my: 2
-			}}>
+			<Box sx={{ display: 'flex', gap: 2, my: 2 }}>
 				<Rating 
 					defaultValue={4.4}
 					precision={2}
@@ -34,7 +30,9 @@ const RightPanel = ({ product }: Props) => {
 				<Typography>({5}) Reviews</Typography>	
 			</Box>
 			<Typography>${product.price}.00</Typography>	
-			<Box sx={{ my: 2 }}> <AddToCart /> </Box>
+			<Box sx={{ my: 2 }}> 
+				<AddToCart /> 
+			</Box>
 			<Box>
 				<Typography>Summary</Typography>	
 				<Typography color='textSecondary'>{product.summary}</Typography>	

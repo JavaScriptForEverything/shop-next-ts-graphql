@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import * as layoutReducer from '@/store/layoutReducer'
+import * as productReducer from '@/store/productReducer'
 
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -10,19 +12,18 @@ import RemoveIcon from '@mui/icons-material/Remove'
 
 // added in rightPanel.tsx
 export const AddToCart = () => {
-	const [ value, setValue ] = useState(0)
+	const dispatch = useAppDispatch()
+	const { product } = useAppSelector( state => state.product )
 
 	const incressHandler = () => {
-		if(value >= 8) return
-		setValue(value + 1)
+		dispatch(productReducer.increaseQuantity())
 	}
 	const decreaseHandler = () => {
-		if(value <= 1) return
-		setValue(value - 1)
+		dispatch(productReducer.decreaseQuantity())
 	}
 
 	const handleAddToCart = () => {
-		console.log('handle cart later')
+		dispatch(layoutReducer.addToCart(product))
 	}
 
 	return (
@@ -32,7 +33,7 @@ export const AddToCart = () => {
 			gap: 1
 		}}>
 		 <IconButton onClick={incressHandler}><AddIcon color='success' /></IconButton>
-		 {value}
+		 {product.quantity}
 		 <IconButton onClick={decreaseHandler}><RemoveIcon color='error' /></IconButton>
 		 <Button 
 				variant='contained'

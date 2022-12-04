@@ -1,9 +1,9 @@
-import { Types } from 'mongoose'
-import { gql, useQuery } from '@apollo/client'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-
+import type { ProductDocument } from '@/shared/types'
+import { wrapper } from '@/store/index'
 import { GET_PRODUCT_BY_SLUG } from '@/graphql/query/product'
-import { ProductDocument } from '@/shared/types'
+import { useAppSelector } from '@/store/hooks'
+import * as productReducer from '@/store/productReducer'
+import { client } from '../_app'
 
 import RightPanel from '@/components/productDetails/rightPanel'
 import RatingAndReviews from '@/components/productDetails/ratingAndReviews'
@@ -15,37 +15,21 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { client } from '../_app'
-import Router from 'next/router'
 
 
 
-type Query = {
-	product: ProductDocument
-}
-type Variables = {
-		slug: string 
-}
-
-const ProductDetails = ({ product }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-	// console.log({ slug })
+const ProductDetails = () => {
+	const { product } = useAppSelector(state => state.product)
 	
-	// const { data } = useQuery<Query, Variables>(GET_PRODUCT_BY_SLUG, { variables: {
-	// 	slug
-	// }})
-	// console.log({ data })
 
-	// if(!data) return <>No Product Found</>
-
-	// console.log(product)
-
+	if(!product) return <>No Product Found</>
 
 	return (
 		<>
 		<Grid container spacing={2}>
 			<Grid item xs={12} sm={6}>
 				<Paper sx={{ p: .5 }}>
-					<Carousel images={product.images} /> 
+					<Carousel images={[ product.coverPhoto, ...product.images ]} /> 
 				</Paper>
 			</Grid>
 
@@ -107,47 +91,55 @@ const ProductDetails = ({ product }: InferGetServerSidePropsType<typeof getServe
 export default ProductDetails
 
 
-export const getServerSideProps = async ({ params }: GetServerSidePropsContext) => {
-	// if(!params) return { props: { product: {}}}
 
+type Query = {
+	product: ProductDocument
+}
+type Variables = {
+		slug: string 
+}
+
+export const getServerSideProps = wrapper.getServerSideProps(({ dispatch }) => async ({ params }) => {
 	const slug = params?.slug as string
 
-	// try {
-		const { data } = await client.query<{ product: ProductDocument }, { slug: string }>({
-			query: gql`
-				query getProductById($slug: String!) {
-					product(slug: $slug) {
-						id
-						name
-						slug
-						price
-						summary
-						description
-						coverPhoto
-						images
-					}
-				},
-			`,
-			variables: {
-				slug
-			}
-		})
+	// const { data } = await client.query<{ product: ProductDocument }, { slug: string }>({
+	const { data } = await client.query<Query, Variables>({
+		query: GET_PRODUCT_BY_SLUG,
+		variables: { slug }
+	})
 
-		const product = data.product
+	// every SSR dispatch must by store in memory in store/index.ts
+	dispatch(productReducer.addProduct(data.product))
 
-		return { 
-			props: {
-				product
-			}
-		}
+	return {
+		props: {}
+	}
+})
 
-	// } catch (err: any) {
-	// 	console.log(err)
-	// 	throw new Error(err.message)
-	// }
+// export const getServerSideProps = async ({ params }: GetServerSidePropsContext) => {
+// 	const slug = params?.slug as string
 
-	// throw new Error('No product Found')
+// 	// try {
+// 		const { data } = await client.query<{ product: ProductDocument }, { slug: string }>({
+// 			query: GET_PRODUCT_BY_SLUG,
+// 			variables: { slug }
+// 		})
 
-}
+// 		const product = data.product
+
+// 		return { 
+// 			props: {
+// 				product
+// 			}
+// 		}
+
+// 	// } catch (err: any) {
+// 	// 	console.log(err)
+// 	// 	throw new Error(err.message)
+// 	// }
+
+// 	// throw new Error('No product Found')
+
+// }
 
 

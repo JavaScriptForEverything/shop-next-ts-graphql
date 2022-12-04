@@ -4,10 +4,7 @@ import { model, models, Schema } from 'mongoose'
 import slug from 'slugify'
 
 
-// export type ProductDocument = {
-// 	summary: string
-// 	description?: string
-// }
+// reviews
 
 const productSchema = new Schema<ProductDocument>({
 	name: {

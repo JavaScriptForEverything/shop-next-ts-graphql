@@ -21,6 +21,7 @@ export const GET_PRODUCT_BY_SLUG = gql`
 			name
 			slug
 			price
+			quantity
 			summary
 			description
 			coverPhoto

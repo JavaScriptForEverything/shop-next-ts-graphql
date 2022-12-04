@@ -70,6 +70,7 @@ export const getServerSideProps = wrapper.getServerSideProps( ({ dispatch }) => 
 		query: GET_PRODUCTS,
 	})
 
+	// every SSR dispatch must by store in memory in store/index.ts
 	dispatch(productReducer.addProducts(data.products))
 
 	return {

@@ -39,7 +39,8 @@ const masterReducer = (state: any, action: any) => {
 		},
 		product: {
 			...state.product,
-			products: action.payload.product.products 
+			products: action.payload.product.products,
+			product: action.payload.product.product 
 			// products: [ ...state.product.products, ...action.payload.product.products ] // if copy old data then it add 4 * data
 		}
 	} : reducers(state, action)

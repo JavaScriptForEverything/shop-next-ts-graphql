@@ -52,6 +52,7 @@ const Carousel = ({ images, width=300 }: Props) => {
 
 	return (
 		<Box id='carousel' sx={{ position: 'relative' }}>
+			{!!images[selectedIndex] && 
 			<Image 
 				src={images[selectedIndex]}
 				alt='image'
@@ -59,6 +60,7 @@ const Carousel = ({ images, width=300 }: Props) => {
 				height={width/2}
 				layout='responsive'
 			/>
+			}
 			<Box sx={{
 				position: 'absolute',
 				zIndex: 1,
@@ -89,6 +91,7 @@ const Carousel = ({ images, width=300 }: Props) => {
 			}}>
 				{images.map( (image, index) => (
 					<Box key={index} sx={{ border: `1px solid ${getActiveColor(index)}`, cursor: 'pointer' }} >
+						{!!image &&
 						<Image
 							src={image}
 							alt='image'
@@ -96,6 +99,7 @@ const Carousel = ({ images, width=300 }: Props) => {
 							height={width/2/2/2} 			
 							onClick={() => setSelectedIndex(index)}
 						/>
+						}
 					</Box>
 				))}
 			</Box>
