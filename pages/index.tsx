@@ -1,5 +1,3 @@
-import Link from 'next/link'
-import { useQuery } from '@apollo/client'
 import { GET_PRODUCTS } from '@/graphql/query/product'
 import { ProductDocument } from '@/shared/types'
 import { client } from './_app'
@@ -14,10 +12,6 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { wrapper } from '../store'
 
-
-type ProductsQuery = {
-	products: ProductDocument[]
-}
 
 const Home = () => {
 	// // const { data } = useQuery<ProductsQuery>(GET_PRODUCTS)
@@ -64,6 +58,10 @@ const Home = () => {
 export default Home
 
 
+
+type ProductsQuery = {
+	products: ProductDocument[]
+}
 
 export const getServerSideProps = wrapper.getServerSideProps( ({ dispatch }) => async (ctx) => {
 	const { data } = await client.query<ProductsQuery>({

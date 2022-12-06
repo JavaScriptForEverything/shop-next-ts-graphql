@@ -5,6 +5,12 @@ import slug from 'slugify'
 
 
 // reviews
+// product name
+// category
+// price
+// stock
+// sold
+// revenue
 
 const productSchema = new Schema<ProductDocument>({
 	name: {
