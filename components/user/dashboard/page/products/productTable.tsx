@@ -68,8 +68,13 @@ export const ProductTable = () => {
 
 			<Typography color='primary' paragraph variant='h6'>All Products</Typography>			
 
-			<TableContainer component={Paper}>
-				<Table size='small' >
+			<TableContainer component={Paper}
+					sx={{
+						maxWidth: { xs: 600, sm: '100%' }
+					}}
+			>
+				<Table size='small' 
+				>
 					<TableHead>
 						<TableRow sx={(theme) => ({
 								backgroundColor: theme.palette.primary.main,

@@ -15,9 +15,14 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 import Chip from '@mui/material/Chip'
+import Divider from '@mui/material/Divider'
 
 import AddIcon from '@mui/icons-material/Add'
+import DownloadIcon from '@mui/icons-material/Download'
+import MailIcon from '@mui/icons-material/Mail'
+import { SendMailForm } from '@/components/user/profile'
 
 
 const skills = [ 'Next.js', 'TypeScript', 'GraphQL', 'React', 'redux', 'Mongoose', 'Express.js' ]
@@ -52,11 +57,19 @@ const experiences: Experience[] = [
 
 const Profile = ({ session }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [ isAdded, setIsAdded ] = useState(false)
+	const [ isSendMail, setIsSendMail ] = useState(false)
 
 	// const { user } = useAppSelector(state => state.user)
 	// console.log(user)
 
-	console.log({ session })
+	// console.log({ session })
+	const user = {
+		resume: ''
+	}
+
+	const toggleMailForm = () => {
+		setIsSendMail(!isSendMail)
+	}
 
 	return (
 		<>
@@ -104,6 +117,41 @@ const Profile = ({ session }: InferGetServerSidePropsType<typeof getServerSidePr
 									</Box>
 								))}
 							</Box>
+
+							<Box sx={{
+								display: 'flex',
+								gap: 2,
+								mt: 2
+							}}>
+								<Button
+									variant='contained'
+									startIcon={<DownloadIcon />}
+									disabled={!user.resume}
+									size='small'
+									sx={{ textTransform: 'capitalize' }}
+
+									component='a' href={user.resume} download='resume.pdf'
+								>Download Resume</Button>
+
+								<Button
+									variant={isSendMail ? 'contained' : 'outlined' }
+									startIcon={<MailIcon />}
+									size='small'
+									sx={{ textTransform: 'capitalize' }}
+									onClick={toggleMailForm}
+								>Send Mail</Button>
+							</Box>
+
+							{isSendMail && (
+								<>
+									<Divider sx={{ my: 2 }} />
+									<Box >
+										<SendMailForm />
+									</Box>
+								</>
+							)}
+						
+
 						</Section>
 					</Paper>
 
