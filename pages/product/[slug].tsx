@@ -1,4 +1,5 @@
 import type { ProductDocument } from '@/shared/types'
+import { Types } from 'mongoose'
 import { wrapper } from '@/store/index'
 import { GET_PRODUCT_BY_SLUG } from '@/graphql/query/product'
 import { useAppSelector } from '@/store/hooks'
@@ -62,7 +63,7 @@ const ProductDetails = () => {
 			}} >
 				<AddComment />
 				<Box>
-					{/* {[1,2].map(index => <Comment key={index}
+					{[1,2].map(index => <Comment key={index}
 						review={{
 							_id: new Types.ObjectId(),
 							user: new Types.ObjectId(),
@@ -73,7 +74,7 @@ const ProductDetails = () => {
 							createdAt: new Date(),
 							updatedAt: new Date()
 						}}/>
-					)} */}
+					)}
 				</Box>
 
 			</Grid>

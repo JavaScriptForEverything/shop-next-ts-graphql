@@ -40,8 +40,8 @@ const Products = () => {
 				<FilterContainer onClickAddProduct={showAddProduct} />
 			</Paper>
 
-			<Paper sx={{ my: 1, p: 1, }}>
-				{/* <ProductTable />  */}
+			<Paper sx={{ my: 1, p: 1 }}>
+				<ProductTable /> 
 			</Paper>
 			</>
 
