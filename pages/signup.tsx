@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/client'
 import isEmail from 'validator/lib/isEmail'
 import { signIn, useSession } from 'next-auth/react'
 import * as userReducer from '@/store/userReducer'
+import * as layoutReducer from '@/store/layoutReducer'
 import { useAppDispatch } from '@/store/hooks'
 
 import { MUTATION_LOGIN } from '@/graphql/query/user'
@@ -94,9 +95,14 @@ const Login = () => {
 
 
 
-	// useEffect(() => {
-	// 	if(status === 'authenticated') router.push('/user/profile')
-	// }, [status, router])
+	useEffect(() => {
+		// dispatch(layoutReducer.showAlert({ 
+		// 	open: true, 
+		// 	message: 'Signup success'
+		// }))
+
+		// if(status === 'authenticated') router.push('/user/profile')
+	}, [status, router])
 
 
 

@@ -8,6 +8,13 @@ import { addToLocal } from '../util'
 
 // used in /components/home/rightSection/titleBar/view/index.tsx
 
+type ShowAlertType = {
+	open: boolean, 					// for snackbar alert ==> ShowAlert
+	severity?: 'success' | 'error' | 'info' | 'warning',
+	message: string,
+	duration?: number
+}
+
 type StateProps = {
 	loading: boolean,
 	error: string,
@@ -17,11 +24,20 @@ type StateProps = {
 	shippingCharge: number,
 	shippingInfo: ShippingInfo,
 
+	alert: ShowAlertType
+
 }
 const initialState: StateProps = {
 	loading: false,
 	error: '',
 	viewMode: 'list',
+
+	alert: {
+		open: false,
+		severity: 'success',
+		message: '',
+		duration: 3000,
+	},
 
 	carts: [],
 	shippingCharge: 2,
@@ -101,6 +117,11 @@ const { reducer, actions } = createSlice({
 		updateShippingInfo: (state, action: PayloadAction<ShippingInfo>) => ({
 			...state,
 			shippingInfo: action.payload
+		}),
+
+		showAlert: (state, action: PayloadAction<ShowAlertType>) => ({
+			...state,
+			alert: { ...action.payload }
 		})
 	}
 })
@@ -197,4 +218,12 @@ export const setShippingInfoFromLocalToStore = () => (dispatch: AppDispatch) => 
 	const shippingInfo = JSON.parse(shippingInfoStr)
 	dispatch(updateShippingInfo(shippingInfo))
 }
+
+
+
+export const showAlert = (obj: ShowAlertType) => (dispatch: AppDispatch) => {
+	dispatch(actions.showAlert(obj))
+}
+
+
 

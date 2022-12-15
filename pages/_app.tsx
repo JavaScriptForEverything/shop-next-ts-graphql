@@ -5,6 +5,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { SessionProvider } from 'next-auth/react'
 
 import Layout from 'layout'
+import ShowAlert from '@/components/showAlert'
 
 const ROOT_URL = process.env.ROOT_URL || ''
 
@@ -18,8 +19,12 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
 	const { store, props } = wrapper.useWrappedStore(rest)
 	const { pageProps } = props
 
+
   return (
+		<>
 		<ReduxProvider store={store}>
+			<ShowAlert />
+
 			<SessionProvider>
 
 			<ApolloProvider client={client}>
@@ -30,6 +35,7 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
 
 			</SessionProvider>
 		</ReduxProvider>
+		</>
 	)
 }
 
