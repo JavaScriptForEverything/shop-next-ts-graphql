@@ -1,4 +1,5 @@
 import type { ProductDocument } from '@/shared/types'
+import { useState } from 'react'
 import { Types } from 'mongoose'
 import { wrapper } from '@/store/index'
 import { GET_PRODUCT_BY_SLUG } from '@/graphql/query/product'
@@ -9,7 +10,7 @@ import { client } from '../_app'
 import RightPanel from '@/components/productDetails/rightPanel'
 import RatingAndReviews from '@/components/productDetails/ratingAndReviews'
 import AddComment from '@/components/productDetails/addComment'
-import Comment from '@/components/productDetails/comment'
+import ViewComment from '@/components/productDetails/viewComment'
 import Carousel from '@/components/productDetails/carousel'
 
 import Box from '@mui/material/Box'
@@ -18,9 +19,25 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 
 
+// used in viewComment.tsx
+export type EditReviewTypes = {
+	id: string,
+	focus: boolean,
+	rating: number | null,
+	comment: string,
+}
 
 const ProductDetails = () => {
 	const { product } = useAppSelector(state => state.product)
+
+	// only used on review > Edit Click, else comment value will changed to 'Update'
+	const [ editReview, setEditReview ] = useState<EditReviewTypes>({
+		id: '',
+		focus: false,
+		rating: 0,
+		comment: ''
+	})
+	
 	
 
 	if(!product) return <>No Product Found</>
@@ -49,30 +66,32 @@ const ProductDetails = () => {
 
 			<Grid item xs={12} sm={6} sx={{ display: 'flex' }} >
 				<Paper sx={{ p: 2, width: '100%' }}>
-					<Typography paragraph>Ratings & Reviews</Typography>
+					<Typography paragraph id='ratingAndReview' >Ratings & Reviews</Typography>
 					<RatingAndReviews />
 				</Paper>
 			</Grid>
 		</Grid>
 
-		<Grid container spacing={2} sx={{ my: 2 }}>
+		<Grid container spacing={2} sx={{ my: 2 }} >
 			<Grid item xs={12} md={8} sx={{
 				display: 'flex',
 				flexDirection: 'column',
 				gap: 4
 			}} >
-				<AddComment />
+				<AddComment editReview={editReview} />
 				<Box>
-					{[1,2].map(index => <Comment key={index}
+					{[1,2].map(index => <ViewComment key={index}
+						onEdit={setEditReview}
 						review={{
 							_id: new Types.ObjectId(),
+							id: index.toString(),
 							user: new Types.ObjectId(),
 							product: new Types.ObjectId(),
 							review: 'quia et suscipit suscipit recusandae consequuntur expedita et cum repre',
 							liked: 24,
 							disliked: 2,
-							createdAt: new Date(),
-							updatedAt: new Date()
+							createdAt: new Date().toString(),
+							updatedAt: new Date().toString()
 						}}/>
 					)}
 				</Box>

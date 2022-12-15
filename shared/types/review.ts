@@ -10,14 +10,15 @@ import { Types } from 'mongoose'
 // }
 
 export type ReviewDocument = {
-	_id: Types.ObjectId
-	user: Types.ObjectId 				
-	product: Types.ObjectId 		
-	review: string 			// comment field
-	liked: number
-	disliked: number
-	createdAt: Date
-	updatedAt: Date
+	_id: Types.ObjectId,
+	id: string,
+	user: Types.ObjectId, 				
+	product: Types.ObjectId,
+	review: string, 			// comment field
+	liked: number,
+	disliked: number,
+	createdAt: string,
+	updatedAt: string
 }
 
 type CreateReviewInput = {

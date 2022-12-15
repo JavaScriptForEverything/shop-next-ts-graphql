@@ -2,6 +2,16 @@ import type { ReviewDocument } from '@/shared/types/review'
 import type { Model } from 'mongoose'
 import { model, models, Schema } from 'mongoose'
 
+/*
+{
+	rating: {
+		type: Number,
+		min: 0,
+		max: 5,
+		default: 0
+	}
+}
+*/
 
 const reviewSchema = new Schema<ReviewDocument>({
 	user: {
