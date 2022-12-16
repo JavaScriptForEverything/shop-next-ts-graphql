@@ -20,7 +20,7 @@ const countriesList = Object.values(countries).map( (country: Country) => ({
 	phone: country.phone,
 }))
 
-console.log(countriesList)
+// console.log(countriesList)
 
 // const cardItems = [
 // 	{ label: 'Card Number', component: CardNumberElement },
@@ -65,7 +65,7 @@ export const PaymentForm = () => {
 			<Tab label='Payment' />
 		</Tabs>
 
-		<Box sx={{ my: 2 }}>
+		<Box sx={{ my: 2, px: { xs: 1, sm: 2 } }}>
 			<TextField 
 				label={'Amount'}
 				placeholder={'200'}

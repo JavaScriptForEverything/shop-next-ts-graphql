@@ -6,7 +6,7 @@ export const SuccessPayment = () => {
 
 	return (
 		<>
-		<Box sx={{ my: 2 }}>
+		<Box sx={{ my: 2, px: { xs: 1, sm: 2 } }}>
 
 			<Alert>
 				<Typography>Your payment requested is success</Typography>

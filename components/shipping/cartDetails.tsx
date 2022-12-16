@@ -21,36 +21,44 @@ export const CartDetails = () => {
 	}, [dispatch])
 
 	return (
-		<>
-		<Tabs value={0} >
-			<Tab label='Cart Details' />
-		</Tabs>
+		<Box>
+			<Tabs value={0} >
+				<Tab label='Cart Details' />
+			</Tabs>
 
-		{carts.map(cart => (
-		<Box key={cart.id} sx={{ my: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-			<ListItemText 
-				primary={shorter(cart.name)}
-				secondary={shorter(cart.summary)}
-				// secondary={shorter(title)}
-				sx={{ mb: -.5 }}
-			/>
-			<Typography> ${cart.price} x {cart.quantity} </Typography>
+			<Box sx={{ px: { xs: 1, sm: 2 } }}>
+				{carts.map(cart => (
+				<Box key={cart.id} sx={{ 
+					display: 'flex', 
+					justifyContent: 'space-between', 
+					alignItems: 'center',
+					my: 1, 
+					
+				}}>
+					<ListItemText 
+						primary={shorter(cart.name)}
+						secondary={shorter(cart.summary)}
+						// secondary={shorter(title)}
+						sx={{ mb: -.5 }}
+					/>
+					<Typography> ${cart.price} x {cart.quantity} </Typography>
+				</Box>
+				))}
+
+				<Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+					<Typography>Shipping Charge</Typography>
+					<Typography>${shippingCharge}</Typography>
+				</Box>
+
+				<Divider sx={{ my: 1 }} />
+
+				<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+					<Typography variant='h6'>Total</Typography>
+					<Typography variant='h6'> ${
+						carts.reduce((total, cart) => total += cart.price * cart.quantity, 0) + shippingCharge
+					} </Typography>
+				</Box>
+			</Box>
 		</Box>
-		))}
-
-		<Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
-			<Typography>Shipping Charge</Typography>
-			<Typography>${shippingCharge}</Typography>
-		</Box>
-
-		<Divider sx={{ my: 1 }} />
-
-		<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-			<Typography variant='h6'>Total</Typography>
-			<Typography variant='h6'> ${
-				carts.reduce((total, cart) => total += cart.price * cart.quantity, 0) + shippingCharge
-			} </Typography>
-		</Box>
-		</>
 	)
 }

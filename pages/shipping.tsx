@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/store/hooks'
 import * as layoutReducer from '@/store/layoutReducer'
 
-import { CartDetails, InfoForm, PaymentForm, SuccessPayment } from '@/components/shipping'
-import withCenterContainer from '@/shared/hoc/withCenterContainer'
+import { InfoForm, CartDetails, PaymentForm, SuccessPayment } from '@/components/shipping'
 
+import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -64,8 +64,10 @@ const Shipping = () => {
 	}
 
 	return (
-		<>
-		<Paper sx={{ p: 1 }}>
+		<Grid container justifyContent='center'>
+			<Grid item xs={12} sm={8} >
+
+			<Paper sx={{ p: 1 }}>
 			<Typography variant='h4' align='center' sx={{ my: 3 }}>Checkout</Typography>
 
 			<Stepper activeStep={activeStep}>
@@ -115,7 +117,9 @@ const Shipping = () => {
 				</Box>
 
 			</Paper>
-		</>
+
+			</Grid>
+		</Grid>
 	)
 }
-export default withCenterContainer(Shipping)
+export default Shipping

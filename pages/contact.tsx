@@ -34,8 +34,7 @@ const Contact = () => {
 	}
 
 	return (
-		<Grid container>
-			<Grid item xs={12}>
+		<Box>
 				<Box sx={center}>
 					<Typography variant='h6'> Contact Us </Typography>
 					<Typography variant='body2'>Anyone can contact up via bellow methods</Typography>
@@ -66,8 +65,7 @@ const Contact = () => {
 					</Box>
 				</Box>
 
-			</Grid>
-		</Grid>
+		</Box>
 	)
 }
 export default Contact
