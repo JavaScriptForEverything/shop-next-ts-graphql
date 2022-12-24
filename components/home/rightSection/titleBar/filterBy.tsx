@@ -1,12 +1,19 @@
-import { Autocomplete, TextField } from '@mui/material'
+import type { SxProps } from '@mui/material'
 import { useState } from 'react'
+
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
 
 const options = [
 	'item1',
 	'item2'
 ]
 
-export const FilterBy = () => {
+type Props = {
+	sx?: SxProps
+}
+export const FilterBy = ({ sx={} }: Props) => {
 	const [ filterValue, setFilterValue ] = useState<string>(options[0])
 
 	console.log({ filterValue })
@@ -16,7 +23,7 @@ export const FilterBy = () => {
 	}
 
 	return (
-		<>
+		<Box sx={sx}>
 			<Autocomplete 
 				renderInput={(params) => (
 					<TextField {...params}
@@ -25,7 +32,8 @@ export const FilterBy = () => {
 						InputLabelProps={{ shrink: true }}
 						value={filterValue}
 						size='small'
-						sx={{ width: 200 }}
+						fullWidth
+						// sx={{ width: 200 }}
 					/>
 				)}
 				options={options}
@@ -34,6 +42,6 @@ export const FilterBy = () => {
 				// inputValue={filterValue}
 
 			/>	
-		</>
+		</Box>
 	)
 }

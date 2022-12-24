@@ -9,10 +9,11 @@ import AddIcon from '@mui/icons-material/AddCircleOutline'
 const filterItems = [ 'rating', 'price', 'category' ]
 
 type Props = {
+	title?: string,
 	onClickAddProduct: () => void
 }
 
-export const FilterContainer = ({ onClickAddProduct }: Props) => {
+export const FilterContainer = ({ onClickAddProduct, title='Add Product' }: Props) => {
 	const [ selectedFilter, setSelectedFilter ] = useState(0)
 
 	const filterHandler = (index: number) => () => {
@@ -45,7 +46,7 @@ export const FilterContainer = ({ onClickAddProduct }: Props) => {
 					size='small'
 					sx={{ textTransform: 'capitalize' }}
 					onClick={onClickAddProduct}
-				>Add Product</Button>
+				>{title}</Button>
 			</Box>
 		</Box>
 	)

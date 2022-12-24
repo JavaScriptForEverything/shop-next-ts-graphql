@@ -22,13 +22,26 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 
 
-const header = ['Order ID', 'Date', 'Name', 'Email', 'Price', 'Status', 'Actions']
+const header = ['Customer Name', '#ID', 'Spent', 'Last Order', 'Email', 'Phone', 'Status', 'Actions']
 
+type Customer = {
+	name: string,
+	id: string,
+	amount: number,
+	lastOrder: string,
+	email: string,
+	phone: string,
+	status: 'panding' | 'success'
+}
 
-export const OrderTable = ({ orders=[] }) => {
+type Props = {
+	title?: string,
+	customers: Customer[]
+}
+export const CustomerTable = ({ title='All Customers', customers=[] }: Props) => {
 	const [ open, setOpen ] = useState(false)
 	const [ anchorEl, setAnchorEl ] = useState(null)
-	const [ orderId, setOrderId ] = useState(0)
+	// const [ orderId, setOrderId ] = useState(0)
 
 
 	const menuCloseHandler = () => {
@@ -44,13 +57,13 @@ export const OrderTable = ({ orders=[] }) => {
 	const menuItemHandler = () => {
 		menuCloseHandler()
 
-		console.log(orderId)
+		// console.log(orderId)
 	}
 
 
 	return(
 		<Box>
-			<Typography color='primary' variant='h6' paragraph>All Orders</Typography>
+			<Typography color='primary' variant='h6' paragraph>{title}</Typography>
 
 			<TableContainer component={Paper}>
 				<Table

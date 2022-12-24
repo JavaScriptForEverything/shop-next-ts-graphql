@@ -14,10 +14,11 @@ export const TitleBar = () => {
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignItems: 'center',
+				gap: 1,
 				my: 2
 			}}>
 				<Typography>{products.length} tiems found</Typography>
-				<FilterBy />
+				<FilterBy sx={{ flex: 1 }} />
 				<View />
 			</Box>
 		</>
