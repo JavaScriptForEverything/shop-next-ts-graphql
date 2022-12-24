@@ -1,9 +1,4 @@
-import { useState } from 'react'
-
-type StateType = {
-	email: string
-	password: string
-}
+import SearchInput from '@/components/searchInput'
 
 const listItems = [
 	{ name: 'email' },
@@ -11,25 +6,18 @@ const listItems = [
 ]
 
 const Demo = () => {
-	const [ fields, setFields ] = useState<StateType>({
-		email: '',
-		password: ''
-	})
 
-	// const name = 'email'
-	// fields[name]
+	const handleSubmit = (label: string, value: string) => {
+		console.log({ label, value })
+	}
 
 	return (
 		<>
-		{listItems.map( ({ name }) => (
-			<input 
-				key={name} 
-				// value={fields[name]}
-				// value={fields[name as keyof typeof fields]}
-				value={fields[name as keyof StateType]}
-			/>
-		))}
+			<h2>Demo</h2>
 			
+			<SearchInput 
+				submitHandler={handleSubmit}
+			/>
 		</>
 	)
 }

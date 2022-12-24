@@ -15,7 +15,7 @@ export const TitleBar = () => {
 				justifyContent: 'space-between',
 				alignItems: 'center',
 				gap: 1,
-				my: 2
+				my: 2,
 			}}>
 				<Typography>{products.length} tiems found</Typography>
 				<FilterBy sx={{ flex: 1 }} />

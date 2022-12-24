@@ -2,15 +2,16 @@ import { GET_PRODUCTS } from '@/graphql/query/product'
 import { ProductDocument } from '@/shared/types'
 import { client } from './_app'
 import * as productReducer from '@/store/productReducer'
+import { wrapper } from '../store'
+import SearchInput from '@/components/searchInput'
+import type { FilterLabel } from '@/components/searchInput'
 
 import { FilterBrands, FilterPrice, FilterRating, FilterSize } from '@/components/home/leftPanel'
 import { TitleBar, ProductContainer } from '@/components/home/rightSection'
-import SearchBar from '@/components/home/searchBar'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import { wrapper } from '../store'
 
 
 const Home = () => {
@@ -22,12 +23,16 @@ const Home = () => {
 
 	// if(!data?.products) return <>Product not found</>
 
+	const searchSubmitHandler = (label: FilterLabel, value: string) => {
+		console.log({ label, value })
+	}
+
 	return (
 		<>
 
 		<Grid container sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
-			<Grid item xs={12} sm={6} md={3}>
-				<SearchBar />
+			<Grid item xs={12} sm={6} >
+				<SearchInput submitHandler={searchSubmitHandler} />
 			</Grid>
 		</Grid>
 

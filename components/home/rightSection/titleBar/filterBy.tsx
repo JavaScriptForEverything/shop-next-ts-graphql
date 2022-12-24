@@ -32,14 +32,17 @@ export const FilterBy = ({ sx={} }: Props) => {
 						InputLabelProps={{ shrink: true }}
 						value={filterValue}
 						size='small'
-						fullWidth
-						// sx={{ width: 200 }}
 					/>
 				)}
 				options={options}
 				getOptionLabel={item => item}
 				onChange={handleChange}
 				// inputValue={filterValue}
+
+				sx={{ 
+					m: '0 auto',
+					width: { xs: '100%', sm: '80%' },
+				}}
 
 			/>	
 		</Box>
