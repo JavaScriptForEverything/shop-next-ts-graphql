@@ -1,7 +1,7 @@
-## Getting Started
-	. Next.js
-	. TypeScript
-	. GraphQL API
+## Next.js + TypeScript + GraphQL
+
+##### Project Preview 	`/public/project_design`
+	. See project design at a look
 
 
 ### Key Features
