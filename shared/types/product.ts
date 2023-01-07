@@ -28,6 +28,10 @@ type UpdateProductInput = {
 	description: string 		// ? === ! to defined optional property
 }
 
+export type GetProductsArgs = {
+	_page: number,
+	_limit: number
+}
 export type GetProductArgs = {
 	slug: string
 }

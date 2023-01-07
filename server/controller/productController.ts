@@ -2,6 +2,7 @@ import type {
 	CreateProductArgs, 
 	DeleteProductArgs, 
 	GetProductArgs, 
+	GetProductsArgs, 
 	ProductDocument, 
 	UpdateProductArgs 
 } from '@/shared/types/product'
@@ -9,12 +10,23 @@ import { GraphQLError } from 'graphql'
 import { Types } from 'mongoose'
 import { Product } from '../models'
 
+/*
+		limit = 4
+		currentPage = 1
+
+		nextPage = skip(limit * currentPage)
 
 
-export const getProducts = async (): Promise<ProductDocument[]> =>  {
+*/
 
-	const products = await Product.find()
-	
+
+export const getProducts = async ({ _page = 1, _limit = 4 }: GetProductsArgs): Promise<ProductDocument[]> =>  {
+	// const products = await Product.find()
+
+	const skip = (_page - 1) * _limit
+
+	const products = await Product.find().limit(_limit).skip(skip)
+
 	return products
 }
 

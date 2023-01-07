@@ -1,10 +1,16 @@
 import * as productController from '@/server/controller/productController'
-import { CreateProductArgs, DeleteProductArgs, GetProductArgs, UpdateProductArgs } from '@/shared/types/product'
+import { 
+	CreateProductArgs, 
+	DeleteProductArgs, 
+	GetProductArgs, 
+	GetProductsArgs, 
+	UpdateProductArgs 
+} from '@/shared/types/product'
 
 
 export const productResolvers = {
 	Query: {
-		products: () => productController.getProducts(),
+		products: (_:undefined, args: GetProductsArgs) => productController.getProducts(args),
 		product: (_: undefined, args: GetProductArgs) => productController.getProduct(args),
 	},
 	Mutation: {
