@@ -30,7 +30,7 @@ type StateProps = {
 const initialState: StateProps = {
 	loading: false,
 	error: '',
-	viewMode: 'list',
+	viewMode: 'grid',
 
 	alert: {
 		open: false,

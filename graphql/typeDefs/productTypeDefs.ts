@@ -12,7 +12,7 @@ import { gql } from 'apollo-server-micro';
 
 export const productTypeDefs = gql`
 	extend type Query {
-		products(_page:Int, _limit:Int): [Product!]!
+		products(_page:Int, _limit:Int, _search: [String], _sort: String): [Product!]!
 		product(slug: String!): Product!
 	}
 	extend type Mutation {

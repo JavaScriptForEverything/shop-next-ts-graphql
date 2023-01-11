@@ -28,9 +28,12 @@ type UpdateProductInput = {
 	description: string 		// ? === ! to defined optional property
 }
 
+type Search = 'name' | 'slug'
 export type GetProductsArgs = {
 	_page: number,
-	_limit: number
+	_limit: number,
+	_search: [Search, string],
+	_sort: string
 }
 export type GetProductArgs = {
 	slug: string
